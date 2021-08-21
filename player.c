@@ -57,11 +57,11 @@ void movimentarPlayer(nerdola *jogador){
 bala atirar(int key1, int key2, nerdola jogador){
     //Inicializando projetil
     bala projetil;
-    projetil.tempo = 0;
     projetil.dano = jogador.dano;
     projetil.velocidade = 20;
     projetil.x = 0;
     projetil.y = 0;
+    projetil.viva = 1;
 
     //Criando caixa de colisão
     projetil.colisao.height = 10;
@@ -84,22 +84,19 @@ bala atirar(int key1, int key2, nerdola jogador){
     return projetil;
 }
 
-void playerEstaAtirando(bala **vetor, nerdola jogador, int *tamanho){
+void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho){
     //Atirando para cima
     if(IsKeyDown(KEY_UP)){
         if(IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT)){
-            (*vetor) = (bala*) realloc((*vetor), ((*tamanho)+1)*sizeof(bala));
-            (*vetor)[(*tamanho)] = atirar(KEY_UP, KEY_LEFT, jogador);
+            (*vetor) = atirar(KEY_UP, KEY_LEFT, jogador);
             (*tamanho)++;
         }
         else if(IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT)){
-            (*vetor) = (bala*) realloc((*vetor), ((*tamanho)+1)*sizeof(bala));
-            (*vetor)[(*tamanho)] = atirar(KEY_UP, KEY_RIGHT, jogador);
+            (*vetor) = atirar(KEY_UP, KEY_RIGHT, jogador);
             (*tamanho)++;
         }
         else if(!IsKeyDown(KEY_DOWN)){
-            (*vetor) = (bala*) realloc((*vetor), ((*tamanho)+1)*sizeof(bala));
-            (*vetor)[(*tamanho)] = atirar(KEY_UP, 0, jogador); //O zero indica que só há uma tecla pressionada
+            (*vetor) = atirar(KEY_UP, 0, jogador); //O zero indica que só há uma tecla pressionada
             (*tamanho)++;
         }
     }
@@ -107,33 +104,28 @@ void playerEstaAtirando(bala **vetor, nerdola jogador, int *tamanho){
     //Atirando para baixo
     else if(IsKeyDown(KEY_DOWN)){
         if(IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT)){
-            (*vetor) = (bala*) realloc((*vetor), ((*tamanho)+1)*sizeof(bala));
-            (*vetor)[(*tamanho)] = atirar(KEY_DOWN, KEY_LEFT, jogador);
+            (*vetor) = atirar(KEY_DOWN, KEY_LEFT, jogador);
             (*tamanho)++;
         }
         else if(IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT)){
-            (*vetor) = (bala*) realloc((*vetor), ((*tamanho)+1)*sizeof(bala));
-            (*vetor)[(*tamanho)] = atirar(KEY_DOWN, KEY_RIGHT, jogador);
+            (*vetor) = atirar(KEY_DOWN, KEY_RIGHT, jogador);
             (*tamanho)++;
         }
         else {
-            (*vetor) = (bala*) realloc((*vetor), ((*tamanho)+1)*sizeof(bala));
-            (*vetor)[(*tamanho)] = atirar(KEY_DOWN, 0, jogador); //O zero indica que só há uma tecla pressionada
+            (*vetor) = atirar(KEY_DOWN, 0, jogador); //O zero indica que só há uma tecla pressionada
             (*tamanho)++;
         }
     }
 
     //Movimentar para o lado esquerdo
     else if(IsKeyDown(KEY_LEFT) && !(IsKeyDown(KEY_RIGHT))){
-        (*vetor) = (bala*) realloc((*vetor), ((*tamanho)+1)*sizeof(bala));
-        (*vetor)[(*tamanho)] = atirar(KEY_LEFT, 0, jogador); //O zero indica que só há uma tecla pressionada
+        (*vetor) = atirar(KEY_LEFT, 0, jogador); //O zero indica que só há uma tecla pressionada
         (*tamanho)++;
     }
 
     //Movimentar para o lado esquerdo
     else if (IsKeyDown(KEY_RIGHT)){
-        (*vetor) = (bala*) realloc((*vetor), ((*tamanho)+1)*sizeof(bala));
-        (*vetor)[(*tamanho)] = atirar(KEY_RIGHT, 0, jogador); //O zero indica que só há uma tecla pressionada
+        (*vetor) = atirar(KEY_RIGHT, 0, jogador); //O zero indica que só há uma tecla pressionada
         (*tamanho)++;
     }
 

@@ -11,7 +11,7 @@ typedef struct{
 } nerdola;
 
 typedef struct{
-    int dano, tempo, x, y;
+    int viva, dano, x, y;
     double velocidade;
     Rectangle colisao;
 } bala;
@@ -22,7 +22,7 @@ void movimentarPlayer(nerdola *jogador);
 
 bala atirar(int key1, int key2, nerdola jogador);
 
-void playerEstaAtirando(bala **vetor, nerdola jogador, int *tamanho);
+void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho);
 
 void destruirProjetil(bala **vetor, int *tamanho);
 

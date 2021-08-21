@@ -1,3 +1,6 @@
+#ifndef PLAYER
+#define PLAYER
+
 #include "raylib.h"
 
 typedef struct{
@@ -10,3 +13,5 @@ typedef struct{
 void inicializaPlayer(nerdola *jogador);
 
 void movimentarPlayer(nerdola *jogador);
+
+#endif PLAYER

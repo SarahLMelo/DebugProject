@@ -16,6 +16,8 @@ int main(){
     SetTargetFPS(60);
     mob umaCriatura;
     nerdola jogador;
+    bala *balasCriadas = NULL;
+    int qntdDeBalas = 0;
     criarCriatura(&umaCriatura, 0, 0);
     inicializaPlayer(&jogador);
 
@@ -24,11 +26,24 @@ int main(){
         ClearBackground(LIGHTGRAY);
         DrawRectangleRec(umaCriatura.colisao, RED);
         DrawRectangleRec(jogador.colisao, GREEN);
+        for(int i=0; i<qntdDeBalas; i++) DrawRectangleRec(balasCriadas[i].colisao, PURPLE);
         EndDrawing();
 
         moverCriatura(&umaCriatura, jogador.colisao.x, jogador.colisao.y);
         movimentarPlayer(&jogador);
+        playerEstaAtirando(&balasCriadas, jogador, &qntdDeBalas);
         atingiuOPlayer(&umaCriatura, &jogador);
+        for(int i=0; i<qntdDeBalas; i++){
+            /*if(balasCriadas[i].tempo>=10){
+                destruirProjetil(&balasCriadas, &qntdDeBalas);
+                i--;
+            }*/
+            //else{
+                movimentarProjetil(balasCriadas+i);
+                balasCriadas[i].tempo++;
+            //}
+        }
+
         if(jogador.vida <= 0){
             DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
             while(IsKeyUp(KEY_SPACE) || IsKeyUp(KEY_ESCAPE)){
@@ -42,5 +57,6 @@ int main(){
     }
 
     CloseWindow();
+    free(balasCriadas);
     return 0;
 }

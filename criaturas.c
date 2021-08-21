@@ -2,8 +2,7 @@
 #include "raylib.h"
 #include <stdlib.h>
 #include <math.h>
-
-#define SPEED_N 10
+#include "player.h"
 
 void criarCriatura(mob *criatura, double posX, double posY){
     //Status básicos da criatura
@@ -30,6 +29,14 @@ void moverCriatura(mob *criatura, int posX, int posY){
     //alterando posição do mob
     (*criatura).colisao.y += (int)(cos(angulo)*(*criatura).velocidade);
     (*criatura).colisao.x += (int)(sin(angulo)*(*criatura).velocidade);
+
+    return;
+}
+
+void atingiuOPlayer(mob *criatura, nerdola *player){
+    if(CheckCollisionRecs((*criatura).colisao, (*player).colisao)){
+        (*player).vida -= ((*criatura).dano - (*player).armadura);
+    }
 
     return;
 }

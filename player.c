@@ -142,8 +142,8 @@ void playerEstaAtirando(bala **vetor, nerdola jogador, int *tamanho){
 
 void destruirProjetil(bala **vetor, int *tamanho){ //Destroi o projetil que está na frente do vetor
 
-    for(int i=1; i<(*tamanho); i++) vetor[i-1] = vetor[i];
-    tamanho--;
+    for(int i=1; i<(*tamanho); i++) (*vetor)[i-1] = (*vetor)[i];
+    (*tamanho)--;
     (*vetor) = (bala*) realloc((*vetor), (*tamanho)*sizeof(bala));
 
     return;

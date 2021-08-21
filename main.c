@@ -34,14 +34,15 @@ int main(){
         playerEstaAtirando(&balasCriadas, jogador, &qntdDeBalas);
         atingiuOPlayer(&umaCriatura, &jogador);
         for(int i=0; i<qntdDeBalas; i++){
-            /*if(balasCriadas[i].tempo>=10){
+            if(balasCriadas[i].tempo>=100){
                 destruirProjetil(&balasCriadas, &qntdDeBalas);
+                qntdDeBalas--;
                 i--;
-            }*/
-            //else{
+            }
+            else{
                 movimentarProjetil(balasCriadas+i);
                 balasCriadas[i].tempo++;
-            //}
+            }
         }
 
         if(jogador.vida <= 0){

@@ -3,14 +3,16 @@
 
 #include "raylib.h"
 
-typedef struct{
+typedef struct
+{
     int vida, armadura, dano; //O dano é o indicador de qual arma ele está utilizando
     double velocidade;
     Rectangle colisao;
 
 } nerdola;
 
-typedef struct{
+typedef struct
+{
     int viva, dano, x, y;
     double velocidade;
     Rectangle colisao;

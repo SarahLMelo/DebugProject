@@ -4,7 +4,8 @@
 #include "raylib.h"
 #include "player.h"
 
-typedef struct{
+typedef struct
+{
     int vida, dano, armadura;
     double velocidade;
     Rectangle colisao;

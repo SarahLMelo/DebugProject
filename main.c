@@ -3,13 +3,16 @@
 #include "player.h"
 #include <stdio.h>
 #include <stdlib.h>
+//Comentário meu...
 
 bala armaPrincipal[256];
 
-int main(){
+int main()
+{
     InitWindow(1800, 900, "Janela de Desenvolvimento");
 
-    if(!IsWindowReady()){
+    if (!IsWindowReady())
+    {
         printf("Janela com erro na inicializacao\n");
         exit(1);
     }
@@ -20,23 +23,30 @@ int main(){
     criarCriatura(&umaCriatura, 0, 0);
     inicializaPlayer(&jogador);
 
-    while(!WindowShouldClose()){
+    while (!WindowShouldClose())
+    {
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
         DrawRectangleRec(umaCriatura.colisao, RED);
         DrawRectangleRec(jogador.colisao, GREEN);
-        for(int i=0; i<256; i++) if(armaPrincipal[i].viva==1) DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
+        for (int i = 0; i < 256; i++)
+            if (armaPrincipal[i].viva == 1)
+                DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
         EndDrawing();
 
         moverCriatura(&umaCriatura, jogador.colisao.x, jogador.colisao.y);
         movimentarPlayer(&jogador);
-        if(balasGastas<256) playerEstaAtirando(&armaPrincipal[balasGastas] , jogador, &balasGastas);
+        if (balasGastas < 256)
+            playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas);
         atingiuOPlayer(&umaCriatura, &jogador);
-        for(int i=0; i<256; i++) movimentarProjetil(&armaPrincipal[i]);
+        for (int i = 0; i < 256; i++)
+            movimentarProjetil(&armaPrincipal[i]);
 
-        if(jogador.vida <= 0){
+        if (jogador.vida <= 0)
+        {
             DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
-            while(IsKeyUp(KEY_SPACE) && IsKeyUp(KEY_ESCAPE)){
+            while (IsKeyUp(KEY_SPACE) && IsKeyUp(KEY_ESCAPE))
+            {
                 BeginDrawing();
                 DrawText("Pressione espaço para comecar novamente ou esc para sair", 600, 450, 20, BLUE);
                 EndDrawing();

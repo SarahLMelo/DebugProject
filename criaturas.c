@@ -9,7 +9,7 @@ void criarCriatura(mob *criatura, double posX, double posY){
     (*criatura).armadura = 5;
     (*criatura).vida =10;
     (*criatura).dano =1;
-    (*criatura).velocidade =10;
+    (*criatura).velocidade =5;
 
     //Criando o retangulo de colusão
     (*criatura).colisao.height = 50;
@@ -39,4 +39,33 @@ void atingiuOPlayer(mob *criatura, nerdola *player){
     }
 
     return;
+}
+
+void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas){
+    (*criaturas) = (mob*) realloc((*criaturas), sizeof(mob)*wave);
+
+    for(int i=0; i<wave; i++){
+        int x, y;
+        x = rand()%1700;
+        y = rand()%800;
+        criarCriatura((*criaturas)+i, x, y);
+    }
+
+    //(*qtdCriaturasVivas) = wave;
+
+    return;
+}
+
+int acertouACriatura(bala *projetil, mob **Criaturas, int wave){
+    int achouAlguem = 0;
+    for(int i=0; i<wave && achouAlguem == 0; i++){
+        if((*Criaturas)[i].vida <= 0) continue;
+        else if(CheckCollisionRecs((*projetil).colisao, (*Criaturas)[i].colisao) == true){
+            achouAlguem = 1;
+            (*projetil).viva = 0;
+            (*Criaturas)[i].vida -= (*projetil).dano;
+        }
+    }
+
+    return achouAlguem;
 }

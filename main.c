@@ -7,45 +7,65 @@
 bala armaPrincipal[256];
 
 int main(){
-    InitWindow(1800, 900, "Janela de Desenvolvimento");
-
-    if(!IsWindowReady()){
-        printf("Janela com erro na inicializacao\n");
-        exit(1);
-    }
+    InitWindow(1800, 900, "Nosso jogo");
+    InitAudioDevice();
     SetTargetFPS(60);
-    mob umaCriatura;
-    nerdola jogador;
-    int balasGastas = 0;
-    criarCriatura(&umaCriatura, 0, 0);
-    inicializaPlayer(&jogador);
 
     while(!WindowShouldClose()){
-        BeginDrawing();
-        ClearBackground(LIGHTGRAY);
-        DrawRectangleRec(umaCriatura.colisao, RED);
-        DrawRectangleRec(jogador.colisao, GREEN);
-        for(int i=0; i<256; i++) if(armaPrincipal[i].viva==1) DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
-        EndDrawing();
+        if(menuInicial()==1){
+            mob *Criaturas = NULL;
+            nerdola jogador;
+            int balasGastas = 0, criaturasVivas = 0, wave = 1;
+            Vector2 miraPosicao = {-100.0f, -100.0f};
+            Color miraCor = DARKBLUE;
+            inicializaPlayer(&jogador);
+            HideCursor();
 
-        moverCriatura(&umaCriatura, jogador.colisao.x, jogador.colisao.y);
-        movimentarPlayer(&jogador);
-        if(balasGastas<256) playerEstaAtirando(&armaPrincipal[balasGastas] , jogador, &balasGastas);
-        atingiuOPlayer(&umaCriatura, &jogador);
-        for(int i=0; i<256; i++) movimentarProjetil(&armaPrincipal[i]);
+            
+            while(IsKeyUp(KEY_ESCAPE)){
+                criarWave(wave, &criaturasVivas, &Criaturas);
+                criaturasVivas = wave;
+                while(criaturasVivas>=0){
+                    //Criando a parte de imagem
+                    miraPosicao = GetMousePosition();
+                    BeginDrawing();
+                    ClearBackground(LIGHTGRAY);
+                    for(int i=0; i<wave; i++){
+                        if(Criaturas[i].vida > 0) DrawRectangleRec(Criaturas[i].colisao, RED);
+                    }
+                    DrawCircleV(miraPosicao, 15, miraCor);
+                    DrawRectangleRec(jogador.colisao, GREEN);
+                    for(int i=0; i<256; i++) if(armaPrincipal[i].viva==1) DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
+                    EndDrawing();
 
-        if(jogador.vida <= 0){
-            DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
-            while(IsKeyUp(KEY_SPACE) && IsKeyUp(KEY_ESCAPE)){
-                BeginDrawing();
-                DrawText("Pressione espaço para comecar novamente ou esc para sair", 600, 450, 20, BLUE);
-                EndDrawing();
-                criarCriatura(&umaCriatura, 0, 0);
-                inicializaPlayer(&jogador);
+                    //Mover tudo
+                    for(int i=0; i<wave; i++) if(Criaturas[i].vida > 0) moverCriatura(&Criaturas[i], jogador.colisao.x, jogador.colisao.y);
+                    movimentarPlayer(&jogador);
+
+                    if(balasGastas<256) playerEstaAtirando(&armaPrincipal[balasGastas] , jogador, &balasGastas);
+                    for(int i=0; i<wave; i++) if(Criaturas[i].vida > 0) atingiuOPlayer(&Criaturas[i], &jogador);
+                    for(int i=0; i<256; i++){
+                        if(&armaPrincipal[i].viva == 0) continue;
+                        movimentarProjetil(&armaPrincipal[i]);
+                        criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
+                    }
+                    if(jogador.vida <= 0){
+                        DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
+                        while(IsKeyUp(KEY_SPACE) && IsKeyUp(KEY_ESCAPE)){
+                            BeginDrawing();
+                            DrawText("Pressione espaço para comecar novamente ou esc para sair", 600, 450, 20, BLUE);
+                            EndDrawing();
+                            wave = 1;
+                            criaturasVivas = 0;
+                            criarWave(wave, &criaturasVivas, &Criaturas);
+                            inicializaPlayer(&jogador);
+                        }
+                    }
+                }
             }
         }
     }
 
-    CloseWindow();
+
     return 0;
 }

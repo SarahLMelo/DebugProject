@@ -28,4 +28,4 @@ void destruirProjetil(bala **vetor, int *tamanho);
 
 void movimentarProjetil(bala *projetil);
 
-#endif PLAYER
+#endif

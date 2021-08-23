@@ -4,7 +4,8 @@
 #include <math.h>
 #include "player.h"
 
-void criarCriatura(mob *criatura, double posX, double posY){
+void criarCriatura(mob *criatura, double posX, double posY)
+{
     //Status básicos da criatura
     (*criatura).armadura = 5;
     (*criatura).vida =10;
@@ -20,21 +21,24 @@ void criarCriatura(mob *criatura, double posX, double posY){
     return;
 }
 
-void moverCriatura(mob *criatura, int posX, int posY){
+void moverCriatura(mob *criatura, int posX, int posY)
+{
     //posição do player
-    double playerX = (double) posX, playerY = (double) posY;
+    double playerX = (double)posX, playerY = (double)posY;
 
-    double angulo = atan2(playerX-(*criatura).colisao.x, playerY-(*criatura).colisao.y); //angulação da reta entre o player e o mob
+    double angulo = atan2(playerX - (*criatura).colisao.x, playerY - (*criatura).colisao.y); //angulação da reta entre o player e o mob
 
     //alterando posição do mob
-    (*criatura).colisao.y += (int)(cos(angulo)*(*criatura).velocidade);
-    (*criatura).colisao.x += (int)(sin(angulo)*(*criatura).velocidade);
+    (*criatura).colisao.y += (int)(cos(angulo) * (*criatura).velocidade);
+    (*criatura).colisao.x += (int)(sin(angulo) * (*criatura).velocidade);
 
     return;
 }
 
-void atingiuOPlayer(mob *criatura, nerdola *player){
-    if(CheckCollisionRecs((*criatura).colisao, (*player).colisao)){
+void atingiuOPlayer(mob *criatura, nerdola *player)
+{
+    if (CheckCollisionRecs((*criatura).colisao, (*player).colisao))
+    {
         (*player).vida -= ((*criatura).dano - (*player).armadura);
     }
 

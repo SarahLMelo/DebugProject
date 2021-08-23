@@ -3,7 +3,8 @@
 #include <math.h>
 #include <stdlib.h>
 
-void inicializaPlayer(nerdola *jogador){
+void inicializaPlayer(nerdola *jogador)
+{
     //Inicializa o player assim que abrir o jogo
     (*jogador).colisao.x = 900;
     (*jogador).colisao.y = 450;
@@ -18,7 +19,8 @@ void inicializaPlayer(nerdola *jogador){
     return;
 }
 
-void movimentarPlayer(nerdola *jogador){
+void movimentarPlayer(nerdola *jogador)
+{
     //Movimentar para cima
     if (IsKeyDown(KEY_W)){
         if (IsKeyDown(KEY_A) && IsKeyUp(KEY_D)){
@@ -58,7 +60,8 @@ void movimentarPlayer(nerdola *jogador){
     return;
 }
 
-bala atirar(int key1, int key2, nerdola jogador){
+bala atirar(int key1, int key2, nerdola jogador)
+{
     //Inicializando projetil
     bala projetil;
     projetil.dano = jogador.dano;
@@ -189,7 +192,8 @@ void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho){
     return;
 }
 
-void destruirProjetil(bala **vetor, int *tamanho){ //Destroi o projetil que está na frente do vetor
+void destruirProjetil(bala **vetor, int *tamanho)
+{ //Destroi o projetil que está na frente do vetor
 
     for (int i = 1; i < (*tamanho); i++)
         (*vetor)[i - 1] = (*vetor)[i];
@@ -199,7 +203,8 @@ void destruirProjetil(bala **vetor, int *tamanho){ //Destroi o projetil que est�
     return;
 }
 
-void movimentarProjetil(bala *projetil){
+void movimentarProjetil(bala *projetil)
+{
     (*projetil).colisao.x += (int)(*projetil).velocidade * (*projetil).x;
     (*projetil).colisao.y += (int)(*projetil).velocidade * (*projetil).y;
 

@@ -7,6 +7,8 @@
 
 bala armaPrincipal[256];
 
+int teste;
+
 int main()
 {
     InitWindow(1800, 900, "Janela de Desenvolvimento");

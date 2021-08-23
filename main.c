@@ -7,11 +7,13 @@
 
 bala armaPrincipal[256];
 
-int teste;
-
 int main()
 {
+
     InitWindow(1800, 900, "Janela de Desenvolvimento");
+
+    Vector2 miraPosicao = {-100.0f, -100.0f};
+    Color miraCor = DARKBLUE;
 
     if (!IsWindowReady())
     {
@@ -24,12 +26,16 @@ int main()
     int balasGastas = 0;
     criarCriatura(&umaCriatura, 0, 0);
     inicializaPlayer(&jogador);
+    HideCursor();
 
     while (!WindowShouldClose())
     {
+        miraPosicao = GetMousePosition();
+
         BeginDrawing();
         ClearBackground(LIGHTGRAY);
         DrawRectangleRec(umaCriatura.colisao, RED);
+        DrawCircleV(miraPosicao, 15, miraCor);
         DrawRectangleRec(jogador.colisao, GREEN);
         for (int i = 0; i < 256; i++)
             if (armaPrincipal[i].viva == 1)

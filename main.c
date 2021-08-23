@@ -3,7 +3,6 @@
 #include "player.h"
 #include <stdio.h>
 #include <stdlib.h>
-//Comentário meu...
 
 bala armaPrincipal[256];
 

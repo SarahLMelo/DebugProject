@@ -4,6 +4,8 @@
 #include "raylib.h"
 #include "player.h"
 
+#define SLOT_ARMAS_IMAGE "assets/armas/menu.png"
+
 //DEFINIR ARMAS
 //ARMAS MAIORES TIPO 1
 //ARMAS MENORES TIPO 2

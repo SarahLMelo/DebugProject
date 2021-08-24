@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define miraRaio 5
+
 bala armaPrincipal[256];
 
 int main(){
@@ -17,6 +19,7 @@ int main(){
             nerdola jogador;
             int balasGastas = 0, criaturasVivas = 0, wave = 1;
             Vector2 miraPosicao = {-100.0f, -100.0f};
+            Vector2 circlePosicao;
             Color miraCor = DARKBLUE;
             inicializaPlayer(&jogador);
             HideCursor();
@@ -28,12 +31,13 @@ int main(){
                 while(criaturasVivas>=0){
                     //Criando a parte de imagem
                     miraPosicao = GetMousePosition();
+                    circlePosicao = circleMira(miraPosicao, jogador);
                     BeginDrawing();
                     ClearBackground(LIGHTGRAY);
                     for(int i=0; i<wave; i++){
                         if(Criaturas[i].vida > 0) DrawRectangleRec(Criaturas[i].colisao, RED);
                     }
-                    DrawCircleV(miraPosicao, 15, miraCor);
+                    DrawCircleV(circlePosicao, 5, miraCor);
                     DrawRectangleRec(jogador.colisao, GREEN);
                     for(int i=0; i<256; i++) if(armaPrincipal[i].viva==1) DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
                     EndDrawing();
@@ -52,7 +56,6 @@ int main(){
                     if(jogador.vida <= 0){
                         DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
                         while(IsKeyUp(KEY_SPACE) && IsKeyUp(KEY_ESCAPE)){
-                            BeginDrawing();
                             DrawText("Pressione espaço para comecar novamente ou esc para sair", 600, 450, 20, BLUE);
                             EndDrawing();
                             wave = 1;
@@ -66,6 +69,6 @@ int main(){
         }
     }
 
-
+    CloseWindow();
     return 0;
 }

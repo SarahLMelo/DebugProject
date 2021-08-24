@@ -24,6 +24,8 @@ void movimentarPlayer(nerdola *jogador);
 
 bala atirar(int key1, int key2, nerdola jogador);
 
+Vector2 circleMira(Vector2 coord, nerdola p);
+
 void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho);
 
 void destruirProjetil(bala **vetor, int *tamanho);

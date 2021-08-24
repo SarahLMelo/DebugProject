@@ -2,6 +2,9 @@
 #include "player.h"
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+#define miraRadius 100
 
 void inicializaPlayer(nerdola *jogador){
     //Inicializa o player assim que abrir o jogo
@@ -95,6 +98,17 @@ bala atirar(int key1, int key2, nerdola jogador){
         projetil.x = 1;
 
     return projetil;
+}
+
+Vector2 circleMira(Vector2 coord, nerdola p){
+    Vector2 newCoord;
+
+    const double angulo = atan2(coord.x-p.colisao.x, coord.y - p.colisao.y);
+
+    newCoord.x = p.colisao.x + miraRadius*sin(angulo);
+    newCoord.y = p.colisao.y + miraRadius*cos(angulo);
+
+    return newCoord;
 }
 
 bala atirarComMouse(int xMira, int yMira, nerdola jogador){

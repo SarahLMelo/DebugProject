@@ -9,7 +9,7 @@
 bala armaPrincipal[256];
 
 int main(){
-    InitWindow(1800, 900, "Nosso jogo");
+    InitWindow(1920, 1080, "Nosso jogo");
     InitAudioDevice();
     SetTargetFPS(60);
 

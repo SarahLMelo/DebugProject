@@ -30,7 +30,7 @@ int main(){
 
     grid[0].height = 300;
     grid[0].width = 400;
-    grid[0].x = 900;
+    grid[0].x = 100;
     grid[0].y = 450;
 
     while (!WindowShouldClose())
@@ -83,7 +83,7 @@ int main(){
                     for (int i = 0; i < wave; i++)
                         if (Criaturas[i].vida > 0)
                             moverCriatura(&Criaturas[i], jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes);
-                    movimentarPlayer(&jogador);
+                    movimentarPlayer(&jogador, grid, qtdDeParedes);
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
                     cameraJogador.zoom = 1.0f;

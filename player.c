@@ -26,7 +26,16 @@ void inicializaPlayer(nerdola *jogador)
     return;
 }
 
-void movimentarPlayer(nerdola *jogador)
+int acertouAParede(nerdola jogador, Rectangle *grid, int quantidadeDeParedes){
+    int acertou = 0;
+    for(int i = 0; i<quantidadeDeParedes && acertou==0; i++)
+        if(CheckCollisionRecs(jogador.colisao, grid[i]))
+            acertou = 1;
+    
+    return acertou;
+}
+
+void movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes)
 {
     //Movimentar para cima
     if (IsKeyDown(KEY_W))
@@ -35,14 +44,29 @@ void movimentarPlayer(nerdola *jogador)
         {
             (*jogador).colisao.x -= (int)((*jogador).velocidade / sqrt(2));
             (*jogador).colisao.y -= (int)((*jogador).velocidade / sqrt(2));
+
+            if(acertouAParede((*jogador), grid, quantidadeDeParedes) == 1){ //Se acertar uma parede, fica parado
+                (*jogador).colisao.x += (int)((*jogador).velocidade / sqrt(2));
+                (*jogador).colisao.y += (int)((*jogador).velocidade / sqrt(2));
+            }
         }
         else if (IsKeyDown(KEY_D) && IsKeyUp(KEY_A))
         {
             (*jogador).colisao.x += (int)((*jogador).velocidade / sqrt(2));
             (*jogador).colisao.y -= (int)((*jogador).velocidade / sqrt(2));
+
+            if(acertouAParede((*jogador), grid, quantidadeDeParedes) == 1){ //Se acertar uma parede, fica parado
+                (*jogador).colisao.x -= (int)((*jogador).velocidade / sqrt(2));
+                (*jogador).colisao.y += (int)((*jogador).velocidade / sqrt(2));
+            }
         }
-        else if (IsKeyUp(KEY_S))
-            (*jogador).colisao.y -= (int)((*jogador).velocidade / sqrt(2));
+        else if (IsKeyUp(KEY_S)){
+            (*jogador).colisao.y -= (int)(*jogador).velocidade;
+
+            if(acertouAParede((*jogador), grid, quantidadeDeParedes) == 1){ //Se acertar uma parede, fica parado
+                (*jogador).colisao.y += (int)(*jogador).velocidade;
+            }
+        }
     }
 
     //Movimentar para baixo
@@ -52,23 +76,45 @@ void movimentarPlayer(nerdola *jogador)
         {
             (*jogador).colisao.x -= (int)((*jogador).velocidade / sqrt(2));
             (*jogador).colisao.y += (int)((*jogador).velocidade / sqrt(2));
+
+            if(acertouAParede((*jogador), grid, quantidadeDeParedes) == 1){ //Se acertar uma parede, fica parado
+                (*jogador).colisao.x += (int)((*jogador).velocidade / sqrt(2));
+                (*jogador).colisao.y -= (int)((*jogador).velocidade / sqrt(2));
+            }
         }
         else if (IsKeyDown(KEY_D) && IsKeyUp(KEY_A))
         {
             (*jogador).colisao.x += (int)((*jogador).velocidade / sqrt(2));
             (*jogador).colisao.y += (int)((*jogador).velocidade / sqrt(2));
+
+            if(acertouAParede((*jogador), grid, quantidadeDeParedes) == 1){ //Se acertar uma parede, fica parado
+                (*jogador).colisao.x -= (int)((*jogador).velocidade / sqrt(2));
+                (*jogador).colisao.y -= (int)((*jogador).velocidade / sqrt(2));
+            }
         }
-        else
-            (*jogador).colisao.y += (int)((*jogador).velocidade / sqrt(2));
+        else{
+            (*jogador).colisao.y += (int)(*jogador).velocidade;
+
+            if(acertouAParede((*jogador), grid, quantidadeDeParedes) == 1) //Se acertar uma parede, fica parado
+                (*jogador).colisao.y -= (int)(*jogador).velocidade;
+        }
     }
 
     //Movimentar para o lado esquerdo
-    else if (IsKeyDown(KEY_A) && IsKeyUp(KEY_D))
-        (*jogador).colisao.x -= (int)((*jogador).velocidade / sqrt(2));
+    else if (IsKeyDown(KEY_A) && IsKeyUp(KEY_D)){
+        (*jogador).colisao.x -= (int)(*jogador).velocidade;
+
+        if(acertouAParede((*jogador), grid, quantidadeDeParedes) == 1) //Se acertar uma parede, fica parado
+            (*jogador).colisao.x += (int)(*jogador).velocidade;
+    }
 
     //Movimentar para o lado direito
-    else if (IsKeyDown(KEY_D))
-        (*jogador).colisao.x += (int)((*jogador).velocidade / sqrt(2));
+    else if (IsKeyDown(KEY_D)){
+        (*jogador).colisao.x += (int)(*jogador).velocidade;
+
+        if(acertouAParede((*jogador), grid, quantidadeDeParedes) == 1) //Se acertar uma parede, fica parado
+            (*jogador).colisao.x -= (int)(*jogador).velocidade;
+    }
 
     return;
 }

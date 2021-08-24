@@ -20,7 +20,9 @@ typedef struct
 
 void inicializaPlayer(nerdola *jogador);
 
-void movimentarPlayer(nerdola *jogador);
+int acertouAParede(nerdola jogador, Rectangle *grid, int quantidadeDeParedes);
+
+void movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes);
 
 bala atirar(int key1, int key2, nerdola jogador, Sound som);
 

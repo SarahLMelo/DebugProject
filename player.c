@@ -3,8 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-void inicializaPlayer(nerdola *jogador)
-{
+void inicializaPlayer(nerdola *jogador){
     //Inicializa o player assim que abrir o jogo
     (*jogador).colisao.x = 900;
     (*jogador).colisao.y = 450;
@@ -19,8 +18,7 @@ void inicializaPlayer(nerdola *jogador)
     return;
 }
 
-void movimentarPlayer(nerdola *jogador)
-{
+void movimentarPlayer(nerdola *jogador){
     //Movimentar para cima
     if (IsKeyDown(KEY_W)){
         if (IsKeyDown(KEY_A) && IsKeyUp(KEY_D)){
@@ -60,8 +58,7 @@ void movimentarPlayer(nerdola *jogador)
     return;
 }
 
-bala atirar(int key1, int key2, nerdola jogador)
-{
+bala atirar(int key1, int key2, nerdola jogador){
     //Inicializando projetil
     bala projetil;
     projetil.dano = jogador.dano;
@@ -103,10 +100,12 @@ bala atirar(int key1, int key2, nerdola jogador)
 bala atirarComMouse(int xMira, int yMira, nerdola jogador){
     //Inicializando projetil
     bala projetil;
+    double angulo = atan2(jogador.colisao.x-xMira, jogador.colisao.y-yMira);
+
     projetil.dano = jogador.dano;
     projetil.velocidade = 20;
-    projetil.x = 0;
-    projetil.y = 0;
+    projetil.x = -sin(angulo);
+    projetil.y = -cos(angulo);
     projetil.viva = 1;
 
     //Criando caixa de colisão
@@ -114,26 +113,6 @@ bala atirarComMouse(int xMira, int yMira, nerdola jogador){
     projetil.colisao.width = 10;
     projetil.colisao.x = jogador.colisao.x;
     projetil.colisao.y = jogador.colisao.y;
-
-    if (jogador.colisao.x > xMira){
-        projetil.x = -1;
-    }
-    else if (jogador.colisao.x == xMira){
-        projetil.x = 0;
-    }
-    else{
-        projetil.x = 1;
-    }
-
-    if (jogador.colisao.y > yMira){
-        projetil.y = -1;
-    }
-    else if (jogador.colisao.y == yMira){
-        projetil.y = 0;
-    }
-    else{
-        projetil.y = -1;
-    }
 
     return projetil;
 }
@@ -192,8 +171,7 @@ void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho){
     return;
 }
 
-void destruirProjetil(bala **vetor, int *tamanho)
-{ //Destroi o projetil que está na frente do vetor
+void destruirProjetil(bala **vetor, int *tamanho){ //Destroi o projetil que está na frente do vetor
 
     for (int i = 1; i < (*tamanho); i++)
         (*vetor)[i - 1] = (*vetor)[i];
@@ -203,8 +181,7 @@ void destruirProjetil(bala **vetor, int *tamanho)
     return;
 }
 
-void movimentarProjetil(bala *projetil)
-{
+void movimentarProjetil(bala *projetil){
     (*projetil).colisao.x += (int)(*projetil).velocidade * (*projetil).x;
     (*projetil).colisao.y += (int)(*projetil).velocidade * (*projetil).y;
 

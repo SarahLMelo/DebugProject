@@ -4,7 +4,8 @@
 #include "raylib.h"
 #include "player.h"
 
-typedef struct{
+typedef struct
+{
     int vida, dano, armadura;
     double velocidade;
     Rectangle colisao;
@@ -17,4 +18,8 @@ void moverCriatura(mob *criatura, int posX, int posY);
 
 void atingiuOPlayer(mob *criatura, nerdola *player);
 
-#endif CRIATURAS
+void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas);
+
+int acertouACriatura(bala *projetil, mob **Criaturas, int wave);
+
+#endif

@@ -75,11 +75,9 @@ int main(){
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
 
                     DrawCircleV(circlePosicao, 5, miraCor);
-                    EndMode2D();
-
                     for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], YELLOW);
-
-                    EndDrawing();
+                    
+                    
 
                     //Mover tudo
                     for (int i = 0; i < wave; i++)
@@ -94,6 +92,7 @@ int main(){
                     miraPosicao.x += cameraJogador.target.x - cameraJogador.offset.x;
                     miraPosicao.y += cameraJogador.target.y - cameraJogador.offset.y;
                     circlePosicao = circleMira(miraPosicao, cameraJogador.target);
+                    //Atualizando os pontos de colisao do mapa
                     
                     if (balasGastas < 256)
                         playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas, tiro, miraPosicao);
@@ -108,6 +107,9 @@ int main(){
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
                     }
                     
+                    EndMode2D();
+                    EndDrawing();
+
                     if (jogador.vida <= 0)
                     {
                         while (IsKeyUp(KEY_SPACE))

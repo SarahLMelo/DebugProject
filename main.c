@@ -55,13 +55,14 @@ int main(){
                     }
                     if(jogador.vida <= 0){
                         DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
-                        while(IsKeyUp(KEY_SPACE) && IsKeyUp(KEY_ESCAPE)){
+                        while(IsKeyUp(KEY_SPACE) || IsKeyUp(KEY_ESCAPE)){
                             DrawText("Pressione espaço para comecar novamente ou esc para sair", 600, 450, 20, BLUE);
                             EndDrawing();
                             wave = 1;
                             criaturasVivas = 0;
                             criarWave(wave, &criaturasVivas, &Criaturas);
                             inicializaPlayer(&jogador);
+                            CloseWindow();
                         }
                     }
                 }

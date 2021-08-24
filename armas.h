@@ -1,6 +1,8 @@
 #ifndef ARMAS
 #define ARMAS
+
 #include "raylib.h"
+#include "player.h"
 
 //DEFINIR ARMAS
 //ARMAS MAIORES TIPO 1

@@ -13,8 +13,8 @@ typedef struct
 
 typedef struct
 {
-    int viva, dano, x, y;
-    double velocidade;
+    int viva, dano;
+    double velocidade, x, y;
     Rectangle colisao;
 } bala;
 

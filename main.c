@@ -10,11 +10,8 @@ bala armaPrincipal[256];
 Rectangle grid[1];
 int qtdDeParedes = 1;
 
-int main()
-{
-    InitWindow(1800, 900, "Nosso jogo");
-
-    //Iniciando e tocando a música
+int main(){
+    InitWindow(1920, 1080, "Nosso jogo");
     InitAudioDevice();
     Music music = LoadMusicStream("musica/TheBugger2.mp3");
     Sound tiro;
@@ -88,6 +85,7 @@ int main()
                         movimentarProjetil(&armaPrincipal[i]);
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
                     }
+                    
                     if (jogador.vida <= 0)
                     {
                         while (IsKeyUp(KEY_SPACE))
@@ -100,6 +98,7 @@ int main()
                             criaturasVivas = 0;
                             criarWave(wave, &criaturasVivas, &Criaturas);
                             inicializaPlayer(&jogador);
+                            CloseWindow();
                         }
                     }
                 }

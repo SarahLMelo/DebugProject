@@ -14,7 +14,9 @@ typedef struct
 
 void criarCriatura(mob *criatura, double posX, double posY);
 
-void moverCriatura(mob *criatura, int posX, int posY);
+int bateuNaParede(Rectangle *grid, mob criatura, int quantidadeDeParedes);
+
+void moverCriatura(mob *criatura, int posX, int posY, Rectangle *grid, int quantidadeDeParedes);
 
 void atingiuOPlayer(mob *criatura, nerdola *player);
 

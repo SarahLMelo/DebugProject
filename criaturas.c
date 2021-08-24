@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "player.h"
+//pedro passou aqui
 
 void criarCriatura(mob *criatura, double posX, double posY)
 {

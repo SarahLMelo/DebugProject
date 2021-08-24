@@ -24,11 +24,11 @@ void movimentarPlayer(nerdola *jogador);
 
 bala atirar(int key1, int key2, nerdola jogador, Sound som);
 
-bala atirarComMouse(int xMira, int yMira, nerdola jogador, Sound som);
+bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som);
 
-Vector2 circleMira(Vector2 coord, nerdola p);
+Vector2 circleMira(Vector2 coord, Vector2 p);
 
-void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro);
+void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro, Vector2 cameraTarget);
 
 void destruirProjetil(bala **vetor, int *tamanho);
 

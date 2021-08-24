@@ -7,6 +7,8 @@
 #define miraRaio 5
 
 bala armaPrincipal[256];
+Rectangle grid[1];
+int qtdDeParedes = 1;
 
 int main()
 {
@@ -18,8 +20,12 @@ int main()
     Sound tiro;
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
-
     SetTargetFPS(60);
+
+    grid[0].height = 300;
+    grid[0].width = 400;
+    grid[0].x = 900;
+    grid[0].y = 450;
 
     while (!WindowShouldClose())
     {
@@ -61,12 +67,13 @@ int main()
                     for (int i = 0; i < 256; i++)
                         if (armaPrincipal[i].viva == 1)
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
+                    for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], YELLOW);
                     EndDrawing();
 
                     //Mover tudo
                     for (int i = 0; i < wave; i++)
                         if (Criaturas[i].vida > 0)
-                            moverCriatura(&Criaturas[i], jogador.colisao.x, jogador.colisao.y);
+                            moverCriatura(&Criaturas[i], jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes);
                     movimentarPlayer(&jogador);
 
                     if (balasGastas < 256)
@@ -83,10 +90,11 @@ int main()
                     }
                     if (jogador.vida <= 0)
                     {
-                        DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
-                        while (IsKeyUp(KEY_SPACE) && IsKeyUp(KEY_ESCAPE))
-                        {
-                            DrawText("Pressione espaço para comecar novamente ou esc para sair", 600, 450, 20, BLUE);
+                        while (IsKeyUp(KEY_SPACE))
+                        {   
+                            ClearBackground(BLACK);
+                            DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
+                            DrawText("Pressione espaço para comecar novamente para sair", 600, 450, 20, BLUE);
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
@@ -97,11 +105,11 @@ int main()
                 }
                 wave++;
             }
+            free(Criaturas);
         }
     }
 
     UnloadMusicStream(music);
-
     CloseAudioDevice();
 
     CloseWindow();

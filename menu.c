@@ -73,7 +73,6 @@ int menuInicial(){
 
     //geral:
     int glossario=0;
-    int start=0;
 
     BeginDrawing();
         ClearBackground(BLACK);

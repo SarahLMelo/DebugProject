@@ -6,7 +6,12 @@
 
 #define miraRadius 100
 
-void inicializaPlayer(nerdola *jogador){
+//Iniciando e importando áudio
+void InitAudioDevice(void);
+//Sound tiro = LoadSound("sfx/sfxTiro.mp3");
+
+void inicializaPlayer(nerdola *jogador)
+{
     //Inicializa o player assim que abrir o jogo
     (*jogador).colisao.x = 900;
     (*jogador).colisao.y = 450;
@@ -21,14 +26,18 @@ void inicializaPlayer(nerdola *jogador){
     return;
 }
 
-void movimentarPlayer(nerdola *jogador){
+void movimentarPlayer(nerdola *jogador)
+{
     //Movimentar para cima
-    if (IsKeyDown(KEY_W)){
-        if (IsKeyDown(KEY_A) && IsKeyUp(KEY_D)){
+    if (IsKeyDown(KEY_W))
+    {
+        if (IsKeyDown(KEY_A) && IsKeyUp(KEY_D))
+        {
             (*jogador).colisao.x -= (int)((*jogador).velocidade / sqrt(2));
             (*jogador).colisao.y -= (int)((*jogador).velocidade / sqrt(2));
         }
-        else if (IsKeyDown(KEY_D) && IsKeyUp(KEY_A)){
+        else if (IsKeyDown(KEY_D) && IsKeyUp(KEY_A))
+        {
             (*jogador).colisao.x += (int)((*jogador).velocidade / sqrt(2));
             (*jogador).colisao.y -= (int)((*jogador).velocidade / sqrt(2));
         }
@@ -37,12 +46,15 @@ void movimentarPlayer(nerdola *jogador){
     }
 
     //Movimentar para baixo
-    else if (IsKeyDown(KEY_S)){
-        if (IsKeyDown(KEY_A) && IsKeyUp(KEY_D)){
+    else if (IsKeyDown(KEY_S))
+    {
+        if (IsKeyDown(KEY_A) && IsKeyUp(KEY_D))
+        {
             (*jogador).colisao.x -= (int)((*jogador).velocidade / sqrt(2));
             (*jogador).colisao.y += (int)((*jogador).velocidade / sqrt(2));
         }
-        else if (IsKeyDown(KEY_D) && IsKeyUp(KEY_A)){
+        else if (IsKeyDown(KEY_D) && IsKeyUp(KEY_A))
+        {
             (*jogador).colisao.x += (int)((*jogador).velocidade / sqrt(2));
             (*jogador).colisao.y += (int)((*jogador).velocidade / sqrt(2));
         }
@@ -61,7 +73,11 @@ void movimentarPlayer(nerdola *jogador){
     return;
 }
 
-bala atirar(int key1, int key2, nerdola jogador){
+bala atirar(int key1, int key2, nerdola jogador, Sound som)
+{
+    //Som do projetil
+    PlaySound(som);
+
     //Inicializando projetil
     bala projetil;
     projetil.dano = jogador.dano;
@@ -100,21 +116,26 @@ bala atirar(int key1, int key2, nerdola jogador){
     return projetil;
 }
 
-Vector2 circleMira(Vector2 coord, nerdola p){
+Vector2 circleMira(Vector2 coord, nerdola p)
+{
     Vector2 newCoord;
 
-    const double angulo = atan2(coord.x-p.colisao.x, coord.y - p.colisao.y);
+    const double angulo = atan2(coord.x - p.colisao.x, coord.y - p.colisao.y);
 
-    newCoord.x = p.colisao.x + miraRadius*sin(angulo);
-    newCoord.y = p.colisao.y + miraRadius*cos(angulo);
+    newCoord.x = p.colisao.x + miraRadius * sin(angulo);
+    newCoord.y = p.colisao.y + miraRadius * cos(angulo);
 
     return newCoord;
 }
 
-bala atirarComMouse(int xMira, int yMira, nerdola jogador){
+bala atirarComMouse(int xMira, int yMira, nerdola jogador, Sound som)
+{
+    //Som do projetil
+    PlaySound(som);
+
     //Inicializando projetil
     bala projetil;
-    double angulo = atan2(jogador.colisao.x-xMira, jogador.colisao.y-yMira);
+    double angulo = atan2(jogador.colisao.x - xMira, jogador.colisao.y - yMira);
 
     projetil.dano = jogador.dano;
     projetil.velocidade = 20;
@@ -131,61 +152,74 @@ bala atirarComMouse(int xMira, int yMira, nerdola jogador){
     return projetil;
 }
 
-void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho){
+void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro)
+{
     //Atirando com o mouse
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-        (*vetor) = atirarComMouse(GetMouseX(), GetMouseY(), jogador);
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        (*vetor) = atirarComMouse(GetMouseX(), GetMouseY(), jogador, tiro);
         (*tamanho)++;
     }
 
     //Atirando para cima
-    if (IsKeyDown(KEY_UP)){
-        if (IsKeyDown(KEY_LEFT) && IsKeyUp(KEY_RIGHT)){
-            (*vetor) = atirar(KEY_UP, KEY_LEFT, jogador);
+    if (IsKeyDown(KEY_UP))
+    {
+        if (IsKeyDown(KEY_LEFT) && IsKeyUp(KEY_RIGHT))
+        {
+            (*vetor) = atirar(KEY_UP, KEY_LEFT, jogador, tiro);
             (*tamanho)++;
         }
-        else if (IsKeyDown(KEY_RIGHT) && IsKeyUp(KEY_LEFT)){
-            (*vetor) = atirar(KEY_UP, KEY_RIGHT, jogador);
+        else if (IsKeyDown(KEY_RIGHT) && IsKeyUp(KEY_LEFT))
+        {
+            (*vetor) = atirar(KEY_UP, KEY_RIGHT, jogador, tiro);
             (*tamanho)++;
         }
-        else if (IsKeyUp(KEY_DOWN)){
-            (*vetor) = atirar(KEY_UP, 0, jogador); //O zero indica que só há uma tecla pressionada
+        else if (IsKeyUp(KEY_DOWN))
+        {
+            (*vetor) = atirar(KEY_UP, 0, jogador, tiro); //O zero indica que só há uma tecla pressionada
             (*tamanho)++;
         }
     }
 
     //Atirando para baixo
-    else if (IsKeyDown(KEY_DOWN)){
-        if (IsKeyDown(KEY_LEFT) && IsKeyUp(KEY_RIGHT)){
-            (*vetor) = atirar(KEY_DOWN, KEY_LEFT, jogador);
+    else if (IsKeyDown(KEY_DOWN))
+    {
+        if (IsKeyDown(KEY_LEFT) && IsKeyUp(KEY_RIGHT))
+        {
+            (*vetor) = atirar(KEY_DOWN, KEY_LEFT, jogador, tiro);
             (*tamanho)++;
         }
-        else if (IsKeyDown(KEY_RIGHT) && IsKeyUp(KEY_LEFT)){
-            (*vetor) = atirar(KEY_DOWN, KEY_RIGHT, jogador);
+        else if (IsKeyDown(KEY_RIGHT) && IsKeyUp(KEY_LEFT))
+        {
+            (*vetor) = atirar(KEY_DOWN, KEY_RIGHT, jogador, tiro);
             (*tamanho)++;
         }
-        else{
-            (*vetor) = atirar(KEY_DOWN, 0, jogador); //O zero indica que só há uma tecla pressionada
+        else
+        {
+            (*vetor) = atirar(KEY_DOWN, 0, jogador, tiro); //O zero indica que só há uma tecla pressionada
             (*tamanho)++;
         }
     }
 
     //Movimentar para o lado esquerdo
-    else if (IsKeyDown(KEY_LEFT) && IsKeyUp(KEY_RIGHT)){
-        (*vetor) = atirar(KEY_LEFT, 0, jogador); //O zero indica que só há uma tecla pressionada
+    else if (IsKeyDown(KEY_LEFT) && IsKeyUp(KEY_RIGHT))
+    {
+        (*vetor) = atirar(KEY_LEFT, 0, jogador, tiro); //O zero indica que só há uma tecla pressionada
         (*tamanho)++;
     }
 
     //Movimentar para o lado direito
-    else if (IsKeyDown(KEY_RIGHT)){
-        (*vetor) = atirar(KEY_RIGHT, 0, jogador); //O zero indica que só há uma tecla pressionada
+    else if (IsKeyDown(KEY_RIGHT))
+    {
+        (*vetor) = atirar(KEY_RIGHT, 0, jogador, tiro); //O zero indica que só há uma tecla pressionada
         (*tamanho)++;
     }
 
     return;
 }
 
-void destruirProjetil(bala **vetor, int *tamanho){ //Destroi o projetil que está na frente do vetor
+void destruirProjetil(bala **vetor, int *tamanho)
+{ //Destroi o projetil que está na frente do vetor
 
     for (int i = 1; i < (*tamanho); i++)
         (*vetor)[i - 1] = (*vetor)[i];
@@ -195,9 +229,12 @@ void destruirProjetil(bala **vetor, int *tamanho){ //Destroi o projetil que est�
     return;
 }
 
-void movimentarProjetil(bala *projetil){
+void movimentarProjetil(bala *projetil)
+{
     (*projetil).colisao.x += (int)(*projetil).velocidade * (*projetil).x;
     (*projetil).colisao.y += (int)(*projetil).velocidade * (*projetil).y;
 
     return;
 }
+
+void CloseAudioDevice(void);

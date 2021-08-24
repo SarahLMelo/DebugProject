@@ -116,19 +116,18 @@ bala atirar(int key1, int key2, nerdola jogador, Sound som)
     return projetil;
 }
 
-Vector2 circleMira(Vector2 coord, nerdola p)
+Vector2 circleMira(Vector2 coord, Vector2 p)
 {
     Vector2 newCoord;
 
-    const double angulo = atan2(coord.x - p.colisao.x, coord.y - p.colisao.y);
-
-    newCoord.x = p.colisao.x + miraRadius * sin(angulo);
-    newCoord.y = p.colisao.y + miraRadius * cos(angulo);
-
+    const double angulo = atan2(coord.x - p.x, coord.y - p.y);
+    
+    newCoord.x = p.x + miraRadius * sin(angulo);
+    newCoord.y = p.y + miraRadius * cos(angulo);
     return newCoord;
 }
 
-bala atirarComMouse(int xMira, int yMira, nerdola jogador, Sound som)
+bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som)
 {
     //Som do projetil
     PlaySound(som);
@@ -152,12 +151,12 @@ bala atirarComMouse(int xMira, int yMira, nerdola jogador, Sound som)
     return projetil;
 }
 
-void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro)
+void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro, Vector2 cameraTarget)
 {
     //Atirando com o mouse
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
-        (*vetor) = atirarComMouse(GetMouseX(), GetMouseY(), jogador, tiro);
+        (*vetor) = atirarComMouse(cameraTarget.x, cameraTarget.y, jogador, tiro);
         (*tamanho)++;
     }
 

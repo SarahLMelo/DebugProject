@@ -17,6 +17,15 @@ int main(){
     Sound tiro;
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
+
+    //Setando camera
+    Camera2D cameraJogador;
+    cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
+    cameraJogador.target = (Vector2) {0.0f, 0.0f};
+    cameraJogador.rotation = 0.0f;
+    cameraJogador.zoom = 1.0f;
+
+    //Iniciando o game
     SetTargetFPS(60);
 
     grid[0].height = 300;
@@ -32,39 +41,44 @@ int main(){
             nerdola jogador;
             int balasGastas = 0, criaturasVivas = 0, wave = 1;
             Vector2 miraPosicao = {-100.0f, -100.0f};
+            Vector2 miraPosicaoDelta;
             Vector2 circlePosicao;
+            double angulo = 0;
             Color miraCor = DARKBLUE;
             inicializaPlayer(&jogador);
-            HideCursor();
+            //HideCursor();
 
             while (IsKeyUp(KEY_ESCAPE))
             {
                 //Atualizando a stream da música
-                UpdateMusicStream(music);
+                UpdateMusicStream(music);     
 
                 criarWave(wave, &criaturasVivas, &Criaturas);
                 criaturasVivas = wave;
                 while (criaturasVivas > 0)
-                {
+                {   
                     //Atualizando a stream da música
                     UpdateMusicStream(music);
-
                     //Criando a parte de imagem
-                    miraPosicao = GetMousePosition();
-                    circlePosicao = circleMira(miraPosicao, jogador);
                     BeginDrawing();
+                    //Iniciando a camera
+                    BeginMode2D(cameraJogador);
                     ClearBackground(LIGHTGRAY);
                     for (int i = 0; i < wave; i++)
                     {
                         if (Criaturas[i].vida > 0)
                             DrawRectangleRec(Criaturas[i].colisao, RED);
                     }
-                    DrawCircleV(circlePosicao, 5, miraCor);
                     DrawRectangleRec(jogador.colisao, GREEN);
                     for (int i = 0; i < 256; i++)
                         if (armaPrincipal[i].viva == 1)
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
+
+                    DrawCircleV(circlePosicao, 5, miraCor);
+                    EndMode2D();
+
                     for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], YELLOW);
+
                     EndDrawing();
 
                     //Mover tudo
@@ -72,9 +86,17 @@ int main(){
                         if (Criaturas[i].vida > 0)
                             moverCriatura(&Criaturas[i], jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes);
                     movimentarPlayer(&jogador);
-
+                    //Atualizando a camera
+                    cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
+                    cameraJogador.zoom = 1.0f;
+                    //Atualizando a mira
+                    miraPosicao = GetMousePosition();
+                    miraPosicao.x += cameraJogador.target.x - cameraJogador.offset.x;
+                    miraPosicao.y += cameraJogador.target.y - cameraJogador.offset.y;
+                    circlePosicao = circleMira(miraPosicao, cameraJogador.target);
+                    
                     if (balasGastas < 256)
-                        playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas, tiro);
+                        playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas, tiro, miraPosicao);
                     for (int i = 0; i < wave; i++)
                         if (Criaturas[i].vida > 0)
                             atingiuOPlayer(&Criaturas[i], &jogador);

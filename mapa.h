@@ -8,5 +8,5 @@ bool checarLimiteCamera();
 
 Vector2 spawnPoints();
 
-void ColisionMap();
+void ColisionMap(Rectangle grid[], Texture2D mapa);
 

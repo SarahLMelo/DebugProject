@@ -3,13 +3,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include "player.h"
+#include "armas.h"
 //pedro passou aqui
 
 void criarCriatura(mob *criatura, double posX, double posY)
 {
     //Status básicos da criatura
     (*criatura).armadura = 5;
-    (*criatura).vida =10;
+    (*criatura).vida =80;
     (*criatura).dano =1;
     (*criatura).velocidade =5;
 

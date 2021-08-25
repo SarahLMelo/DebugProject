@@ -3,6 +3,8 @@
 #include "player.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include "armas.h"
 
 #define miraRaio 5
 
@@ -39,12 +41,13 @@ int main(){
         {
             mob *Criaturas = NULL;
             nerdola jogador;
-            int balasGastas = 0, criaturasVivas = 0, wave = 1;
+            int balasGastas = 0, criaturasVivas = 0, wave = 1, armaAtiva = 0;
             Vector2 miraPosicao = {-100.0f, -100.0f};
             Vector2 miraPosicaoDelta;
             Vector2 circlePosicao;
             double angulo = 0;
             Color miraCor = DARKBLUE;
+
             inicializaPlayer(&jogador);
             //HideCursor();
 
@@ -94,8 +97,11 @@ int main(){
                     circlePosicao = circleMira(miraPosicao, cameraJogador.target);
                     //Atualizando os pontos de colisao do mapa
                     
+                    if(IsKeyDown(KEY_ONE)) armaAtiva = 1;
+                    if(IsKeyDown(KEY_TWO)) armaAtiva = 2;
+
                     if (balasGastas < 256)
-                        playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas, tiro, miraPosicao);
+                        playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas, tiro, miraPosicao, armaAtiva);
                     for (int i = 0; i < wave; i++)
                         if (Criaturas[i].vida > 0)
                             atingiuOPlayer(&Criaturas[i], &jogador);

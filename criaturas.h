@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "player.h"
+#include "armas.h"
 
 typedef struct
 {

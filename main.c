@@ -21,7 +21,6 @@ int main(){
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
     Texture2D mapa = abrirMapa();
-
     //Setando camera
     Camera2D cameraJogador;
     cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
@@ -57,7 +56,7 @@ int main(){
 
                 UpdateMusicStream(music);     
 
-                criarWave(wave, &criaturasVivas, &Criaturas);
+                criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                 criaturasVivas = wave;
                 while (criaturasVivas > 0)
                 {   
@@ -116,7 +115,6 @@ int main(){
                         movimentarProjetil(&armaPrincipal[i]);
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
                     }
-                    
                     EndMode2D();
                     EndDrawing();
 
@@ -131,13 +129,14 @@ int main(){
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
-                            criarWave(wave, &criaturasVivas, &Criaturas);
+                            criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                             inicializaPlayer(&jogador);
                             CloseWindow();
                         }
                     }
                 }
-                wave++;
+                
+            wave++;
             }
             free(Criaturas);
         }

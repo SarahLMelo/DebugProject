@@ -8,10 +8,20 @@ Texture2D abrirMapa(){
     UnloadImage(mapaPng);
     return mapa;
 }
-
 bool checarLimiteCamera();
 
-Vector2 spawnPoints();
+Vector2 spawnPoints(int i, int width, int height){
+    Vector2 spawnPointMob[7];
+    spawnPointMob[0] = (Vector2) { 48*49 , height*3-48*13};  //Spawnpoint escada esquerda
+    spawnPointMob[1] = (Vector2) { 48*35 , height*3-48*13};  //Spawnpoint escada direita
+    spawnPointMob[2] = (Vector2) { 48, height+48*9 };  //Spawnpoint esquerda tunel
+    spawnPointMob[3] = (Vector2) { 48*25, 320 };  //Spawnpoint porta entre caixões
+    spawnPointMob[4] = (Vector2) { width*3-48*15, 320 };  //Spawnpoint ponte
+    spawnPointMob[5] = (Vector2) { width*3-128, 48*53 }; //Spawnpoint burac obaixo direito
+    spawnPointMob[6] = (Vector2) { 48*108, height*3-48*3 }; //Spawnpoint canto inferior
+    return spawnPointMob[i];
+ }
+
 
 void ColisionMap(Rectangle grid[], Texture2D mapa){
     //Parede da esquerda do mapa

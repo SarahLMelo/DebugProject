@@ -4,6 +4,7 @@
 #include <math.h>
 #include "player.h"
 #include "armas.h"
+#include "mapa.h"
 //pedro passou aqui
 
 void criarCriatura(mob *criatura, double posX, double posY)
@@ -97,14 +98,16 @@ void atingiuOPlayer(mob *criatura, nerdola *player)
     return;
 }
 
-void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas){
+void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h){
     (*criaturas) = (mob*) realloc((*criaturas), sizeof(mob)*wave);
-
     for(int i=0; i<wave; i++){
-        int x, y;
-        x = rand()%1700;
-        y = rand()%800;
-        criarCriatura((*criaturas)+i, x, y);
+        int x, y, sIndex;
+        if(i>7) sIndex = i %7;
+        else sIndex = i;
+        // x = rand()%1700;
+        // y = rand()%800;
+        Vector2 localizacao = spawnPoints(sIndex, w, h);
+        criarCriatura((*criaturas)+i, localizacao.x , localizacao.y);
     }
 
     //(*qtdCriaturasVivas) = wave;

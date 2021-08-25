@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "criaturas.h": "c",
+        "player.h": "c",
+        "math.h": "c",
+        "stdio.h": "c",
+        "raylib.h": "c",
+        "stdlib.h": "c"
+    }
+}

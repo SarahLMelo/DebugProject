@@ -10,8 +10,8 @@
 #define miraRaio 5
 
 bala armaPrincipal[256];
-Rectangle grid[1];
-int qtdDeParedes = 1;
+Rectangle grid[50];
+int qtdDeParedes = 45;
 
 int main(){
     InitWindow(1920, 1080, "Nosso jogo");
@@ -27,15 +27,12 @@ int main(){
     cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
     cameraJogador.target = (Vector2) {0.0f, 0.0f};
     cameraJogador.rotation = 0.0f;
-    cameraJogador.zoom = 1.0f;
+    cameraJogador.zoom = 0.2f;
 
     //Iniciando o game
     SetTargetFPS(60);
-
-    grid[0].height = 300;
-    grid[0].width = 400;
-    grid[0].x = 100;
-    grid[0].y = 450;
+    //Setando os grids do collision map
+    ColisionMap(grid, mapa);
 
     while (!WindowShouldClose())
     {
@@ -52,11 +49,12 @@ int main(){
             
             inicializaPlayer(&jogador);
             
-            //HideCursor();
 
             while (IsKeyUp(KEY_ESCAPE))
             {
                 //Atualizando a stream da música
+                HideCursor();
+
                 UpdateMusicStream(music);     
 
                 criarWave(wave, &criaturasVivas, &Criaturas);
@@ -69,10 +67,9 @@ int main(){
                     BeginDrawing();
                     //Iniciando a camera
                     BeginMode2D(cameraJogador);
-                    ClearBackground(LIGHTGRAY);
+                    ClearBackground(BLACK);
                     //Desenhando o mapa
                     DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
-
                     for (int i = 0; i < wave; i++)
                     {
                         if (Criaturas[i].vida > 0)
@@ -84,9 +81,8 @@ int main(){
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
 
                     DrawCircleV(circlePosicao, 5, miraCor);
-                    for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], YELLOW);
                     
-                    
+                    // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
 
                     //Mover tudo
                     for (int i = 0; i < wave; i++)
@@ -96,7 +92,7 @@ int main(){
                     
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
-                    cameraJogador.zoom = 1.0f;
+                    cameraJogador.zoom = 0.6f;
                     
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();

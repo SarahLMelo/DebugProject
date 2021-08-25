@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "armas.h"
+#include "mapa.h"
 
 #define miraRaio 5
 
@@ -19,6 +20,7 @@ int main(){
     Sound tiro;
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
+    Texture2D mapa = abrirMapa();
 
     //Setando camera
     Camera2D cameraJogador;
@@ -47,8 +49,9 @@ int main(){
             Vector2 circlePosicao;
             double angulo = 0;
             Color miraCor = DARKBLUE;
-
+            
             inicializaPlayer(&jogador);
+            
             //HideCursor();
 
             while (IsKeyUp(KEY_ESCAPE))
@@ -67,6 +70,9 @@ int main(){
                     //Iniciando a camera
                     BeginMode2D(cameraJogador);
                     ClearBackground(LIGHTGRAY);
+                    //Desenhando o mapa
+                    DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
+
                     for (int i = 0; i < wave; i++)
                     {
                         if (Criaturas[i].vida > 0)
@@ -87,9 +93,11 @@ int main(){
                         if (Criaturas[i].vida > 0)
                             moverCriatura(&Criaturas[i], jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes);
                     movimentarPlayer(&jogador, grid, qtdDeParedes);
+                    
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
                     cameraJogador.zoom = 1.0f;
+                    
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();
                     miraPosicao.x += cameraJogador.target.x - cameraJogador.offset.x;
@@ -118,6 +126,7 @@ int main(){
 
                     if (jogador.vida <= 0)
                     {
+                        
                         while (IsKeyUp(KEY_SPACE))
                         {   
                             ClearBackground(BLACK);
@@ -137,7 +146,7 @@ int main(){
             free(Criaturas);
         }
     }
-
+    UnloadTexture(mapa);
     UnloadMusicStream(music);
     CloseAudioDevice();
 

@@ -114,11 +114,130 @@ void ColisionMap(Rectangle grid[], Texture2D mapa){
     grid[19].width = 56;
     grid[19].x = 1800;
     grid[19].y = 272;
-    //Ponte Esquerda
-    grid[20].height = 106;
-    grid[20].width = 56;
-    grid[19].x = 1800;
-    grid[19].y = 272;
-
-
-    }
+    //Ponte Esquerda 
+    grid[20].height = 710;
+    grid[20].width = 240;
+    grid[20].x = (mapa.width*3)-(1116);
+    grid[20].y = 272;
+    //Ponte Direita 
+    grid[21].height = 672;
+    grid[21].width = 2;
+    grid[21].x = mapa.width*3 - 416;
+    grid[21].y = 264;
+    //Ponte Direita Cima 1
+    grid[22].height = 242;
+    grid[22].width = 144;
+    grid[22].x = mapa.width*3 - 560;
+    grid[22].y = 264;
+    //Ponte Direita Cima Quadradin
+    grid[23].height = 48;
+    grid[23].width = 48;
+    grid[23].x = mapa.width*3 - 464;
+    grid[23].y = 512;
+    //Ponte Direita Baixo
+    grid[24].height = 140;
+    grid[24].width = 512;
+    grid[24].x = mapa.width*3 - 560;
+    grid[24].y = 828;
+    //Ponte Direita Baixo Quadradin
+    grid[25].height = 48;
+    grid[25].width = 48;
+    grid[25].x = mapa.width*3 - 464;
+    grid[25].y = 780;
+    //Caixao direita 1
+    grid[26].height = 56;
+    grid[26].width = 106;
+    grid[26].x = mapa.width*3-220;
+    grid[26].y = 1192;
+    //Caixao direita 2 
+    grid[27].height = 64;
+    grid[27].width = 106;
+    grid[27].x = mapa.width*3 - 222;
+    grid[27].y = 1320;
+    //Caixao direita 3
+    grid[28].width = 106;
+    grid[28].height = 56;
+    grid[28].x = mapa.width*3-220;
+    grid[28].y = 1472;
+    //Caixao direita 4
+    grid[29].height = 64;
+    grid[29].width = 106;
+    grid[29].x = mapa.width*3-220;
+    grid[29].y = 1604;
+    //Buraco inferior direito
+    grid[30].height = 240;
+    grid[30].width = 240;
+    grid[30].x = mapa.width*3-242;
+    grid[30].y = 2160;
+    //Buraco inferior esquerdo
+    grid[31].width = 16*3*15;
+    grid[31].height = 16*3*12;
+    grid[31].x = mapa.width*3-1196;
+    grid[31].y = 2160;
+    //Buraco inferior direito
+    grid[32].width = 16*3*9;
+    grid[32].height = 16*3*12;
+    grid[32].x = mapa.width*3-16*3*9;
+    grid[32].y = mapa.height*3-16*3*13;
+    //Buraco inferior mid fino
+    grid[33].width = 16*3*2;
+    grid[33].height = 16*3*2;
+    grid[33].x = mapa.width*3 - 474;
+    grid[33].y = mapa.height*3-16*3*13;
+    //Escada meio 2
+    grid[34].width = 48*2;
+    grid[34].height = 48*2;
+    grid[34].x = 48*52;
+    grid[34].y = mapa.height*3-16*3*14;
+    //Escada meio 1
+    grid[35].width = 48*2;
+    grid[35].height = 48*2;
+    grid[35].x = 48*32;
+    grid[35].y = mapa.height*3-16*3*14;
+    //Buraco é mais embaixo
+    grid[36].width = 48*14;
+    grid[36].height = 48*6;
+    grid[36].x = 48*91;
+    grid[36].y = mapa.height*3-16*3*6;
+    //Buraco é mais embaixo/1
+    grid[37].width = 48;
+    grid[37].height = 48;
+    grid[37].x = 48*90;
+    grid[37].y = mapa.height*3-16*3*5;
+    //Buraco é mais embaixo/2
+    grid[38].width = 48;
+    grid[38].height = 48;
+    grid[38].x = 48*89;
+    grid[38].y = mapa.height*3-16*3*4;
+    //Buraco é mais embaixo/3
+    grid[39].width = 48;
+    grid[39].height = 48;
+    grid[39].x = 48*88;
+    grid[39].y = mapa.height*3-16*3*3;
+    //Buraco é mais embaixo/4
+    grid[40].width = 48;
+    grid[40].height = 48;
+    grid[40].x = 48*87;
+    grid[40].y = mapa.height*3-16*3*2;
+    //Mesa cima
+    grid[41].width = 48*5;
+    grid[41].height = 56;
+    grid[41].x = 48*78;
+    grid[41].y = 48*5+32;
+    //Mesa baixo
+    grid[42].width = 48*4;
+    grid[42].height = 61;
+    grid[42].x = 48*65;
+    grid[42].y = 48*61-24;
+    //Baldezin
+    grid[43].width = 48;
+    grid[43].height = 48;
+    grid[43].x = 48*66;
+    grid[43].y = 48*62-10;
+    //Baldezin Extremo Esquerda (PT)
+    grid[43].width = 48;
+    grid[43].height = 48;
+    grid[43].x = 48;
+    grid[43].y = 48*6;
+    
+}

@@ -14,7 +14,7 @@ void InitAudioDevice(void);
 void inicializaPlayer(nerdola *jogador)
 {
     //Inicializa o player assim que abrir o jogo
-    (*jogador).colisao.x = 1000;
+    (*jogador).colisao.x = 4000;
     (*jogador).colisao.y = 1000;
     (*jogador).vida = 50;
     (*jogador).armadura = 0;

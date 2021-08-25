@@ -10,8 +10,8 @@
 #define miraRaio 5
 
 bala armaPrincipal[256];
-Rectangle grid[20];
-int qtdDeParedes = 22;
+Rectangle grid[50];
+int qtdDeParedes = 45;
 
 int main(){
     InitWindow(1920, 1080, "Nosso jogo");
@@ -81,9 +81,8 @@ int main(){
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
 
                     DrawCircleV(circlePosicao, 5, miraCor);
-                    for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
                     
-                    
+                    // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
 
                     //Mover tudo
                     for (int i = 0; i < wave; i++)

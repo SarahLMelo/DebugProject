@@ -56,17 +56,13 @@ int main(){
         if (menuInicial() == 1)
         {
 
-            //tela de carregamento (abre uma tela rosa por 8s antes do jogo começar)
-            while (contadorTempo < 8000 && flag==0)
+            //tela de carregamento (abre uma tela rosa por 20s antes do jogo começar)
+            while (contadorTempo < 20000 && flag==0)
             {
                 clock_t currentTime = clock() - prevTime;
                 contadorTempo = currentTime*1000/CLOCKS_PER_SEC;
 
-                BeginDrawing();
-                    ClearBackground(PINK);
-                    DrawText("ESPERANDO O TEXTO", 600, 600, 50, BLACK);
-                    DrawText("aperta T p pular isso daqui mane", 450, 700, 80, DARKBLUE);
-                EndDrawing();
+                telaCarregamento();
 
                 if(IsKeyPressed(KEY_T)){
                     flag=1;

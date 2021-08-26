@@ -5,7 +5,7 @@
 
 void abrirGlossario();
 
-//void iniciarJogo();
+void telaCarregamento();
 
 int menuInicial();
 

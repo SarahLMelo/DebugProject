@@ -20,6 +20,8 @@ bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int ar
 
 Vector2 circleMira(Vector2 coord, Vector2 p);
 
-void movimentarProjetil(bala *projetil, Texture2D balaAnimation);
+int bateuNaParedeP(Rectangle *grid, bala projetil);
+
+void movimentarProjetil(bala *projetil, Rectangle *grid, Texture2D balaAnimation);
 
 #endif

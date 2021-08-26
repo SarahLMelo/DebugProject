@@ -93,13 +93,34 @@ Vector2 circleMira(Vector2 coord, Vector2 p){
     return newCoord;
 }
 
-void movimentarProjetil(bala *projetil, Texture2D balaAnimation){
+int bateuNaParedeP(Rectangle *grid, bala projetil){
+    int bateu = 0;
+    for(int i=0; i<4 && bateu == 0; i++){
+        if(CheckCollisionRecs(projetil.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=10; i<20 && bateu == 0; i++){
+        if(CheckCollisionRecs(projetil.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=26; i<30 && bateu == 0; i++){
+        if(CheckCollisionRecs(projetil.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=41; i<44 && bateu == 0; i++){
+        if(CheckCollisionRecs(projetil.colisao, grid[i])) bateu = 1;
+    }
+
+    return bateu;
+}
+
+void movimentarProjetil(bala *projetil, Rectangle *grid, Texture2D balaAnimation){
     (*projetil).colisao.x += (int)(*projetil).velocidade * (*projetil).x;
     (*projetil).colisao.y += (int)(*projetil).velocidade * (*projetil).y;
-    Rectangle frameBala = { 0.0f, 0.0f,(float) balaAnimation.width/4, (float) balaAnimation.height };
     Rectangle frameBalaDest = { (*projetil).colisao.x+15, (*projetil).colisao.y+15, (float) balaAnimation.width/4, (float) balaAnimation.height};
     DrawTexturePro(balaAnimation, frameBala, frameBalaDest, (Vector2) { (float) 0*balaAnimation.width, (float) 0*balaAnimation.height }, 180-(*projetil).angulo, WHITE);  
+    if(bateuNaParedeP(grid, (*projetil)) == 1) (*projetil).viva = 0;
     if((*projetil).viva = 0) UnloadTexture(balaAnimation);
+
+
+    return;
 }
 
 void CloseAudioDevice(void);

@@ -99,7 +99,7 @@ void atingiuOPlayer(mob *criatura, nerdola *player)
 }
 
 void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h){
-    (*criaturas) = (mob*) realloc((*criaturas), sizeof(mob)*wave);
+    (*criaturas) = (mob*) malloc(sizeof(mob)*wave);
     for(int i=0; i<wave; i++){
         int x, y, sIndex;
         if(i>7) sIndex = i %7;
@@ -116,7 +116,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h){
 }
 
 int acertouACriatura(bala *projetil, mob **Criaturas, int wave){
-    int achouAlguem = 0;
+    int achouAlguem = 0, matouACriatura = 0;
     for(int i=0; i<wave && achouAlguem == 0; i++){
         if((*Criaturas)[i].vida <= 0) continue;
         else if(CheckCollisionRecs((*projetil).colisao, (*Criaturas)[i].colisao) == true){
@@ -126,5 +126,5 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave){
         }
     }
 
-    return achouAlguem;
+    return matouACriatura;
 }

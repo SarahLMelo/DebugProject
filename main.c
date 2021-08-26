@@ -6,6 +6,7 @@
 #include <math.h>
 #include "armas.h"
 #include "mapa.h"
+#include "menu.h"
 
 #define miraRaio 5
 
@@ -37,13 +38,11 @@ int main(){
     {
         if (menuInicial() == 1)
         {
-            mob *Criaturas = NULL;
+            mob *Criaturas;
             nerdola jogador;
             int balasGastas = 0, criaturasVivas = 0, wave = 1, armaAtiva = 0;
             Vector2 miraPosicao = {-100.0f, -100.0f};
-            Vector2 miraPosicaoDelta;
             Vector2 circlePosicao;
-            double angulo = 0;
             Color miraCor = DARKBLUE;
             
             inicializaPlayer(&jogador);
@@ -116,6 +115,9 @@ int main(){
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
                     }
                     EndMode2D();
+                    char debugando[5];
+                    itoa(criaturasVivas, debugando, 10);
+                    DrawText(debugando, 10, 10, 20, WHITE);
                     EndDrawing();
 
                     if (jogador.vida <= 0)
@@ -129,6 +131,7 @@ int main(){
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
+                            free(Criaturas);
                             criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                             inicializaPlayer(&jogador);
                             CloseWindow();
@@ -137,6 +140,7 @@ int main(){
                 }
                 
             wave++;
+            free(Criaturas);
             }
             free(Criaturas);
         }

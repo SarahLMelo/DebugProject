@@ -27,7 +27,7 @@ int main(){
     PlayMusicStream(music);
   
     Texture2D mapa = abrirMapa();
-    Texture2D corpoNerdola=LoadTexture("Assets/personagens/medieval/Idle.png");
+    Texture2D corpoNerdola=LoadTexture("Assets/Runrobo.png");
     Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
     int frameAtual = 0;
     int countFrames = 0;
@@ -46,8 +46,31 @@ int main(){
 
     while (!WindowShouldClose())
     {
+
+        //tela de carregamento
+        int contadorTempo=0;
+        clock_t prevTime = clock();
+        int flag=0;
+
         if (menuInicial() == 1)
         {
+
+            //tela de carregamento (abre uma tela rosa por 8s antes do jogo começar)
+            while (contadorTempo < 8000 && flag==0)
+            {
+                clock_t currentTime = clock() - prevTime;
+                contadorTempo = currentTime*1000/CLOCKS_PER_SEC;
+
+                BeginDrawing();
+                    ClearBackground(PINK);
+                    DrawText("ESPERANDO O TEXTO", 600, 600, 50, BLACK);
+                    DrawText("aperta T p pular isso daqui mane", 450, 700, 80, DARKBLUE);
+                EndDrawing();
+
+                if(IsKeyPressed(KEY_T)){
+                    flag=1;
+                }
+            }
 
             countFrames++;
 
@@ -155,14 +178,17 @@ int main(){
                     EndMode2D();
                     EndDrawing();
 
+                    int contadorMortos=45;
+
                     if (jogador.vida <= 0)
                     {
                         
                         while (IsKeyUp(KEY_SPACE))
                         {   
                             ClearBackground(BLACK);
-                            DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
-                            DrawText("Pressione espaço para comecar novamente ou p para sair", 600, 450, 20, BLUE);
+                            DrawText("VOCE MORREU!", 345, 400, 150, RED);  
+                            DrawText("Pressione espaço para comecar novamente ou p para sair", 490, 600, 30, LIGHTGRAY);
+                            DrawText(TextFormat("pontuação: %i", contadorMortos), 600, 700, 90, YELLOW);
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
@@ -192,6 +218,7 @@ int main(){
             free(Criaturas);
         }
     }
+    UnloadTexture(corpoNerdola);
     UnloadTexture(mapa);
     UnloadMusicStream(music);
     CloseAudioDevice();

@@ -7,9 +7,9 @@
 
 typedef struct
 {
-    int vida, dano, armadura;
+    int vida, dano, armadura, alguemJaChocou;
     double velocidade;
-    Rectangle colisao;
+    Rectangle colisao, pequenaColisao;
 
 } mob;
 
@@ -17,7 +17,9 @@ void criarCriatura(mob *criatura, double posX, double posY);
 
 int bateuNaParede(Rectangle *grid, mob criatura, int quantidadeDeParedes);
 
-void moverCriatura(mob *criatura, int posX, int posY, Rectangle *grid, int quantidadeDeParedes);
+int bateuEmOutraCriatura(mob criatura, int i, mob **vetorCriatura, int wave);
+
+void moverCriatura(mob **criatura, int posX, int posY, Rectangle *grid, int quantidadeDeParedes, int wave);
 
 void atingiuOPlayer(mob *criatura, nerdola *player);
 

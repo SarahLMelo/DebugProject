@@ -17,6 +17,7 @@ Rectangle grid[50];
 int qtdDeParedes = 45;
 
 int main(){
+  
     InitWindow(1920, 1080, "Nosso jogo");
     ToggleFullscreen();
     InitAudioDevice();
@@ -24,8 +25,14 @@ int main(){
     Sound tiro;
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
+  
     Texture2D mapa = abrirMapa();
-    //Setando camera
+    Texture2D corpoNerdola=LoadTexture("Assets/Runrobo.png");
+    Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
+    int frameAtual = 0;
+    int countFrames = 0;
+    int velFrames = 8;
+
     Camera2D cameraJogador;
     cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
     cameraJogador.target = (Vector2) {0.0f, 0.0f};
@@ -41,7 +48,21 @@ int main(){
     {
         if (menuInicial() == 1)
         {
+
+            countFrames++;
+
+            if (countFrames>=(60/velFrames))
+            {
+                countFrames = 0;
+                frameAtual++;
+
+                if (frameAtual>7) frameAtual = 0;
+
+                frameRec.x = (float)frameAtual*(float)corpoNerdola.width/8;
+            }
+
             mob *Criaturas;
+
             nerdola jogador;
             int balasGastas = 0, criaturasVivas = 0, wave = 1, armaAtiva = 0;
             Vector2 miraPosicao = {-100.0f, -100.0f};
@@ -76,7 +97,15 @@ int main(){
                         if (Criaturas[i].vida > 0)
                             DrawRectangleRec(Criaturas[i].colisao, RED);
                     }
-                    DrawRectangleRec(jogador.colisao, GREEN);
+                    DrawRectangleRec(jogador.colisao, BLANK); //colocando a caixa de colisao transparente
+                    //adicionando a textura do nerdola (sem animacao ainda)
+                    DrawTextureRec(corpoNerdola, frameRec, jogador.posicaoNerdola, WHITE);
+
+                    //colocando a vida no canto da tela (seguindo a camera)  MUDEI AQUI
+                    for (int i = 0; i < jogador.vida; i++)
+                    {
+                        DrawRectangle(jogador.colisao.x-1450 + 7*i, jogador.colisao.y-700, 20, 20, GREEN);
+                    }
                     for (int i = 0; i < 256; i++)
                         if (armaPrincipal[i].viva == 1)
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);

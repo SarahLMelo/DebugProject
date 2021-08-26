@@ -10,6 +10,8 @@ typedef struct
     int viva, dano;
     double velocidade, x, y;
     Rectangle colisao;
+    float angulo;
+
 } bala;
 
 bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAtiva);
@@ -20,6 +22,6 @@ Vector2 circleMira(Vector2 coord, Vector2 p);
 
 int bateuNaParedeP(Rectangle *grid, bala projetil);
 
-void movimentarProjetil(bala *projetil, Rectangle *grid);
+void movimentarProjetil(bala *projetil, Rectangle *grid, Texture2D balaAnimation);
 
 #endif

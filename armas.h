@@ -1,27 +1,23 @@
 #ifndef ARMAS
 #define ARMAS
 
+#include "player.h"
+#include "armas.h"
 #include "raylib.h"
 
 typedef struct
 {
-    float dano, velocidade;
-    char[40] nome;
-} arma;
-
-typedef struct
-{
-    int viva, dano, x, y;
-    double velocidade;
+    int viva, dano;
+    double velocidade, x, y;
     Rectangle colisao;
 } bala;
 
-void inicializaArma(modelo *arma);
+bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAtiva);
 
-bala atirar(int key1, int key2, nerdola jogador);
+bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int armaAtiva);
 
-void destruirProjetil(bala **vetor, int *tamanho);
+Vector2 circleMira(Vector2 coord, Vector2 p);
 
 void movimentarProjetil(bala *projetil);
 
-#endif ARMAS
+#endif

@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "player.h"
+#include "armas.h"
 
 typedef struct
 {
@@ -14,8 +15,14 @@ typedef struct
 
 void criarCriatura(mob *criatura, double posX, double posY);
 
-void moverCriatura(mob *criatura, int posX, int posY);
+int bateuNaParede(Rectangle *grid, mob criatura, int quantidadeDeParedes);
+
+void moverCriatura(mob *criatura, int posX, int posY, Rectangle *grid, int quantidadeDeParedes);
 
 void atingiuOPlayer(mob *criatura, nerdola *player);
 
-#endif CRIATURAS
+void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h);
+
+int acertouACriatura(bala *projetil, mob **Criaturas, int wave);
+
+#endif

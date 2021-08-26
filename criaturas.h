@@ -21,7 +21,7 @@ void moverCriatura(mob *criatura, int posX, int posY, Rectangle *grid, int quant
 
 void atingiuOPlayer(mob *criatura, nerdola *player);
 
-void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas);
+void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h);
 
 int acertouACriatura(bala *projetil, mob **Criaturas, int wave);
 

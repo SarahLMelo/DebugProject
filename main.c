@@ -6,30 +6,33 @@
 #include <math.h>
 #include "armas.h"
 #include "mapa.h"
+#include "menu.h"
 
 #define miraRaio 5
+
+//P virou a tecla de fechar o programa para S
 
 bala armaPrincipal[256];
 Rectangle grid[50];
 int qtdDeParedes = 45;
 
 int main(){
-    InitWindow(1800, 900, "Nosso jogo");
+  
+    InitWindow(1920, 1080, "Nosso jogo");
+    ToggleFullscreen();
     InitAudioDevice();
     Music music = LoadMusicStream("musica/TheBugger2.mp3");
     Sound tiro;
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
+  
     Texture2D mapa = abrirMapa();
-    //MUDEI AQUI
-    //adicionando o corpo do nerdola
     Texture2D corpoNerdola=LoadTexture("Assets/Runrobo.png");
     Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
     int frameAtual = 0;
     int countFrames = 0;
     int velFrames = 8;
 
-    //Setando camera
     Camera2D cameraJogador;
     cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
     cameraJogador.target = (Vector2) {0.0f, 0.0f};
@@ -45,6 +48,7 @@ int main(){
     {
         if (menuInicial() == 1)
         {
+
             countFrames++;
 
             if (countFrames>=(60/velFrames))
@@ -56,26 +60,26 @@ int main(){
 
                 frameRec.x = (float)frameAtual*(float)corpoNerdola.width/8;
             }
-            mob *Criaturas = NULL;
+
+            mob *Criaturas;
+
             nerdola jogador;
             int balasGastas = 0, criaturasVivas = 0, wave = 1, armaAtiva = 0;
             Vector2 miraPosicao = {-100.0f, -100.0f};
-            Vector2 miraPosicaoDelta;
             Vector2 circlePosicao;
-            double angulo = 0;
             Color miraCor = DARKBLUE;
             
             inicializaPlayer(&jogador);
             
 
-            while (IsKeyUp(KEY_ESCAPE))
+            while (IsKeyUp(KEY_P))
             {
                 //Atualizando a stream da música
                 HideCursor();
 
                 UpdateMusicStream(music);     
 
-                criarWave(wave, &criaturasVivas, &Criaturas);
+                criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                 criaturasVivas = wave;
                 while (criaturasVivas > 0)
                 {   
@@ -127,8 +131,14 @@ int main(){
                     circlePosicao = circleMira(miraPosicao, cameraJogador.target);
                     //Atualizando os pontos de colisao do mapa
                     
-                    if(IsKeyDown(KEY_ONE)) armaAtiva = 1;
-                    if(IsKeyDown(KEY_TWO)) armaAtiva = 2;
+                    if(IsKeyDown(KEY_ONE)){
+                        armaAtiva = 1;
+                        jogador.velocidade = 8;
+                    }
+                    if(IsKeyDown(KEY_TWO)){
+                        armaAtiva = 2;
+                        jogador.velocidade = 15;
+                    }
 
                     if (balasGastas < 256)
                         playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas, tiro, miraPosicao, armaAtiva);
@@ -142,7 +152,6 @@ int main(){
                         movimentarProjetil(&armaPrincipal[i]);
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
                     }
-                    
                     EndMode2D();
                     EndDrawing();
 
@@ -153,17 +162,32 @@ int main(){
                         {   
                             ClearBackground(BLACK);
                             DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
-                            DrawText("Pressione espaço para comecar novamente para sair", 600, 450, 20, BLUE);
+                            DrawText("Pressione espaço para comecar novamente ou p para sair", 600, 450, 20, BLUE);
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
-                            criarWave(wave, &criaturasVivas, &Criaturas);
+                            free(Criaturas);
+                            criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                             inicializaPlayer(&jogador);
-                            CloseWindow();
+                            if(IsKeyDown(KEY_P)){
+                                free(Criaturas);
+                                UnloadTexture(mapa);
+                                UnloadMusicStream(music);
+                                CloseAudioDevice();
+                                CloseWindow();
+                                return 0;
+                            }
                         }
                     }
                 }
+                
                 wave++;
+                free(Criaturas);
+                for(int i=0; i<256; i++){
+                    armaPrincipal[i].viva = 0;
+                }
+                balasGastas = 0;
+
             }
             free(Criaturas);
         }

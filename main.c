@@ -27,7 +27,7 @@ int main(){
     PlayMusicStream(music);
   
     Texture2D mapa = abrirMapa();
-    Texture2D corpoNerdola=LoadTexture("Assets/Runrobo.png");
+    Texture2D corpoNerdola=LoadTexture("C:\\Users\\User\\Documents\\GitHub\\DebugProject\Assets\\Idle.png");
     Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
     int frameAtual = 0;
     int countFrames = 0;
@@ -97,7 +97,7 @@ int main(){
                         if (Criaturas[i].vida > 0)
                             DrawRectangleRec(Criaturas[i].colisao, RED);
                     }
-                    DrawRectangleRec(jogador.colisao, BLANK); //colocando a caixa de colisao transparente
+                    //DrawRectangleRec(jogador.colisao, BLANK); //colocando a caixa de colisao transparente
                     //adicionando a textura do nerdola (sem animacao ainda)
                     DrawTextureRec(corpoNerdola, frameRec, jogador.posicaoNerdola, WHITE);
 

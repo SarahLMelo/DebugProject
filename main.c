@@ -7,6 +7,7 @@
 #include "armas.h"
 #include "mapa.h"
 #include "menu.h"
+#include <time.h>
 
 #define miraRaio 5
 

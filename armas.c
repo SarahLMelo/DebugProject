@@ -6,7 +6,7 @@
 
 #define danoRifle 40
 #define danoPistola 20
-#define miraRadius 100
+#define miraRadius 120
 
 void InitAudioDevice(void);
 
@@ -56,18 +56,20 @@ bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAt
 }
 
 bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int armaAtiva)
-{
+{   
+    //Inicializando projetil
+    bala projetil;
     //Som do projetil
     PlaySound(som);
 
-    //Inicializando projetil
-    bala projetil;
+    
     double angulo = atan2(jogador.colisao.x - xMira, jogador.colisao.y - yMira);
 
-    projetil.velocidade = 20;
+    projetil.velocidade = 90;
     projetil.x = -sin(angulo);
     projetil.y = -cos(angulo);
     projetil.viva = 1;
+    projetil.angulo = -90+angulo*57.2f;
 
     if(armaAtiva==1) projetil.dano = danoRifle;
     if(armaAtiva==2) projetil.dano = danoPistola;
@@ -91,11 +93,13 @@ Vector2 circleMira(Vector2 coord, Vector2 p){
     return newCoord;
 }
 
-void movimentarProjetil(bala *projetil){
+void movimentarProjetil(bala *projetil, Texture2D balaAnimation){
     (*projetil).colisao.x += (int)(*projetil).velocidade * (*projetil).x;
     (*projetil).colisao.y += (int)(*projetil).velocidade * (*projetil).y;
-
-    return;
+    Rectangle frameBala = { 0.0f, 0.0f,(float) balaAnimation.width/4, (float) balaAnimation.height };
+    Rectangle frameBalaDest = { (*projetil).colisao.x+15, (*projetil).colisao.y+15, (float) balaAnimation.width/4, (float) balaAnimation.height};
+    DrawTexturePro(balaAnimation, frameBala, frameBalaDest, (Vector2) { (float) 0*balaAnimation.width, (float) 0*balaAnimation.height }, 180-(*projetil).angulo, WHITE);  
+    if((*projetil).viva = 0) UnloadTexture(balaAnimation);
 }
 
 void CloseAudioDevice(void);

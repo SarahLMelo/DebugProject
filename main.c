@@ -8,7 +8,7 @@
 #include "mapa.h"
 #include "menu.h"
 #include "time.h"
-
+#include "animacao.h"
 #define miraRaio 5
 
 //P virou a tecla de fechar o programa para S
@@ -26,14 +26,23 @@ int main(){
     Sound tiro;
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
-  
+    
     Texture2D mapa = abrirMapa();
     Texture2D corpoNerdola=LoadTexture("Assets/Runrobo.png");
     Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
     int frameAtual = 0;
     int countFrames = 0;
     int velFrames = 8;
-
+    //teste
+    spritesheet teste = {
+        0,
+        8,
+        0,
+        LoadTexture("etc/texturetest.png"),
+        (Rectangle) {0.0f, 0.0f, teste.textura.width/6, teste.textura.height},
+        (Vector2) {0.0f, 0.0f}
+    };
+    //teste
     Camera2D cameraJogador;
     cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
     cameraJogador.target = (Vector2) {0.0f, 0.0f};
@@ -138,7 +147,14 @@ int main(){
                     DrawCircleV(circlePosicao, 5, miraCor);
                     
                     // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
-
+                    
+                    //teste
+                    teste.frameCounter++;
+                    teste.position.x = jogador.colisao.x;
+                    teste.position.y = jogador.colisao.y;
+                    playAnimation(&teste);
+                    //teste
+                    
                     //Mover tudo
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave);
                     movimentarPlayer(&jogador, grid, qtdDeParedes);

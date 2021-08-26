@@ -10,12 +10,15 @@
 
 #define miraRaio 5
 
+//P virou a tecla de fechar o programa para S
+
 bala armaPrincipal[256];
 Rectangle grid[50];
 int qtdDeParedes = 45;
 
 int main(){
     InitWindow(1920, 1080, "Nosso jogo");
+    ToggleFullscreen();
     InitAudioDevice();
     Music music = LoadMusicStream("musica/TheBugger2.mp3");
     Sound tiro;
@@ -48,7 +51,7 @@ int main(){
             inicializaPlayer(&jogador);
             
 
-            while (IsKeyUp(KEY_ESCAPE))
+            while (IsKeyUp(KEY_P))
             {
                 //Atualizando a stream da música
                 HideCursor();
@@ -115,9 +118,6 @@ int main(){
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
                     }
                     EndMode2D();
-                    char debugando[5];
-                    itoa(criaturasVivas, debugando, 10);
-                    DrawText(debugando, 10, 10, 20, WHITE);
                     EndDrawing();
 
                     if (jogador.vida <= 0)
@@ -127,14 +127,21 @@ int main(){
                         {   
                             ClearBackground(BLACK);
                             DrawText("VOCE MORREU!", 700, 350, 30, BLUE);
-                            DrawText("Pressione espaço para comecar novamente para sair", 600, 450, 20, BLUE);
+                            DrawText("Pressione espaço para comecar novamente ou p para sair", 600, 450, 20, BLUE);
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
                             free(Criaturas);
                             criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                             inicializaPlayer(&jogador);
-                            CloseWindow();
+                            if(IsKeyDown(KEY_P)){
+                                free(Criaturas);
+                                UnloadTexture(mapa);
+                                UnloadMusicStream(music);
+                                CloseAudioDevice();
+                                CloseWindow();
+                                return 0;
+                            }
                         }
                     }
                 }

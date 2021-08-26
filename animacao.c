@@ -8,9 +8,9 @@ void playAnimation(spritesheet *anim){
             aux.frameCounter = 0;
             aux.currentFrame++;
 
-            if (aux.currentFrame > 6) aux.currentFrame = 0;
+            if (aux.currentFrame > aux.quantFrames) aux.currentFrame = 0;
 
-            aux.frame.x = (float)aux.currentFrame*(float)aux.textura.width/6;
+            aux.frame.x = (float)aux.currentFrame*(float)aux.textura.width/aux.quantFrames;
         }
     DrawTextureRec(aux.textura, aux.frame, aux.position, WHITE);
     *anim = aux;

@@ -1,5 +1,6 @@
 #include <raylib.h>
 typedef struct{
+    int quantFrames;
     int frameCounter;
     int frameSpeed;
     int currentFrame;

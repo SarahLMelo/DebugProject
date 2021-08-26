@@ -28,13 +28,14 @@ int main(){
     PlayMusicStream(music);
     
     Texture2D mapa = abrirMapa();
-    Texture2D corpoNerdola=LoadTexture("Assets/Runrobo.png");
+    Texture2D corpoNerdola=LoadTexture("Assets/personagens/Runrobo.png");
     Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
     int frameAtual = 0;
     int countFrames = 0;
     int velFrames = 8;
     //teste
     spritesheet teste = {
+        6,
         0,
         8,
         0,

@@ -18,7 +18,7 @@ void inicializaPlayer(nerdola *jogador)
     (*jogador).colisao.y = 1000;
     (*jogador).vida = 50;
     (*jogador).armadura = 0;
-    (*jogador).velocidade = 15;
+    (*jogador).velocidade = 8;
 
     //Dimensão da hitbox
     (*jogador).colisao.height = 30;

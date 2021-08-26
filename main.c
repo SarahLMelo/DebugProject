@@ -102,8 +102,14 @@ int main(){
                     circlePosicao = circleMira(miraPosicao, cameraJogador.target);
                     //Atualizando os pontos de colisao do mapa
                     
-                    if(IsKeyDown(KEY_ONE)) armaAtiva = 1;
-                    if(IsKeyDown(KEY_TWO)) armaAtiva = 2;
+                    if(IsKeyDown(KEY_ONE)){
+                        armaAtiva = 1;
+                        jogador.velocidade = 8;
+                    }
+                    if(IsKeyDown(KEY_TWO)){
+                        armaAtiva = 2;
+                        jogador.velocidade = 15;
+                    }
 
                     if (balasGastas < 256)
                         playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas, tiro, miraPosicao, armaAtiva);
@@ -146,8 +152,13 @@ int main(){
                     }
                 }
                 
-            wave++;
-            free(Criaturas);
+                wave++;
+                free(Criaturas);
+                for(int i=0; i<256; i++){
+                    armaPrincipal[i].viva = 0;
+                }
+                balasGastas = 0;
+
             }
             free(Criaturas);
         }

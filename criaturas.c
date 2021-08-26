@@ -115,7 +115,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h){
     return;
 }
 
-int acertouACriatura(bala *projetil, mob **Criaturas, int wave){
+int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao){
     int achouAlguem = 0, matouACriatura = 0;
     for(int i=0; i<wave && achouAlguem == 0; i++){
         if((*Criaturas)[i].vida <= 0) continue;
@@ -123,7 +123,10 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave){
             achouAlguem = 1;
             (*projetil).viva = 0;
             (*Criaturas)[i].vida -= (*projetil).dano;
-            if((*Criaturas)[i].vida<=0) matouACriatura = 1;
+            if((*Criaturas)[i].vida<=0){
+                matouACriatura = 1;
+                (*pontuacao)++;
+            }
         }
     }
 

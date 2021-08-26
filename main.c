@@ -7,7 +7,7 @@
 #include "armas.h"
 #include "mapa.h"
 #include "menu.h"
-#include <time.h>
+#include "time.h"
 
 #define miraRaio 5
 
@@ -89,6 +89,7 @@ int main(){
 
             nerdola jogador;
             int balasGastas = 0, criaturasVivas = 0, wave = 1, armaAtiva = 0;
+            int pontuacao = 0;
             Vector2 miraPosicao = {-100.0f, -100.0f};
             Vector2 circlePosicao;
             Color miraCor = DARKBLUE;
@@ -174,12 +175,10 @@ int main(){
                         if (&armaPrincipal[i].viva == 0)
                             continue;
                         movimentarProjetil(&armaPrincipal[i], grid);
-                        criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
+                        criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave, &pontuacao);
                     }
                     EndMode2D();
                     EndDrawing();
-
-                    int contadorMortos=45;
 
                     if (jogador.vida <= 0)
                     {
@@ -189,7 +188,7 @@ int main(){
                             ClearBackground(BLACK);
                             DrawText("VOCE MORREU!", 345, 400, 150, RED);  
                             DrawText("Pressione espaço para comecar novamente ou p para sair", 490, 600, 30, LIGHTGRAY);
-                            DrawText(TextFormat("pontuação: %i", contadorMortos), 600, 700, 90, YELLOW);
+                            DrawText(TextFormat("pontuação: %i", pontuacao), 600, 700, 90, YELLOW);
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
@@ -204,6 +203,7 @@ int main(){
                                 CloseWindow();
                                 return 0;
                             }
+                            if(IsKeyDown(KEY_SPACE)) pontuacao = 0;
                         }
                     }
                 }

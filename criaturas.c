@@ -123,6 +123,7 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave){
             achouAlguem = 1;
             (*projetil).viva = 0;
             (*Criaturas)[i].vida -= (*projetil).dano;
+            if((*Criaturas)[i].vida<=0) matouACriatura = 1;
         }
     }
 

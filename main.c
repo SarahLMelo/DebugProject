@@ -27,7 +27,7 @@ int main(){
     PlayMusicStream(music);
   
     Texture2D mapa = abrirMapa();
-    Texture2D corpoNerdola=LoadTexture("C:\\Users\\User\\Documents\\GitHub\\DebugProject\Assets\\Idle.png");
+    Texture2D corpoNerdola=LoadTexture("Assets/personagens/medieval/Idle.png");
     Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
     int frameAtual = 0;
     int countFrames = 0;
@@ -149,7 +149,7 @@ int main(){
                     {
                         if (&armaPrincipal[i].viva == 0)
                             continue;
-                        movimentarProjetil(&armaPrincipal[i]);
+                        movimentarProjetil(&armaPrincipal[i], grid);
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
                     }
                     EndMode2D();

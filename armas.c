@@ -91,9 +91,29 @@ Vector2 circleMira(Vector2 coord, Vector2 p){
     return newCoord;
 }
 
-void movimentarProjetil(bala *projetil){
+int bateuNaParedeP(Rectangle *grid, bala projetil){
+    int bateu = 0;
+    for(int i=0; i<4 && bateu == 0; i++){
+        if(CheckCollisionRecs(projetil.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=10; i<20 && bateu == 0; i++){
+        if(CheckCollisionRecs(projetil.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=26; i<30 && bateu == 0; i++){
+        if(CheckCollisionRecs(projetil.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=41; i<44 && bateu == 0; i++){
+        if(CheckCollisionRecs(projetil.colisao, grid[i])) bateu = 1;
+    }
+
+    return bateu;
+}
+
+void movimentarProjetil(bala *projetil, Rectangle *grid){
     (*projetil).colisao.x += (int)(*projetil).velocidade * (*projetil).x;
     (*projetil).colisao.y += (int)(*projetil).velocidade * (*projetil).y;
+
+    if(bateuNaParedeP(grid, (*projetil)) == 1) (*projetil).viva = 0;
 
     return;
 }

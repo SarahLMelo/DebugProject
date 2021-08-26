@@ -18,5 +18,4 @@ int acertouAParede(nerdola jogador, Rectangle *grid, int quantidadeDeParedes);
 
 void movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes);
 
-
 #endif

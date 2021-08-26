@@ -122,7 +122,7 @@ int main(){
                         if (Criaturas[i].vida > 0)
                             DrawRectangleRec(Criaturas[i].colisao, RED);
                     }
-                    //DrawRectangleRec(jogador.colisao, BLANK); //colocando a caixa de colisao transparente
+                    DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
                     //adicionando a textura do nerdola (sem animacao ainda)
                     DrawTextureRec(corpoNerdola, frameRec, jogador.posicaoNerdola, WHITE);
 
@@ -140,9 +140,7 @@ int main(){
                     // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
 
                     //Mover tudo
-                    for (int i = 0; i < wave; i++)
-                        if (Criaturas[i].vida > 0)
-                            moverCriatura(&Criaturas[i], jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes);
+                    moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave);
                     movimentarPlayer(&jogador, grid, qtdDeParedes);
                     
                     //Atualizando a camera

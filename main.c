@@ -27,10 +27,6 @@ int main(){
     PlayMusicStream(music);
   
     Texture2D mapa = abrirMapa();
-
-    Texture2D balaAnimation = LoadTexture("etc/bala.png");
-    //Setando camera
-  
     Texture2D corpoNerdola=LoadTexture("Assets/personagens/medieval/Idle.png");
     Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
     int frameAtual = 0;
@@ -41,7 +37,7 @@ int main(){
     cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
     cameraJogador.target = (Vector2) {0.0f, 0.0f};
     cameraJogador.rotation = 0.0f;
-    cameraJogador.zoom = 1.7f;
+    cameraJogador.zoom = 0.2f;
 
     //Iniciando o game
     SetTargetFPS(60);
@@ -126,6 +122,7 @@ int main(){
                     
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
+                    cameraJogador.zoom = 0.6f;
                     
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();
@@ -152,9 +149,7 @@ int main(){
                     {
                         if (&armaPrincipal[i].viva == 0)
                             continue;
-
-                        movimentarProjetil(&armaPrincipal[i], grid, balaAnimation);
-                      
+                        movimentarProjetil(&armaPrincipal[i], grid);
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave);
                     }
                     EndMode2D();
@@ -176,7 +171,6 @@ int main(){
                             inicializaPlayer(&jogador);
                             if(IsKeyDown(KEY_P)){
                                 free(Criaturas);
-                                UnloadTexture(balaAnimation);
                                 UnloadTexture(mapa);
                                 UnloadMusicStream(music);
                                 CloseAudioDevice();

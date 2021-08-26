@@ -12,15 +12,22 @@ void abrirGlossario(){
     EndDrawing();
 }
 
-/*void iniciarJogo(){
-    char titulo[]="jogo";
+void telaCarregamento(){
 
-    BeginDrawing();
-        ClearBackground(DARKGREEN);
-        DrawText(titulo, 700, 300, 200, WHITE);
+    Texture2D teclado=LoadTexture("Assets/Botoes/wasd.png");
 
-    EndDrawing();
-}*/
+        char intro[]="Nas profundezas das cavernas das noites mal dormidas,\nhabita um grande mal que assombra a humanidade, um mal que\nsomente você, Nerdola, será capaz de eliminar.\n\nEssas criaturas monstruosas, capazes de destruir tudo que a humanidade\nconstruiu nos últimos anos, são conhecidas como bugs.\nElas possuem vários tipos e formas, mas não se engane, jovem,\ntodas estão dispostas a destruir a humanidade.";
+        char instrucoes[]="Aperte WASD para andar, botão esquerdo do mouse\npara atirar, 1 para mudar para a arma pesada e 2\npara a arma leve.";
+        BeginDrawing();
+            ClearBackground(BLACK);
+            DrawText(intro, 200, 200, 40, LIGHTGRAY);
+            DrawText(instrucoes, 870, 800, 30, YELLOW);
+            DrawTexture(teclado, 360, 730, GRAY);
+            DrawText("Para pular aperte T", 1500, 1000, 30, RED);
+        EndDrawing();
+
+    UnloadTexture(teclado);
+}
 
 int menuInicial(){
     //carregando os botoes

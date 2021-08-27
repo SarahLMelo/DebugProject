@@ -39,7 +39,7 @@ int acertouAParede(nerdola jogador, Rectangle *grid, int quantidadeDeParedes){
 }
 
 //adicionei o movimento "da imagem do nerdola"
-void movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes)
+int movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes)
 {
     //Movimentar para cima
     if (IsKeyDown(KEY_W))
@@ -81,6 +81,7 @@ void movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes
                 (*jogador).posicaoNerdola.y += (int)(*jogador).velocidade;
             }
         }
+        return 5;
     }
 
     //Movimentar para baixo
@@ -123,6 +124,7 @@ void movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes
                 (*jogador).posicaoNerdola.y -= (int)(*jogador).velocidade;
             }     
         }
+        return 5;
     }
 
     //Movimentar para o lado esquerdo
@@ -134,7 +136,7 @@ void movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes
             (*jogador).colisao.x += (int)(*jogador).velocidade;
             (*jogador).posicaoNerdola.x += (int)(*jogador).velocidade;
         }
-           
+        return 1;  
     }
 
     //Movimentar para o lado direito
@@ -146,10 +148,10 @@ void movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes
             (*jogador).colisao.x -= (int)(*jogador).velocidade;
             (*jogador).posicaoNerdola.x -= (int)(*jogador).velocidade;
         } 
-            
+        return 0; 
     }
 
-    return;
+    return 3;
 }
 
 void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro, Vector2 cameraTarget, int armaAtiva)

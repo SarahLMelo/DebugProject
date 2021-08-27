@@ -101,11 +101,13 @@ void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *f
             if (aux.frameCounter >= (60/aux.frameSpeed)) {
                 if( aux.oldposition.x > aux.position.x) aux.dirOuEsq = 0;
                 else aux.dirOuEsq = 1;
-                
                 aux.frameCounter = 0;
                 aux.currentFrame++;
-
-                if (aux.currentFrame > aux.quantFrames) aux.currentFrame = 0;
+                if (aux.currentFrame > aux.quantFrames){
+                    aux.atacou = 1;
+                    aux.currentFrame = 0;
+                    aux.frameCounter = 0;
+                }
                 (*frame).y = 0.0f;
                 (*frame).x = (float)aux.currentFrame*(float)(*textura).width/aux.quantFrames;
         }

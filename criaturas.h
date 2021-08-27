@@ -26,10 +26,13 @@ void moverCriatura(mob **criatura, int posX, int posY, Rectangle *grid, int quan
 
 void atingiuOPlayer(mob *criatura, nerdola *player);
 
+void atingiuOPlayer2(mob *criatura, nerdola *player);
+
 void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h);
 
 int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao);
 
 void achouOplayer(mob *criatura, nerdola *player);
+
 
 #endif

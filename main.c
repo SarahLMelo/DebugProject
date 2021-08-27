@@ -237,10 +237,13 @@ int main()
                                 DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 achouOplayer(&Criaturas[i], &jogador);
                             } else {
+                                DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 Criaturas[i].frameTimer++;
                                 if(Criaturas[i].frameTimer > 140){
+                                    printf("\n%d\n", Criaturas[i].frameTimer);
                                     Criaturas[i].frameTimer = 0;
-                                    Criaturas[i].prontoPraAtacar == 1;
+                                    Criaturas[i].prontoPraAtacar = 1;
+                                    Criaturas[i].velocidade = 2;
                                 }
                             }
                             //DrawRectangle((int)(Criaturas[i]).ataque.x,(int)(Criaturas[i]).ataque.y, 50, 50, RED);
@@ -255,6 +258,7 @@ int main()
                             } else {
                                 Criaturas[i].anima.frameCounter++;
                                 AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criatura2Rec, criatura2Tex.width/70, criatura2Tex.height/14);
+                                if(Criaturas[i].anima.currentFrame == 6) atingiuOPlayer2(&Criaturas[i], &jogador);
                             }
                             Criaturas[i].anima.oldposition.x = Criaturas[i].anima.position.x;
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;

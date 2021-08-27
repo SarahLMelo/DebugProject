@@ -303,6 +303,16 @@ void atingiuOPlayer(mob *criatura, nerdola *player)
     return;
 }
 
+void atingiuOPlayer2(mob *criatura, nerdola *player)
+{
+    if (CheckCollisionRecs((*criatura).ataque, (*player).colisao))
+    {
+        (*player).vida -= ((*criatura).dano - (*player).armadura);
+    }
+
+    return;
+}
+
 void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h)
 {
     (*criaturas) = (mob *)malloc(sizeof(mob) * wave);

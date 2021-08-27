@@ -27,6 +27,6 @@ void atingiuOPlayer(mob *criatura, nerdola *player);
 
 void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h);
 
-int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao);
+int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao, int *moeda);
 
 #endif

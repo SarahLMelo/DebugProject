@@ -12,6 +12,13 @@ typedef struct
 
 } nerdola;
 
+
+#include "player.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "armas.h"
+
 void inicializaPlayer(nerdola *jogador);
 
 int acertouAParede(nerdola jogador, Rectangle *grid, int quantidadeDeParedes);

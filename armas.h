@@ -1,11 +1,6 @@
 #ifndef ARMAS
 #define ARMAS
 
-#include "player.h"
-#include "armas.h"
-#include "raylib.h"
-#include "animacao.h"
-
 typedef struct
 {
     int frameCounter;
@@ -14,6 +9,11 @@ typedef struct
     Rectangle colisao;
     double angulo;
 } bala;
+
+#include "player.h"
+#include "armas.h"
+#include "raylib.h"
+#include "animacao.h"
 
 //bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAtiva);
 

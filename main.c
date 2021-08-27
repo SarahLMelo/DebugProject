@@ -108,7 +108,7 @@ int main()
 
             nerdola jogador;
             int balasGastasPrincipal = 0, balasGastasSecundaria = 0, criaturasVivas = 0, wave = 1, armaAtiva = 1, modRifle = 0, modPistola = 0;
-            int pontuacao = 0;
+            int pontuacao = 0, moeda = 0;
             Vector2 miraPosicao = {-100.0f, -100.0f};
             Vector2 circlePosicao;
             Color miraCor = DARKBLUE;
@@ -294,7 +294,7 @@ int main()
                         plasma.frameCounter = armaPrincipal[i].frameCounter;
                         AnimarBala(&plasma);
                         armaPrincipal[i].frameCounter = plasma.frameCounter;
-                        criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave * 5, &pontuacao);
+                        criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave * 5, &pontuacao, &moeda);
                     }
                     for (int i = 0; i < 1024; i++)
                     {
@@ -308,7 +308,7 @@ int main()
                         plasma.frameCounter = armaSecundaria[i].frameCounter;
                         AnimarBala(&plasma);
                         armaSecundaria[i].frameCounter = plasma.frameCounter;
-                        criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave * 5, &pontuacao);
+                        criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave * 5, &pontuacao, &moeda);
                     }
                     EndMode2D();
                     EndDrawing();

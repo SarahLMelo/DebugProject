@@ -31,19 +31,35 @@ int main(){
     int acaoAntiga = 1;
     //Loading texturas
     Texture2D mapa = abrirMapa();
-    //------Criatura 1
+    //------Criatura Bug Red
+    Texture2D shadow = LoadTexture("etc/personagens/principal/shadow.png");
     Texture2D criatura1TexRed = LoadTexture("etc/personagens/principal/criatura1red.png");
-    Texture2D criatura1TexYellowMorte = LoadTexture("etc/personagens/principal/criatura1yellowxplosion.png");
-    Rectangle criatura1RecMorte = {0.0f, 0.0f, criatura1TexYellowMorte.width/9,criatura1TexYellowMorte.height/2};
+    Texture2D criatura1TexRedMorte = LoadTexture("etc/personagens/principal/criatura1redxplosion.png");
+    Rectangle criatura1RecMorte = {0.0f, 0.0f, criatura1TexRedMorte.width/8,criatura1TexRedMorte.height/2};
     Rectangle criatura1Rec = {0.0f, 0.0f, criatura1TexRed.width/2, criatura1TexRed.height/2};
     //spritesheets load;
     spritesheet player = {
         8,
         0,
+        12,
+        0,
+        1,
+        0.0f,
+        LoadTexture("etc/personagens/principal/runroboclorblue_.png"),
+        LoadTexture("etc/personagens/principal/runrobocolororange_.png"),
+        (Rectangle) {0.0f, 0.0f, player.textura1.width/player.quantFrames, player.textura1.height/4},
+        (Vector2) {0.0f, 0.0f}
+    };
+    spritesheet  plasma = {
         8,
         0,
-        LoadTexture("etc/personagens/principal/runrobocolorblue.png"),
-        (Rectangle) {0.0f, 0.0f, player.textura.width/player.quantFrames, player.textura.height/4},
+        18,
+        0,
+        1,
+        0.0f,
+        LoadTexture("etc/personagens/principal/plasmaBlue.png"),
+        LoadTexture("etc/personagens/principal/plasmaRed.png"),
+        (Rectangle) {0.0f, 0.0f, plasma.textura1.width/plasma.quantFrames, plasma.textura1.height},
         (Vector2) {0.0f, 0.0f}
     };
     //Setando camera
@@ -60,7 +76,6 @@ int main(){
 
     while (!WindowShouldClose())
     {
-
         //tela de carregamento
         int contadorTempo=0;
         clock_t prevTime = clock();
@@ -115,15 +130,13 @@ int main(){
                     ClearBackground(BLACK);
                     //Desenhando o mapa
                     DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
-
-                    for (int i = 0; i < wave; i++)
-                    {
-                        if (Criaturas[i].vida > 0)
-                            DrawRectangleRec(Criaturas[i].colisao, RED);
-                    }
+                    DrawTextureEx(shadow, (Vector2){(float) cameraJogador.target.x-16*2.75*6, (float) cameraJogador.target.y-16*3*8}, 0.0f, 3.0f, WHITE);
+                    // for (int i = 0; i < wave; i++)
+                    // {
+                    //     if (Criaturas[i].vida > 0)
+                    //         DrawRectangleRec(Criaturas[i].colisao, RED);
+                    // }
                     //DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
-                    //adicionando a textura do nerdola (sem animacao ainda)
-                    DrawTextureRec(corpoNerdola, frameRec, jogador.posicaoNerdola, WHITE);
 
                     //colocando a vida no canto da tela (seguindo a camera)  MUDEI AQUI
                     for (int i = 0; i < jogador.vida; i++)
@@ -132,24 +145,28 @@ int main(){
                     }
                     DrawText(TextFormat("balas restantes na arma secundaria: %i", 1024-balasGastasSecundaria), jogador.colisao.x-1450, jogador.colisao.y-580, 60, YELLOW);
                     DrawText(TextFormat("balas restantes na arma principal: %i", 256-balasGastasPrincipal), jogador.colisao.x-1450, jogador.colisao.y-650, 60, YELLOW);
-                    for (int i = 0; i < 256; i++)
-                        if (armaPrincipal[i].viva == 1)
-                            DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
-                    for (int i = 0; i < 1024; i++)
-                        if (armaSecundaria[i].viva == 1)
-                            DrawRectangleRec(armaSecundaria[i].colisao, PINK);
+                    // for (int i = 0; i < 256; i++)
+                    //     if (armaPrincipal[i].viva == 1)
+                    //         DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
+                    // for (int i = 0; i < 1024; i++)
+                    //     if (armaSecundaria[i].viva == 1)
+                    //         DrawRectangleRec(armaSecundaria[i].colisao, PINK);
 
                     DrawCircleV(circlePosicao, 5, miraCor);
                     
                     // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
                     
-                    //Mover tudo
+                    //Movendo criatura
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave);
-                    //Animacao criatura
+                    //Animando criatura
                     for (int i = 0; i < wave; i++)
                     {   
+                        if(Criaturas[i].animaMorte.morreu == 1){
+                            Criaturas[i].animaMorte.frameCounter++;
+                            AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
+                        }
                         if (Criaturas[i].vida > 0){
-                            DrawRectangleRec(Criaturas[i].colisao, RED);
+                            //DrawRectangleRec(Criaturas[i].colisao, RED);
                             Criaturas[i].anima.frameCounter++;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
@@ -158,11 +175,9 @@ int main(){
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
-                        }else if(Criaturas[i].animaMorte.morreu == 1){
-                                Criaturas[i].animaMorte.frameCounter++;
-                                AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexYellowMorte, &criatura1RecMorte, 96, 96);
                         }
                     }
+                    //Movimentando player
                     acao = movimentarPlayer(&jogador, grid, qtdDeParedes);
                     //Animando player
                     switch(acao){
@@ -183,8 +198,18 @@ int main(){
                     player.frameCounter++;
                     player.position.x = jogador.colisao.x;
                     player.position.y = jogador.colisao.y;
+                    if(armaAtiva == 1){
+                        player.ativo = 1;
+                        player.frameSpeed = 12;
+                        plasma.ativo = 1;
+                    } 
+                    if(armaAtiva == 2){
+                        player.ativo = 2;
+                        player.frameSpeed = 18;
+                        plasma.ativo = 2;
+                    } 
+                    //DrawRectangleRec(jogador.colisao, WHITE);
                     AnimarPlayer(&player, acao);
-
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
                     cameraJogador.zoom = 0.75f;
@@ -216,14 +241,28 @@ int main(){
                     {
                         if (armaPrincipal[i].viva == 0)
                             continue;
+                        armaPrincipal[i].frameCounter++;
                         movimentarProjetil(&armaPrincipal[i], grid);
+                        plasma.position = (Vector2) {armaPrincipal[i].colisao.x, armaPrincipal[i].colisao.y};
+                        plasma.ativo = 1;
+                        plasma.angulo = armaPrincipal[i].angulo;
+                        plasma.frameCounter = armaPrincipal[i].frameCounter;
+                        AnimarBala(&plasma);
+                        armaPrincipal[i].frameCounter = plasma.frameCounter;
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave, &pontuacao);
                     }
                     for (int i = 0; i < 1024; i++)
                     {
                         if (armaSecundaria[i].viva == 0)
                             continue;
+                        armaSecundaria[i].frameCounter++;
                         movimentarProjetil(&armaSecundaria[i], grid);
+                        plasma.position = (Vector2) {armaSecundaria[i].colisao.x, armaSecundaria[i].colisao.y};
+                        plasma.ativo = 2;
+                        plasma.angulo = armaSecundaria[i].angulo;
+                        plasma.frameCounter = armaSecundaria[i].frameCounter;
+                        AnimarBala(&plasma);
+                        armaSecundaria[i].frameCounter = plasma.frameCounter;
                         criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave, &pontuacao);
                     }
                     EndMode2D();
@@ -234,6 +273,7 @@ int main(){
                         
                         while (IsKeyUp(KEY_SPACE))
                         {   
+                            free(Criaturas);
                             ClearBackground(BLACK);
                             DrawText("VOCE MORREU!", 345, 400, 150, RED);  
                             DrawText("Pressione espaço para comecar novamente ou p para sair", 490, 600, 30, LIGHTGRAY);
@@ -241,11 +281,16 @@ int main(){
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
-                            free(Criaturas);
                             criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                             inicializaPlayer(&jogador);
                             if(IsKeyDown(KEY_P)){
-                                free(Criaturas);
+                                //free(Criaturas);
+                                UnloadTexture(plasma.textura1);
+                                UnloadTexture(plasma.textura2);
+                                UnloadTexture(player.textura1);
+                                UnloadTexture(player.textura2);
+                                UnloadTexture(criatura1TexRed);
+                                UnloadTexture(criatura1TexRedMorte);
                                 UnloadTexture(mapa);
                                 UnloadMusicStream(music);
                                 CloseAudioDevice();
@@ -256,16 +301,8 @@ int main(){
                         }
                     }
                 }
-                BeginMode2D(cameraJogador);
-                BeginDrawing();
-                while(Criaturas[wave-1].animaMorte.morreu == 1){ 
-                    AnimarCriatura1(&Criaturas[wave-1].animaMorte, &criatura1TexYellowMorte, &criatura1RecMorte, 64, 64);
-                    Criaturas[wave-1].animaMorte.frameCounter++;
-                }
-                EndDrawing();
-                EndMode2D();
-                wave+=5;
                 free(Criaturas);
+                wave+=5;
                 for(int i=0; i<256; i++){
                     armaPrincipal[i].viva = 0;
                 }
@@ -274,14 +311,18 @@ int main(){
                 }
                 balasGastasPrincipal = 0;
                 balasGastasSecundaria = 0;
+                
+        }
 
             }
-            free(Criaturas);
-        }
+            
     }
-    UnloadTexture(player.textura);
+    UnloadTexture(plasma.textura1);
+    UnloadTexture(plasma.textura2);
+    UnloadTexture(player.textura1);
+    UnloadTexture(player.textura2);
     UnloadTexture(criatura1TexRed);
-    UnloadTexture(criatura1TexYellowMorte);
+    UnloadTexture(criatura1TexRedMorte);
     //UnloadTexture(criatura1TexYellow);
     UnloadTexture(mapa);
     UnloadMusicStream(music);

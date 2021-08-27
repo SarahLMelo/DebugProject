@@ -63,12 +63,12 @@ bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int ar
     //Inicializando projetil
     bala projetil;
     double angulo = atan2(jogador.colisao.x - xMira, jogador.colisao.y - yMira);
-
+    projetil.frameCounter = 0;
     projetil.velocidade = 20;
     projetil.x = -sin(angulo);
     projetil.y = -cos(angulo);
     projetil.viva = 1;
-
+    projetil.angulo = -90+angulo*57.2f;
     if(armaAtiva==1) projetil.dano = danoRifle;
     if(armaAtiva==2) projetil.dano = danoPistola;
 

@@ -8,7 +8,13 @@
 //pedro passou aqui
 
 void criarCriatura(mob *criatura, double posX, double posY)
-{
+{   
+    //Setando animação da criatura
+    (*criatura).anima.quantFrames = 2;
+    (*criatura).anima.frameCounter = 0;
+    (*criatura).anima.frameSpeed = 8;
+    (*criatura).anima.currentFrame = 0;
+    (*criatura).anima.oldposition = (Vector2) {0.0f, 0.0f};
     //Status básicos da criatura
     (*criatura).armadura = 5;
     (*criatura).vida =80;

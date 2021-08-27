@@ -132,11 +132,11 @@ int main(){
                     //Desenhando o mapa
                     DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
                     DrawTextureEx(shadow, (Vector2){(float) cameraJogador.target.x-16*2.75*6, (float) cameraJogador.target.y-16*3*8}, 0.0f, 3.0f, WHITE);
-                    // for (int i = 0; i < wave; i++)
-                    // {
-                    //     if (Criaturas[i].vida > 0)
-                    //         DrawRectangleRec(Criaturas[i].colisao, RED);
-                    // }
+                    /*for (int i = 0; i < wave*5; i++)
+                     {
+                         if (Criaturas[i].vida > 0)
+                             DrawRectangleRec(Criaturas[i].colisao, RED);
+                     }*/
                     //DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
 
                     //colocando a vida no canto da tela (seguindo a camera)  MUDEI AQUI

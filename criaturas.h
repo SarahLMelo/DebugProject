@@ -10,7 +10,7 @@ typedef struct
 {
     spritesheetCreature animaMorte;
     spritesheetCreature anima;
-    int vida, dano, armadura, alguemJaChocou;
+    int vida, dano, armadura, alguemJaChocou, tipo;
     double velocidade;
     Rectangle colisao, pequenaColisao;
 } mob;

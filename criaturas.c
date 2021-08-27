@@ -165,7 +165,9 @@ void criarCriatura(mob *criatura, double posX, double posY)
         (*criatura).velocidade = 2;
         (*criatura).alguemJaChocou = 0;
         (*criatura).tipo = 4;
-
+        (*criatura).prontoPraAtacar = 1;
+        (*criatura).atacou = 0;
+        (*criatura).frameTimer = 0;
         //Criando o retangulo de colisão
         (*criatura).colisao.height = 60;
         (*criatura).colisao.width = 60;
@@ -342,3 +344,14 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao)
 
     return matouACriatura;
 }
+
+void achouOplayer(mob *criatura, nerdola *player){
+    if (CheckCollisionRecs((*criatura).ataque, (*player).colisao))
+    {
+        (*criatura).prontoPraAtacar = 0;
+        (*criatura).anima.estaAtacando = 1;
+        (*criatura).anima.frameCounter = 0;
+        (*criatura).velocidade = (double) 1;
+    }
+}
+

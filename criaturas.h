@@ -10,7 +10,7 @@ typedef struct
 {
     spritesheetCreature animaMorte;
     spritesheetCreature anima;
-    int vida, dano, armadura, alguemJaChocou, tipo;
+    int vida, dano, armadura, alguemJaChocou, tipo, prontoPraAtacar, atacou, frameTimer;
     double velocidade;
     Rectangle colisao, pequenaColisao, ataque;
     
@@ -29,5 +29,7 @@ void atingiuOPlayer(mob *criatura, nerdola *player);
 void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h);
 
 int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao);
+
+void achouOplayer(mob *criatura, nerdola *player);
 
 #endif

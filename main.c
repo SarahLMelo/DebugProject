@@ -50,7 +50,7 @@ int main(){
         8,
         0,
         LoadTexture("etc/personagens/principal/runrobocolorblue.png"),
-        (Rectangle) {0.0f, 0.0f, player.textura.width/player.quantFrames, player.textura.height/3},
+        (Rectangle) {0.0f, 0.0f, player.textura.width/player.quantFrames, player.textura.height/4},
         (Vector2) {0.0f, 0.0f}
     };
     //Setando camera
@@ -138,7 +138,7 @@ int main(){
                         if (Criaturas[i].vida > 0)
                             DrawRectangleRec(Criaturas[i].colisao, RED);
                     }
-                    DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
+                    //DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
                     //adicionando a textura do nerdola (sem animacao ainda)
                     DrawTextureRec(corpoNerdola, frameRec, jogador.posicaoNerdola, WHITE);
 
@@ -166,12 +166,26 @@ int main(){
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave);
                     acao = movimentarPlayer(&jogador, grid, qtdDeParedes);
                     //Animando player
-                    if(acao!=3) acaoAntiga = acao;
-                    else acao = acaoAntiga;
+                    switch(acao){
+                        case 0: //Direita
+                            acaoAntiga = 0;
+                            break;
+                        case 1: //Esquerda
+                            acaoAntiga = 1;
+                            break;
+                        case 5: 
+                            acao = acaoAntiga;
+                            break;
+                        case 3:
+                            if(acaoAntiga == 0) acao = 3;
+                            else acao = 2;
+                            break;
+                    } 
                     player.frameCounter++;
                     player.position.x = jogador.colisao.x;
                     player.position.y = jogador.colisao.y;
                     AnimarPlayer(&player, acao);
+                    
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
                     cameraJogador.zoom = 1.3f;

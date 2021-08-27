@@ -28,7 +28,7 @@ void AnimarPlayer(spritesheet *anim, int acao){
             if (aux.currentFrame > aux.quantFrames) aux.currentFrame = 0;
 
             aux.frame.x = (float)aux.currentFrame*(float)aux.textura.width/aux.quantFrames;
-            aux.frame.y = acao*(float)aux.textura.height/2;
+            aux.frame.y = acao*(float)aux.textura.height/4;
         }
     DrawTexturePro(aux.textura, aux.frame, destRec, (Vector2) {0.0f, 0.0f},(float) 0, WHITE);
     *anim = aux;

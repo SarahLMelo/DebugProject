@@ -139,7 +139,7 @@ int main(){
                         if (Criaturas[i].vida > 0)
                             DrawRectangleRec(Criaturas[i].colisao, RED);
                     }
-                    DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
+                    //DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
                     //adicionando a textura do nerdola (sem animacao ainda)
                     DrawTextureRec(corpoNerdola, frameRec, jogador.posicaoNerdola, WHITE);
 
@@ -153,6 +153,9 @@ int main(){
                     for (int i = 0; i < 256; i++)
                         if (armaPrincipal[i].viva == 1)
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
+                    for (int i = 0; i < 1024; i++)
+                        if (armaSecundaria[i].viva == 1)
+                            DrawRectangleRec(armaSecundaria[i].colisao, PINK);
 
                     DrawCircleV(circlePosicao, 5, miraCor);
                     
@@ -211,17 +214,24 @@ int main(){
 
                     if (balasGastasPrincipal < 256 && armaAtiva == 1)
                         playerEstaAtirando(&armaPrincipal[balasGastasPrincipal], jogador, &balasGastasPrincipal, tiro, miraPosicao, armaAtiva);
-                    if (balasGastasSecundaria < 256 && armaAtiva == 1)
+                    if (balasGastasSecundaria < 1024 && armaAtiva == 2)
                         playerEstaAtirando(&armaSecundaria[balasGastasSecundaria], jogador, &balasGastasSecundaria, tiro, miraPosicao, armaAtiva);
                     for (int i = 0; i < wave; i++)
                         if (Criaturas[i].vida > 0)
                             atingiuOPlayer(&Criaturas[i], &jogador);
                     for (int i = 0; i < 256; i++)
                     {
-                        if (&armaPrincipal[i].viva == 0)
+                        if (armaPrincipal[i].viva == 0)
                             continue;
                         movimentarProjetil(&armaPrincipal[i], grid);
                         criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave, &pontuacao);
+                    }
+                    for (int i = 0; i < 1024; i++)
+                    {
+                        if (armaSecundaria[i].viva == 0)
+                            continue;
+                        movimentarProjetil(&armaSecundaria[i], grid);
+                        criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave, &pontuacao);
                     }
                     EndMode2D();
                     EndDrawing();
@@ -258,6 +268,9 @@ int main(){
                 free(Criaturas);
                 for(int i=0; i<256; i++){
                     armaPrincipal[i].viva = 0;
+                }
+                for(int i=0; i<1024; i++){
+                    armaSecundaria[i].viva = 0;
                 }
                 balasGastasPrincipal = 0;
                 balasGastasSecundaria = 0;

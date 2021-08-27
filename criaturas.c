@@ -10,11 +10,24 @@
 void criarCriatura(mob *criatura, double posX, double posY)
 {   
     //Setando animação da criatura
+    (*criatura).anima.morreu = 0;
     (*criatura).anima.quantFrames = 2;
     (*criatura).anima.frameCounter = 0;
-    (*criatura).anima.frameSpeed = 8;
+    (*criatura).anima.frameSpeed = 12;
     (*criatura).anima.currentFrame = 0;
-    (*criatura).anima.oldposition = (Vector2) {0.0f, 0.0f};
+    (*criatura).anima.flagAnimMorte = 0;
+    (*criatura).anima.oldposition = (Vector2) {posX*1.0f, posY*1.0f};
+    (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
+
+    //Setando animacao da morte
+    (*criatura).animaMorte.quantFrames = 9;
+    (*criatura).animaMorte.frameCounter = 0;
+    (*criatura).animaMorte.frameSpeed = 12;
+    (*criatura).animaMorte.currentFrame = 0;
+    (*criatura).animaMorte.flagAnimMorte = 0;
+    (*criatura).animaMorte.morreu = 0;
+    (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
+
     //Status básicos da criatura
     (*criatura).armadura = 5;
     (*criatura).vida =80;
@@ -152,6 +165,7 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao){
             (*Criaturas)[i].vida -= (*projetil).dano;
             if((*Criaturas)[i].vida<=0){
                 matouACriatura = 1;
+                (*Criaturas)[i].animaMorte.morreu = 1;
                 (*pontuacao)++;
             }
         }

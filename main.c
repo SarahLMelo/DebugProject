@@ -33,6 +33,8 @@ int main(){
     Texture2D mapa = abrirMapa();
     //------Criatura 1
     Texture2D criatura1TexRed = LoadTexture("etc/personagens/principal/criatura1red.png");
+    Texture2D criatura1TexYellowMorte = LoadTexture("etc/personagens/principal/criatura1yellowxplosion.png");
+    Rectangle criatura1RecMorte = {0.0f, 0.0f, criatura1TexYellowMorte.width/9,criatura1TexYellowMorte.height/2};
     Rectangle criatura1Rec = {0.0f, 0.0f, criatura1TexRed.width/2, criatura1TexRed.height/2};
     //spritesheets load;
     spritesheet player = {
@@ -146,18 +148,21 @@ int main(){
                     //Animacao criatura
                     for (int i = 0; i < wave; i++)
                     {   
-                        
                         if (Criaturas[i].vida > 0){
                             DrawRectangleRec(Criaturas[i].colisao, RED);
                             Criaturas[i].anima.frameCounter++;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
-                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexRed, &criatura1Rec, 64, 64);
+                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexRed, &criatura1Rec, 96, 96);
                             Criaturas[i].anima.oldposition.x = Criaturas[i].anima.position.x;
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
+                            Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
+                            Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
+                        }else if(Criaturas[i].animaMorte.morreu == 1){
+                                Criaturas[i].animaMorte.frameCounter++;
+                                AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexYellowMorte, &criatura1RecMorte, 96, 96);
                         }
                     }
-                    
                     acao = movimentarPlayer(&jogador, grid, qtdDeParedes);
                     //Animando player
                     switch(acao){
@@ -251,8 +256,15 @@ int main(){
                         }
                     }
                 }
-                
-                wave++;
+                BeginMode2D(cameraJogador);
+                BeginDrawing();
+                while(Criaturas[wave-1].animaMorte.morreu == 1){ 
+                    AnimarCriatura1(&Criaturas[wave-1].animaMorte, &criatura1TexYellowMorte, &criatura1RecMorte, 64, 64);
+                    Criaturas[wave-1].animaMorte.frameCounter++;
+                }
+                EndDrawing();
+                EndMode2D();
+                wave+=5;
                 free(Criaturas);
                 for(int i=0; i<256; i++){
                     armaPrincipal[i].viva = 0;
@@ -269,6 +281,8 @@ int main(){
     }
     UnloadTexture(player.textura);
     UnloadTexture(criatura1TexRed);
+    UnloadTexture(criatura1TexYellowMorte);
+    //UnloadTexture(criatura1TexYellow);
     UnloadTexture(mapa);
     UnloadMusicStream(music);
     CloseAudioDevice();

@@ -29,6 +29,7 @@ int main(){
     PlayMusicStream(music);
     int acao = 0;
     int acaoAntiga = 1;
+    
     //Loading texturas
     Texture2D mapa = abrirMapa();
     //------Criatura Bug Red
@@ -117,8 +118,8 @@ int main(){
 
                 UpdateMusicStream(music);     
 
-                criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
-                criaturasVivas = wave;
+                criarWave(wave*5, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
+                criaturasVivas = wave*5;
                 while (criaturasVivas > 0)
                 {   
                     //Atualizando a stream da música
@@ -157,9 +158,9 @@ int main(){
                     // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
                     
                     //Movendo criatura
-                    moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave);
+                    moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave*5);
                     //Animando criatura
-                    for (int i = 0; i < wave; i++)
+                    for (int i = 0; i < wave*5; i++)
                     {   
                         if(Criaturas[i].animaMorte.morreu == 1){
                             Criaturas[i].animaMorte.frameCounter++;
@@ -234,7 +235,7 @@ int main(){
                         playerEstaAtirando(&armaPrincipal[balasGastasPrincipal], jogador, &balasGastasPrincipal, tiro, miraPosicao, armaAtiva);
                     if (balasGastasSecundaria < 1024 && armaAtiva == 2)
                         playerEstaAtirando(&armaSecundaria[balasGastasSecundaria], jogador, &balasGastasSecundaria, tiro, miraPosicao, armaAtiva);
-                    for (int i = 0; i < wave; i++)
+                    for (int i = 0; i < wave*5; i++)
                         if (Criaturas[i].vida > 0)
                             atingiuOPlayer(&Criaturas[i], &jogador);
                     for (int i = 0; i < 256; i++)
@@ -249,7 +250,7 @@ int main(){
                         plasma.frameCounter = armaPrincipal[i].frameCounter;
                         AnimarBala(&plasma);
                         armaPrincipal[i].frameCounter = plasma.frameCounter;
-                        criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave, &pontuacao);
+                        criaturasVivas -= acertouACriatura(&armaPrincipal[i], &Criaturas, wave*5, &pontuacao);
                     }
                     for (int i = 0; i < 1024; i++)
                     {
@@ -263,7 +264,7 @@ int main(){
                         plasma.frameCounter = armaSecundaria[i].frameCounter;
                         AnimarBala(&plasma);
                         armaSecundaria[i].frameCounter = plasma.frameCounter;
-                        criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave, &pontuacao);
+                        criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave*5, &pontuacao);
                     }
                     EndMode2D();
                     EndDrawing();
@@ -279,9 +280,9 @@ int main(){
                             DrawText("Pressione espaço para comecar novamente ou p para sair", 490, 600, 30, LIGHTGRAY);
                             DrawText(TextFormat("pontuação: %i", pontuacao), 600, 700, 90, YELLOW);
                             EndDrawing();
-                            wave = 0;
+                            wave = 1;
                             criaturasVivas = 0;
-                            criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
+                            criarWave(wave*5, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                             inicializaPlayer(&jogador);
                             if(IsKeyDown(KEY_P)){
                                 //free(Criaturas);
@@ -302,15 +303,8 @@ int main(){
                     }
                 }
                 free(Criaturas);
-                wave+=5;
-                for(int i=0; i<256; i++){
-                    armaPrincipal[i].viva = 0;
-                }
-                for(int i=0; i<1024; i++){
-                    armaSecundaria[i].viva = 0;
-                }
-                balasGastasPrincipal = 0;
-                balasGastasSecundaria = 0;
+                wave++;
+                if(wave%5==0) recarregarArmas(&armaPrincipal, &armaSecundaria, 256, 1024, &balasGastasPrincipal, &balasGastasSecundaria);
                 
         }
 

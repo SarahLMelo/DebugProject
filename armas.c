@@ -118,4 +118,17 @@ void movimentarProjetil(bala *projetil, Rectangle *grid){
     return;
 }
 
+void recarregarArmas(bala (*armaPrincipal)[], bala (*armaSecundaria)[], int qntdMaxP, int qntdMaxS, int *balasGastasPrincipal, int *balasGastasSec){
+    (*balasGastasPrincipal) = 0;
+    (*balasGastasSec) = 0;
+    for(int i=0; i<qntdMaxP; i++){
+        (*armaPrincipal)[i].viva = 0;
+    }
+    for(int i=0; i<qntdMaxS; i++){
+        (*armaSecundaria)[i].viva = 0;
+    }
+
+    return;
+}
+
 void CloseAudioDevice(void);

@@ -25,4 +25,6 @@ int bateuNaParedeP(Rectangle *grid, bala projetil);
 
 void movimentarProjetil(bala *projetil, Rectangle *grid);
 
+void recarregarArmas(bala (*armaPrincipal)[], bala (*armaSecundaria)[], int qntdMaxP, int qntdMaxS, int *balasGastasPrincipal, int *balasGastasSec);
+
 #endif

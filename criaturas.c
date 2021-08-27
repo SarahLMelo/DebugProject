@@ -9,43 +9,133 @@
 
 void criarCriatura(mob *criatura, double posX, double posY)
 {   
-    //Setando animação da criatura
-    (*criatura).anima.morreu = 0;
-    (*criatura).anima.quantFrames = 2;
-    (*criatura).anima.frameCounter = 0;
-    (*criatura).anima.frameSpeed = 12;
-    (*criatura).anima.currentFrame = 0;
-    (*criatura).anima.flagAnimMorte = 0;
-    (*criatura).anima.oldposition = (Vector2) {posX*1.0f, posY*1.0f};
-    (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
+    int porcentagemMobs[10] = {1, 1, 1, 1, 1, 1, 2, 2, 2, 3};
+    int tipo = rand()%10;
 
-    // //Setando animacao da morte
-    (*criatura).animaMorte.quantFrames = 8;
-    (*criatura).animaMorte.frameCounter = 0;
-    (*criatura).animaMorte.frameSpeed = 12;
-    (*criatura).animaMorte.currentFrame = 0;
-    (*criatura).animaMorte.flagAnimMorte = 0;
-    (*criatura).animaMorte.morreu = 0;
-    (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
+    switch (porcentagemMobs[tipo])
+    {
+    case 1:
+        //Setando animação da criatura
+        (*criatura).anima.morreu = 0;
+        (*criatura).anima.quantFrames = 2;
+        (*criatura).anima.frameCounter = 0;
+        (*criatura).anima.frameSpeed = 12;
+        (*criatura).anima.currentFrame = 0;
+        (*criatura).anima.flagAnimMorte = 0;
+        (*criatura).anima.oldposition = (Vector2) {posX*1.0f, posY*1.0f};
+        (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
 
-    //Status básicos da criatura
-    (*criatura).armadura = 5;
-    (*criatura).vida = 80;
-    (*criatura).dano =1;
-    (*criatura).velocidade =5;
-    (*criatura).alguemJaChocou = 0;
+        // //Setando animacao da morte
+        (*criatura).animaMorte.quantFrames = 8;
+        (*criatura).animaMorte.frameCounter = 0;
+        (*criatura).animaMorte.frameSpeed = 12;
+        (*criatura).animaMorte.currentFrame = 0;
+        (*criatura).animaMorte.flagAnimMorte = 0;
+        (*criatura).animaMorte.morreu = 0;
+        (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
 
-    //Criando o retangulo de colisão
-    (*criatura).colisao.height = 90;
-    (*criatura).colisao.width = 90;
-    (*criatura).colisao.x = posX;
-    (*criatura).colisao.y = posY;
+        //Status básicos da criatura
+        (*criatura).armadura = 5;
+        (*criatura).vida = 80;
+        (*criatura).dano =1;
+        (*criatura).velocidade =5;
+        (*criatura).alguemJaChocou = 0;
+        (*criatura).tipo = 1;
 
-    //Criando o retangulo de colisão entre elas
-    (*criatura).pequenaColisao.height = 25;
-    (*criatura).pequenaColisao.width = 25;
-    (*criatura).pequenaColisao.x = posX;
-    (*criatura).pequenaColisao.y = posY;
+        //Criando o retangulo de colisão
+        (*criatura).colisao.height = 90;
+        (*criatura).colisao.width = 90;
+        (*criatura).colisao.x = posX;
+        (*criatura).colisao.y = posY;
+
+        //Criando o retangulo de colisão entre elas
+        (*criatura).pequenaColisao.height = 25;
+        (*criatura).pequenaColisao.width = 25;
+        (*criatura).pequenaColisao.x = posX;
+        (*criatura).pequenaColisao.y = posY;
+        break;
+    case 2:
+        //Setando animação da criatura
+        (*criatura).anima.morreu = 0;
+        (*criatura).anima.quantFrames = 2;
+        (*criatura).anima.frameCounter = 0;
+        (*criatura).anima.frameSpeed = 12;
+        (*criatura).anima.currentFrame = 0;
+        (*criatura).anima.flagAnimMorte = 0;
+        (*criatura).anima.oldposition = (Vector2) {posX*1.0f, posY*1.0f};
+        (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
+
+        // //Setando animacao da morte
+        (*criatura).animaMorte.quantFrames = 8;
+        (*criatura).animaMorte.frameCounter = 0;
+        (*criatura).animaMorte.frameSpeed = 12;
+        (*criatura).animaMorte.currentFrame = 0;
+        (*criatura).animaMorte.flagAnimMorte = 0;
+        (*criatura).animaMorte.morreu = 0;
+        (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
+
+        //Status básicos da criatura
+        (*criatura).armadura = 0;
+        (*criatura).vida = 60;
+        (*criatura).dano =1;
+        (*criatura).velocidade =10;
+        (*criatura).alguemJaChocou = 0;
+        (*criatura).tipo = 2;
+
+        //Criando o retangulo de colisão
+        (*criatura).colisao.height = 90;
+        (*criatura).colisao.width = 90;
+        (*criatura).colisao.x = posX;
+        (*criatura).colisao.y = posY;
+
+        //Criando o retangulo de colisão entre elas
+        (*criatura).pequenaColisao.height = 25;
+        (*criatura).pequenaColisao.width = 25;
+        (*criatura).pequenaColisao.x = posX;
+        (*criatura).pequenaColisao.y = posY;
+        break;
+    case 3:
+        //Setando animação da criatura
+        (*criatura).anima.morreu = 0;
+        (*criatura).anima.quantFrames = 2;
+        (*criatura).anima.frameCounter = 0;
+        (*criatura).anima.frameSpeed = 12;
+        (*criatura).anima.currentFrame = 0;
+        (*criatura).anima.flagAnimMorte = 0;
+        (*criatura).anima.oldposition = (Vector2) {posX*1.0f, posY*1.0f};
+        (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
+
+        // //Setando animacao da morte
+        (*criatura).animaMorte.quantFrames = 8;
+        (*criatura).animaMorte.frameCounter = 0;
+        (*criatura).animaMorte.frameSpeed = 12;
+        (*criatura).animaMorte.currentFrame = 0;
+        (*criatura).animaMorte.flagAnimMorte = 0;
+        (*criatura).animaMorte.morreu = 0;
+        (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
+
+        //Status básicos da criatura
+        (*criatura).armadura = 10;
+        (*criatura).vida = 80;
+        (*criatura).dano =5;
+        (*criatura).velocidade =5;
+        (*criatura).alguemJaChocou = 0;
+        (*criatura).tipo = 3;
+
+        //Criando o retangulo de colisão
+        (*criatura).colisao.height = 90;
+        (*criatura).colisao.width = 90;
+        (*criatura).colisao.x = posX;
+        (*criatura).colisao.y = posY;
+
+        //Criando o retangulo de colisão entre elas
+        (*criatura).pequenaColisao.height = 25;
+        (*criatura).pequenaColisao.width = 25;
+        (*criatura).pequenaColisao.x = posX;
+        (*criatura).pequenaColisao.y = posY;
+        break;
+
+    }
 
     return;
 }

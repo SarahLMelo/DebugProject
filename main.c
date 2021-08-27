@@ -19,17 +19,17 @@ Rectangle grid[50];
 int qtdDeParedes = 45;
 
 int main(){
-  
+
     InitWindow(1920, 1080, "Nosso jogo");
     ToggleFullscreen();
     InitAudioDevice();
-    Music music = LoadMusicStream("musica/TheBugger2.mp3");
+    Music music = LoadMusicStream("musica/TheBuggerOST.mp3");
     Sound tiro;
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
     int acao = 0;
     int acaoAntiga = 1;
-    
+
     //Loading texturas
     Texture2D mapa = abrirMapa();
     //------Criatura Bug Red
@@ -107,21 +107,21 @@ int main(){
             Vector2 miraPosicao = {-100.0f, -100.0f};
             Vector2 circlePosicao;
             Color miraCor = DARKBLUE;
-            
+
             inicializaPlayer(&jogador);
-            
+
 
             while (IsKeyUp(KEY_P))
             {
                 //Atualizando a stream da música
                 HideCursor();
 
-                UpdateMusicStream(music);     
+                UpdateMusicStream(music);
 
                 criarWave(wave*5, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                 criaturasVivas = wave*5;
                 while (criaturasVivas > 0)
-                {   
+                {
                     //Atualizando a stream da música
                     UpdateMusicStream(music);
                     //Criando a parte de imagem
@@ -154,14 +154,14 @@ int main(){
                     //         DrawRectangleRec(armaSecundaria[i].colisao, PINK);
 
                     DrawCircleV(circlePosicao, 5, miraCor);
-                    
+
                     // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
-                    
+
                     //Movendo criatura
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave*5);
                     //Animando criatura
                     for (int i = 0; i < wave*5; i++)
-                    {   
+                    {
                         if(Criaturas[i].animaMorte.morreu == 1){
                             Criaturas[i].animaMorte.frameCounter++;
                             AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
@@ -188,14 +188,14 @@ int main(){
                         case 1: //Esquerda
                             acaoAntiga = 1;
                             break;
-                        case 5: 
+                        case 5:
                             acao = acaoAntiga;
                             break;
                         case 3:
                             if(acaoAntiga == 0) acao = 3;
                             else acao = 2;
                             break;
-                    } 
+                    }
                     player.frameCounter++;
                     player.position.x = jogador.colisao.x;
                     player.position.y = jogador.colisao.y;
@@ -203,25 +203,25 @@ int main(){
                         player.ativo = 1;
                         player.frameSpeed = 12;
                         plasma.ativo = 1;
-                    } 
+                    }
                     if(armaAtiva == 2){
                         player.ativo = 2;
                         player.frameSpeed = 18;
                         plasma.ativo = 2;
-                    } 
+                    }
                     //DrawRectangleRec(jogador.colisao, WHITE);
                     AnimarPlayer(&player, acao);
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
                     cameraJogador.zoom = 0.75f;
-                    
+
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();
                     miraPosicao.x += cameraJogador.target.x - cameraJogador.offset.x;
                     miraPosicao.y += cameraJogador.target.y - cameraJogador.offset.y;
                     circlePosicao = circleMira(miraPosicao, cameraJogador.target);
                     //Atualizando os pontos de colisao do mapa
-                    
+
                     if(IsKeyDown(KEY_ONE)){
                         armaAtiva = 1;
                         jogador.velocidade = 8;
@@ -271,12 +271,12 @@ int main(){
 
                     if (jogador.vida <= 0)
                     {
-                        
+
                         while (IsKeyUp(KEY_SPACE))
-                        {   
+                        {
                             free(Criaturas);
                             ClearBackground(BLACK);
-                            DrawText("VOCE MORREU!", 345, 400, 150, RED);  
+                            DrawText("VOCE MORREU!", 345, 400, 150, RED);
                             DrawText("Pressione espaço para comecar novamente ou p para sair", 490, 600, 30, LIGHTGRAY);
                             DrawText(TextFormat("pontuação: %i", pontuacao), 600, 700, 90, YELLOW);
                             EndDrawing();
@@ -305,11 +305,11 @@ int main(){
                 free(Criaturas);
                 wave++;
                 if(wave%5==0) recarregarArmas(&armaPrincipal, &armaSecundaria, 256, 1024, &balasGastasPrincipal, &balasGastasSecundaria);
-                
+
         }
 
             }
-            
+
     }
     UnloadTexture(plasma.textura1);
     UnloadTexture(plasma.textura2);

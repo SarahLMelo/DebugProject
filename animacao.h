@@ -1,3 +1,6 @@
+#ifndef ANIMACAO
+#define ANIMACAO
+
 #include <raylib.h>
 typedef struct{
     int quantFrames;
@@ -10,3 +13,7 @@ typedef struct{
 } spritesheet;
 
 void playAnimation(spritesheet *anim);
+
+void AnimarPlayer(spritesheet *anim, int acao);
+
+#endif

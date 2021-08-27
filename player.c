@@ -158,17 +158,17 @@ int movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes)
     return 3;
 }
 
-void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro, Vector2 cameraTarget, int armaAtiva)
+void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro, Vector2 cameraTarget, int armaAtiva, int modRifle, int modPistola)
 {
     //Atirando com o mouse
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
-        (*vetor) = atirarComMouse(cameraTarget.x, cameraTarget.y, jogador, tiro, armaAtiva);
+        (*vetor) = atirarComMouse(cameraTarget.x, cameraTarget.y, jogador, tiro, armaAtiva, modRifle, modPistola);
         (*tamanho)++;
     }
 
     //Atirando para cima
-    if (IsKeyDown(KEY_UP))
+    /*if (IsKeyDown(KEY_UP))
     {
         if (IsKeyDown(KEY_LEFT) && IsKeyUp(KEY_RIGHT))
         {
@@ -219,7 +219,7 @@ void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro, 
     {
         (*vetor) = atirarComTeclado(KEY_RIGHT, 0, jogador, tiro, armaAtiva); //O zero indica que só há uma tecla pressionada
         (*tamanho)++;
-    }
+    }*/
 
     return;
 }

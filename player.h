@@ -18,4 +18,6 @@ int acertouAParede(nerdola jogador, Rectangle *grid, int quantidadeDeParedes);
 
 int movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes);
 
+void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro, Vector2 cameraTarget, int armaAtiva, int modRifle, int modPistola);
+
 #endif

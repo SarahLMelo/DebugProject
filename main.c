@@ -107,7 +107,7 @@ int main()
             mob *Criaturas;
 
             nerdola jogador;
-            int balasGastasPrincipal = 0, balasGastasSecundaria = 0, criaturasVivas = 0, wave = 1, armaAtiva = 1;
+            int balasGastasPrincipal = 0, balasGastasSecundaria = 0, criaturasVivas = 0, wave = 1, armaAtiva = 1, modRifle = 0, modPistola = 0;
             int pontuacao = 0;
             Vector2 miraPosicao = {-100.0f, -100.0f};
             Vector2 circlePosicao;
@@ -276,9 +276,9 @@ int main()
                     }
 
                     if (balasGastasPrincipal < 256 && armaAtiva == 1)
-                        playerEstaAtirando(&armaPrincipal[balasGastasPrincipal], jogador, &balasGastasPrincipal, tiro, miraPosicao, armaAtiva);
+                        playerEstaAtirando(&armaPrincipal[balasGastasPrincipal], jogador, &balasGastasPrincipal, tiro, miraPosicao, armaAtiva, modRifle, modPistola);
                     if (balasGastasSecundaria < 1024 && armaAtiva == 2)
-                        playerEstaAtirando(&armaSecundaria[balasGastasSecundaria], jogador, &balasGastasSecundaria, tiro, miraPosicao, armaAtiva);
+                        playerEstaAtirando(&armaSecundaria[balasGastasSecundaria], jogador, &balasGastasSecundaria, tiro, miraPosicao, armaAtiva, modRifle, modPistola);
                     for (int i = 0; i < wave * 5; i++)
                         if (Criaturas[i].vida > 0)
                             atingiuOPlayer(&Criaturas[i], &jogador);
@@ -325,6 +325,9 @@ int main()
                             DrawText(TextFormat("pontuação: %i", pontuacao), 600, 700, 90, YELLOW);
                             EndDrawing();
                             wave = 1;
+                            armaAtiva = 1;
+                            modRifle = 0;
+                            modPistola = 0;
                             criaturasVivas = 0;
                             criarWave(wave * 5, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                             inicializaPlayer(&jogador);

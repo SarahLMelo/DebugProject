@@ -10,7 +10,7 @@
 
 void InitAudioDevice(void);
 
-bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAtiva)
+/*bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAtiva)
 {
     //Som do projetil
     PlaySound(som);
@@ -53,9 +53,9 @@ bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAt
         projetil.x = 1;
 
     return projetil;
-}
+}*/
 
-bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int armaAtiva)
+bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int armaAtiva, int modRifle, int modPistola)
 {
     //Som do projetil
     PlaySound(som);
@@ -69,8 +69,8 @@ bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int ar
     projetil.y = -cos(angulo);
     projetil.viva = 1;
     projetil.angulo = -90+angulo*57.2f;
-    if(armaAtiva==1) projetil.dano = danoRifle;
-    if(armaAtiva==2) projetil.dano = danoPistola;
+    if(armaAtiva==1) projetil.dano = danoRifle+modRifle;
+    if(armaAtiva==2) projetil.dano = danoPistola+modPistola;
 
     //Criando caixa de colisão
     projetil.colisao.height = 10;

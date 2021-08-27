@@ -15,9 +15,9 @@ typedef struct
     double angulo;
 } bala;
 
-bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAtiva);
+//bala atirarComTeclado(int key1, int key2, nerdola jogador, Sound som, int armaAtiva);
 
-bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int armaAtiva);
+bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int armaAtiva, int modRifle, int modPistola);
 
 Vector2 circleMira(Vector2 coord, Vector2 p);
 

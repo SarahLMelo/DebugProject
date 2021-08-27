@@ -26,24 +26,34 @@ int main(){
     Sound tiro;
     tiro = LoadSound("sfx/sfxTiro.mp3");
     PlayMusicStream(music);
-    
+    int acao = 0;
+    int acaoAntiga = 1;
     Texture2D mapa = abrirMapa();
     Texture2D corpoNerdola=LoadTexture("Assets/personagens/Runrobo.png");
     Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
     int frameAtual = 0;
     int countFrames = 0;
     int velFrames = 8;
-    //teste
+    //spritesheets load;
     spritesheet teste = {
-        6,
+        8,
+        0,
+        12,
+        0,
+        LoadTexture("etc/personagens/principal/runrobocolorblue.png"),
+        (Rectangle) {0.0f, 0.0f, teste.textura.width/8, teste.textura.height/3},
+        (Vector2) {0.0f, 0.0f}
+    };
+    spritesheet player = {
+        8,
         0,
         8,
         0,
-        LoadTexture("etc/texturetest.png"),
-        (Rectangle) {0.0f, 0.0f, teste.textura.width/6, teste.textura.height},
+        LoadTexture("etc/personagens/principal/runrobocolorblue.png"),
+        (Rectangle) {0.0f, 0.0f, player.textura.width/player.quantFrames, player.textura.height/3},
         (Vector2) {0.0f, 0.0f}
     };
-    //teste
+    //Setando camera
     Camera2D cameraJogador;
     cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
     cameraJogador.target = (Vector2) {0.0f, 0.0f};
@@ -149,16 +159,22 @@ int main(){
                     teste.frameCounter++;
                     teste.position.x = jogador.colisao.x;
                     teste.position.y = jogador.colisao.y;
-                    playAnimation(&teste);
+                    //playAnimation(&teste);
                     //teste
                     
                     //Mover tudo
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave);
-                    movimentarPlayer(&jogador, grid, qtdDeParedes);
-                    
+                    acao = movimentarPlayer(&jogador, grid, qtdDeParedes);
+                    //Animando player
+                    if(acao!=3) acaoAntiga = acao;
+                    else acao = acaoAntiga;
+                    player.frameCounter++;
+                    player.position.x = jogador.colisao.x;
+                    player.position.y = jogador.colisao.y;
+                    AnimarPlayer(&player, acao);
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
-                    cameraJogador.zoom = 0.6f;
+                    cameraJogador.zoom = 1.3f;
                     
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();

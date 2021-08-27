@@ -19,12 +19,11 @@ void playAnimation(spritesheet *anim){
 void AnimarPlayer(spritesheet *anim, int acao){
     // acao - >>> parado = 0, direita = 1, esquerda = 2; 3 = cima ou baixo;
     spritesheet aux = *anim;
-    Rectangle destRec = {aux.position.x-16*7,aux.position.y-16*12, 256, 256};
+    Rectangle destRec = {aux.position.x-16*7,aux.position.y-16*6, 256, 256};
     if (aux.frameCounter >= (60/aux.frameSpeed))
         {
             aux.frameCounter = 0;
             aux.currentFrame++;
-
             if (aux.currentFrame > aux.quantFrames) aux.currentFrame = 0;
 
             aux.frame.x = (float)aux.currentFrame*(float)aux.textura.width/aux.quantFrames;

@@ -2,17 +2,19 @@
 #define ANIMACAO
 
 #include <raylib.h>
-typedef struct{
+typedef struct
+{
     int quantFrames;
     int frameCounter;
     int frameSpeed;
     int currentFrame;
     Texture2D textura;
-    Rectangle frame; 
+    Rectangle frame;
     Vector2 position;
 } spritesheet;
 
-typedef struct{
+typedef struct
+{
     int quantFrames;
     int frameCounter;
     int frameSpeed;

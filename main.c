@@ -14,6 +14,7 @@
 //P virou a tecla de fechar o programa para S
 
 bala armaPrincipal[256];
+bala armaSecundaria[256];
 Rectangle grid[50];
 int qtdDeParedes = 45;
 
@@ -137,6 +138,7 @@ int main(){
                     {
                         DrawRectangle(jogador.colisao.x-1450 + 7*i, jogador.colisao.y-700, 20, 20, GREEN);
                     }
+                    DrawText(TextFormat("balas restantes: %i", 256-balasGastas), jogador.colisao.x-1450, jogador.colisao.y-650, 60, YELLOW);
                     for (int i = 0; i < 256; i++)
                         if (armaPrincipal[i].viva == 1)
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);

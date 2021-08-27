@@ -118,6 +118,7 @@ int main(){
                 UpdateMusicStream(music);     
 
                 criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
+                spritesheetCreature *mortes = (spritesheetCreature*) malloc(sizeof(spritesheetCreature)*(wave+1));
                 criaturasVivas = wave;
                 while (criaturasVivas > 0)
                 {   
@@ -172,10 +173,16 @@ int main(){
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
                         }else if(Criaturas[i].animaMorte.morreu == 1){
-                                Criaturas[i].animaMorte.frameCounter++;
-                                AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
+                                mortes[i] = Criaturas[i].animaMorte;
+                                Criaturas[i].animaMorte.morreu = 0;
+                                //AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
+                        }
+                        if(mortes[i].morreu = 0){
+                            AnimarCriatura1(&mortes[i], &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
                         }
                     }
+
+
                     acao = movimentarPlayer(&jogador, grid, qtdDeParedes);
                     //Animando player
                     switch(acao){
@@ -272,6 +279,8 @@ int main(){
                         
                         while (IsKeyUp(KEY_SPACE))
                         {   
+                            free(Criaturas);
+                            free(mortes);
                             ClearBackground(BLACK);
                             DrawText("VOCE MORREU!", 345, 400, 150, RED);  
                             DrawText("Pressione espaço para comecar novamente ou p para sair", 490, 600, 30, LIGHTGRAY);
@@ -279,11 +288,17 @@ int main(){
                             EndDrawing();
                             wave = 0;
                             criaturasVivas = 0;
-                            free(Criaturas);
                             criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
                             inicializaPlayer(&jogador);
                             if(IsKeyDown(KEY_P)){
-                                free(Criaturas);
+                                //free(Criaturas);
+                                //free(mortes);
+                                UnloadTexture(plasma.textura1);
+                                UnloadTexture(plasma.textura2);
+                                UnloadTexture(player.textura1);
+                                UnloadTexture(player.textura2);
+                                UnloadTexture(criatura1TexRed);
+                                UnloadTexture(criatura1TexRedMorte);
                                 UnloadTexture(mapa);
                                 UnloadMusicStream(music);
                                 CloseAudioDevice();
@@ -294,16 +309,9 @@ int main(){
                         }
                     }
                 }
-                BeginMode2D(cameraJogador);
-                BeginDrawing();
-                while(Criaturas[wave-1].animaMorte.morreu == 1){ 
-                    AnimarCriatura1(&Criaturas[wave-1].animaMorte, &criatura1TexRedMorte, &criatura1RecMorte, 64, 64);
-                    Criaturas[wave-1].animaMorte.frameCounter++;
-                }
-                EndDrawing();
-                EndMode2D();
-                wave+=5;
+                free(mortes);
                 free(Criaturas);
+                wave+=50;
                 for(int i=0; i<256; i++){
                     armaPrincipal[i].viva = 0;
                 }
@@ -312,10 +320,11 @@ int main(){
                 }
                 balasGastasPrincipal = 0;
                 balasGastasSecundaria = 0;
+                
+        }
 
             }
-            free(Criaturas);
-        }
+            
     }
     UnloadTexture(plasma.textura1);
     UnloadTexture(plasma.textura2);

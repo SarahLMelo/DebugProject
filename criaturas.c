@@ -19,7 +19,7 @@ void criarCriatura(mob *criatura, double posX, double posY)
     (*criatura).anima.oldposition = (Vector2) {posX*1.0f, posY*1.0f};
     (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
 
-    //Setando animacao da morte
+    // //Setando animacao da morte
     (*criatura).animaMorte.quantFrames = 8;
     (*criatura).animaMorte.frameCounter = 0;
     (*criatura).animaMorte.frameSpeed = 12;

@@ -145,12 +145,12 @@ int main(){
                     }
                     DrawText(TextFormat("balas restantes na arma secundaria: %i", 1024-balasGastasSecundaria), jogador.colisao.x-1450, jogador.colisao.y-580, 60, YELLOW);
                     DrawText(TextFormat("balas restantes na arma principal: %i", 256-balasGastasPrincipal), jogador.colisao.x-1450, jogador.colisao.y-650, 60, YELLOW);
-                    for (int i = 0; i < 256; i++)
-                        if (armaPrincipal[i].viva == 1)
-                            DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
-                    for (int i = 0; i < 1024; i++)
-                        if (armaSecundaria[i].viva == 1)
-                            DrawRectangleRec(armaSecundaria[i].colisao, PINK);
+                    // for (int i = 0; i < 256; i++)
+                    //     if (armaPrincipal[i].viva == 1)
+                    //         DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
+                    // for (int i = 0; i < 1024; i++)
+                    //     if (armaSecundaria[i].viva == 1)
+                    //         DrawRectangleRec(armaSecundaria[i].colisao, PINK);
 
                     DrawCircleV(circlePosicao, 5, miraCor);
                     

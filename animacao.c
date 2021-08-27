@@ -1,9 +1,11 @@
 #include "animacao.h"
 #include "raylib.h"
+#include <math.h>
 
 void AnimarBala(spritesheet *anim){
     spritesheet aux = *anim;
-    Rectangle destRec = {aux.position.x,aux.position.y, aux.textura2.width/(aux.quantFrames*5), aux.textura2.height/5};
+    int fiX, fiY;
+    Rectangle destRec = {aux.position.x+16*sin(aux.angulo),aux.position.y-16*cos(aux.angulo), aux.textura2.width/(aux.quantFrames*5), aux.textura2.height/5};
     if (aux.frameCounter >= (60/aux.frameSpeed))
         {
             aux.frameCounter = 0;

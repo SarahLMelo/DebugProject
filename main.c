@@ -118,7 +118,6 @@ int main(){
                 UpdateMusicStream(music);     
 
                 criarWave(wave, &criaturasVivas, &Criaturas, mapa.width, mapa.height);
-                spritesheetCreature *mortes = (spritesheetCreature*) malloc(sizeof(spritesheetCreature)*(wave+1));
                 criaturasVivas = wave;
                 while (criaturasVivas > 0)
                 {   
@@ -157,11 +156,15 @@ int main(){
                     
                     // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
                     
-                    //Mover tudo
+                    //Movendo criatura
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave);
-                    //Animacao criatura
+                    //Animando criatura
                     for (int i = 0; i < wave; i++)
                     {   
+                        if(Criaturas[i].animaMorte.morreu == 1){
+                            Criaturas[i].animaMorte.frameCounter++;
+                            AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
+                        }
                         if (Criaturas[i].vida > 0){
                             //DrawRectangleRec(Criaturas[i].colisao, RED);
                             Criaturas[i].anima.frameCounter++;
@@ -172,17 +175,9 @@ int main(){
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
-                        }else if(Criaturas[i].animaMorte.morreu == 1){
-                                mortes[i] = Criaturas[i].animaMorte;
-                                Criaturas[i].animaMorte.morreu = 0;
-                                //AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
-                        }
-                        if(mortes[i].morreu = 0){
-                            AnimarCriatura1(&mortes[i], &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
                         }
                     }
-
-
+                    //Movimentando player
                     acao = movimentarPlayer(&jogador, grid, qtdDeParedes);
                     //Animando player
                     switch(acao){
@@ -270,7 +265,6 @@ int main(){
                         armaSecundaria[i].frameCounter = plasma.frameCounter;
                         criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave, &pontuacao);
                     }
-                    
                     EndMode2D();
                     EndDrawing();
 
@@ -280,7 +274,6 @@ int main(){
                         while (IsKeyUp(KEY_SPACE))
                         {   
                             free(Criaturas);
-                            free(mortes);
                             ClearBackground(BLACK);
                             DrawText("VOCE MORREU!", 345, 400, 150, RED);  
                             DrawText("Pressione espaço para comecar novamente ou p para sair", 490, 600, 30, LIGHTGRAY);
@@ -292,7 +285,6 @@ int main(){
                             inicializaPlayer(&jogador);
                             if(IsKeyDown(KEY_P)){
                                 //free(Criaturas);
-                                //free(mortes);
                                 UnloadTexture(plasma.textura1);
                                 UnloadTexture(plasma.textura2);
                                 UnloadTexture(player.textura1);
@@ -309,9 +301,8 @@ int main(){
                         }
                     }
                 }
-                free(mortes);
                 free(Criaturas);
-                wave+=50;
+                wave+=5;
                 for(int i=0; i<256; i++){
                     armaPrincipal[i].viva = 0;
                 }

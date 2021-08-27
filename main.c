@@ -138,7 +138,7 @@ int main(){
                         if (Criaturas[i].vida > 0)
                             DrawRectangleRec(Criaturas[i].colisao, RED);
                     }
-                    //DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
+                    DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
                     //adicionando a textura do nerdola (sem animacao ainda)
                     DrawTextureRec(corpoNerdola, frameRec, jogador.posicaoNerdola, WHITE);
 
@@ -185,7 +185,7 @@ int main(){
                     player.position.x = jogador.colisao.x;
                     player.position.y = jogador.colisao.y;
                     AnimarPlayer(&player, acao);
-                    
+
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
                     cameraJogador.zoom = 1.3f;

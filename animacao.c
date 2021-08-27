@@ -33,7 +33,7 @@ void AnimarPlayer(spritesheet *anim, int acao){
             aux.frame.y = acao*(float)aux.textura1.height/4;
         }
     if(aux.ativo == 1) DrawTexturePro(aux.textura1, aux.frame, destRec, (Vector2) {0.0f, 0.0f},(float) 0, WHITE);
-    else DrawTexturePro(aux.textura2, aux.frame, destRec, (Vector2) {0.0f, 0.0f},(float) 0, WHITE);
+    else DrawTexturePro(aux.textura2, aux.frame, destRec, (Vector2) {1.0f, 0.0f},(float) 0, WHITE);
     *anim = aux;
 }
 

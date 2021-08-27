@@ -45,8 +45,8 @@ int main(){
         0,
         1,
         0.0f,
-        LoadTexture("etc/personagens/principal/runrobocolorblue.png"),
-        LoadTexture("etc/personagens/principal/runrobocolororange.png"),
+        LoadTexture("etc/personagens/principal/runroboclorblue_.png"),
+        LoadTexture("etc/personagens/principal/runrobocolororange_.png"),
         (Rectangle) {0.0f, 0.0f, player.textura1.width/player.quantFrames, player.textura1.height/4},
         (Vector2) {0.0f, 0.0f}
     };
@@ -131,11 +131,11 @@ int main(){
                     //Desenhando o mapa
                     DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
                     DrawTextureEx(shadow, (Vector2){(float) cameraJogador.target.x-16*2.75*6, (float) cameraJogador.target.y-16*3*8}, 0.0f, 3.0f, WHITE);
-                    for (int i = 0; i < wave; i++)
-                    {
-                        if (Criaturas[i].vida > 0)
-                            DrawRectangleRec(Criaturas[i].colisao, RED);
-                    }
+                    // for (int i = 0; i < wave; i++)
+                    // {
+                    //     if (Criaturas[i].vida > 0)
+                    //         DrawRectangleRec(Criaturas[i].colisao, RED);
+                    // }
                     //DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
 
                     //colocando a vida no canto da tela (seguindo a camera)  MUDEI AQUI
@@ -162,7 +162,7 @@ int main(){
                     for (int i = 0; i < wave; i++)
                     {   
                         if (Criaturas[i].vida > 0){
-                            DrawRectangleRec(Criaturas[i].colisao, RED);
+                            //DrawRectangleRec(Criaturas[i].colisao, RED);
                             Criaturas[i].anima.frameCounter++;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
@@ -198,13 +198,15 @@ int main(){
                     player.position.y = jogador.colisao.y;
                     if(armaAtiva == 1){
                         player.ativo = 1;
+                        player.frameSpeed = 12;
                         plasma.ativo = 1;
                     } 
                     if(armaAtiva == 2){
                         player.ativo = 2;
+                        player.frameSpeed = 18;
                         plasma.ativo = 2;
                     } 
-                    DrawRectangleRec(jogador.colisao, WHITE);
+                    //DrawRectangleRec(jogador.colisao, WHITE);
                     AnimarPlayer(&player, acao);
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};

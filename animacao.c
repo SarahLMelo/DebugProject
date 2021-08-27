@@ -1,35 +1,37 @@
 #include "animacao.h"
 #include "raylib.h"
 
-void playAnimation(spritesheet *anim){
+void AnimarBala(spritesheet *anim){
     spritesheet aux = *anim;
+    Rectangle destRec = {aux.position.x,aux.position.y, aux.textura2.width/(aux.quantFrames*5), aux.textura2.height/5};
     if (aux.frameCounter >= (60/aux.frameSpeed))
         {
             aux.frameCounter = 0;
             aux.currentFrame++;
-
             if (aux.currentFrame > aux.quantFrames) aux.currentFrame = 0;
 
-            aux.frame.x = (float)aux.currentFrame*(float)aux.textura.width/aux.quantFrames;
+            aux.frame.x = (float)aux.currentFrame*(float)aux.textura1.width/aux.quantFrames;
         }
-    DrawTextureRec(aux.textura, aux.frame, aux.position, WHITE);
+    if(aux.ativo == 1) DrawTexturePro(aux.textura1, aux.frame, destRec, (Vector2) {0.0f, 0.0f}, -aux.angulo, WHITE);
+    else DrawTexturePro(aux.textura2, aux.frame, destRec, (Vector2) {0.0f, 0.0f}, -aux.angulo, WHITE);
     *anim = aux;
 }
 
 void AnimarPlayer(spritesheet *anim, int acao){
     // acao - >>> parado = 0, direita = 1, esquerda = 2; 3 = cima ou baixo;
     spritesheet aux = *anim;
-    Rectangle destRec = {aux.position.x-16*15,aux.position.y-16*10, (*anim).textura.width/3, (*anim).textura.height/3};
+    Rectangle destRec = {aux.position.x-32,aux.position.y-128, 1*(*anim).textura2.width/8, 1*(*anim).textura2.height/4};
     if (aux.frameCounter >= (60/aux.frameSpeed))
         {
             aux.frameCounter = 0;
             aux.currentFrame++;
             if (aux.currentFrame > aux.quantFrames) aux.currentFrame = 0;
 
-            aux.frame.x = (float)aux.currentFrame*(float)aux.textura.width/aux.quantFrames;
-            aux.frame.y = acao*(float)aux.textura.height/4;
+            aux.frame.x = (float)aux.currentFrame*(float)aux.textura1.width/aux.quantFrames;
+            aux.frame.y = acao*(float)aux.textura1.height/4;
         }
-    DrawTexturePro(aux.textura, aux.frame, destRec, (Vector2) {0.0f, 0.0f},(float) 0, WHITE);
+    if(aux.ativo == 1) DrawTexturePro(aux.textura1, aux.frame, destRec, (Vector2) {0.0f, 0.0f},(float) 0, WHITE);
+    else DrawTexturePro(aux.textura2, aux.frame, destRec, (Vector2) {0.0f, 0.0f},(float) 0, WHITE);
     *anim = aux;
 }
 

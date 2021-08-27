@@ -20,7 +20,7 @@ void criarCriatura(mob *criatura, double posX, double posY)
     (*criatura).anima.position = (Vector2) {posX*1.0f, posY*1.0f};
 
     //Setando animacao da morte
-    (*criatura).animaMorte.quantFrames = 9;
+    (*criatura).animaMorte.quantFrames = 8;
     (*criatura).animaMorte.frameCounter = 0;
     (*criatura).animaMorte.frameSpeed = 12;
     (*criatura).animaMorte.currentFrame = 0;
@@ -30,14 +30,14 @@ void criarCriatura(mob *criatura, double posX, double posY)
 
     //Status básicos da criatura
     (*criatura).armadura = 5;
-    (*criatura).vida =80;
+    (*criatura).vida = 80;
     (*criatura).dano =1;
     (*criatura).velocidade =5;
     (*criatura).alguemJaChocou = 0;
 
     //Criando o retangulo de colisão
-    (*criatura).colisao.height = 50;
-    (*criatura).colisao.width = 50;
+    (*criatura).colisao.height = 90;
+    (*criatura).colisao.width = 90;
     (*criatura).colisao.x = posX;
     (*criatura).colisao.y = posY;
 

@@ -7,7 +7,10 @@ typedef struct{
     int frameCounter;
     int frameSpeed;
     int currentFrame;
-    Texture2D textura;
+    int ativo;
+    float angulo;
+    Texture2D textura1;
+    Texture2D textura2;
     Rectangle frame; 
     Vector2 position;
 } spritesheet;
@@ -25,7 +28,7 @@ typedef struct{
     int tipo;
 } spritesheetCreature;
 
-void playAnimation(spritesheet *anim);
+void AnimarBala(spritesheet *anim);
 
 void AnimarPlayer(spritesheet *anim, int acao);
 

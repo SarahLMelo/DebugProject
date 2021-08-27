@@ -19,6 +19,9 @@ typedef struct{
     int currentFrame;
     Vector2 position;
     Vector2 oldposition;
+    int dirOuEsq;
+    int flagAnimMorte;
+    int morreu;
 } spritesheetCreature;
 
 void playAnimation(spritesheet *anim);

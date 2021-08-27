@@ -8,11 +8,11 @@
 
 typedef struct
 {
+    spritesheetCreature animaMorte;
     spritesheetCreature anima;
     int vida, dano, armadura, alguemJaChocou;
     double velocidade;
     Rectangle colisao, pequenaColisao;
-
 } mob;
 
 void criarCriatura(mob *criatura, double posX, double posY);

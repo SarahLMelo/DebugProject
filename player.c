@@ -57,6 +57,7 @@ int movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes)
                 (*jogador).posicaoNerdola.x += (int)((*jogador).velocidade / sqrt(2));
                 (*jogador).posicaoNerdola.y += (int)((*jogador).velocidade / sqrt(2));
             }
+            return 1;
         }
         else if (IsKeyDown(KEY_D) && IsKeyUp(KEY_A))
         {
@@ -71,6 +72,7 @@ int movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes)
                 (*jogador).posicaoNerdola.x -= (int)((*jogador).velocidade / sqrt(2));
                 (*jogador).posicaoNerdola.y += (int)((*jogador).velocidade / sqrt(2));
             }
+            return 0;
         }
         else if (IsKeyUp(KEY_S)){
             (*jogador).colisao.y -= (int)(*jogador).velocidade;
@@ -100,6 +102,7 @@ int movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes)
                 (*jogador).posicaoNerdola.x += (int)((*jogador).velocidade / sqrt(2));
                 (*jogador).posicaoNerdola.y -= (int)((*jogador).velocidade / sqrt(2));
             }
+            return 1;
         }
         else if (IsKeyDown(KEY_D) && IsKeyUp(KEY_A))
         {
@@ -114,6 +117,7 @@ int movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes)
                 (*jogador).posicaoNerdola.x -= (int)((*jogador).velocidade / sqrt(2));
                 (*jogador).posicaoNerdola.y -= (int)((*jogador).velocidade / sqrt(2));
             }
+            return 0;
         }
         else{
             (*jogador).colisao.y += (int)(*jogador).velocidade;

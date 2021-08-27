@@ -135,18 +135,18 @@ int main(){
                     for (int i = 0; i < wave; i++)
                     {   
                         if (Criaturas[i].vida > 0){
-                            //DrawRectangleRec(Criaturas[i].colisao, RED);
+                            DrawRectangleRec(Criaturas[i].colisao, RED);
                             Criaturas[i].anima.frameCounter++;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
-                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexRed, &criatura1Rec, 64, 64);
+                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexRed, &criatura1Rec, 96, 96);
                             Criaturas[i].anima.oldposition.x = Criaturas[i].anima.position.x;
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
                         }else if(Criaturas[i].animaMorte.morreu == 1){
                                 Criaturas[i].animaMorte.frameCounter++;
-                                AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexYellowMorte, &criatura1RecMorte, 64, 64);
+                                AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexYellowMorte, &criatura1RecMorte, 96, 96);
                         }
                     }
                     acao = movimentarPlayer(&jogador, grid, qtdDeParedes);
@@ -173,7 +173,7 @@ int main(){
 
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
-                    cameraJogador.zoom = 1.3f;
+                    cameraJogador.zoom = 0.75f;
                     
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();

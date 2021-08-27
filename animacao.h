@@ -22,6 +22,7 @@ typedef struct{
     int dirOuEsq;
     int flagAnimMorte;
     int morreu;
+    int tipo;
 } spritesheetCreature;
 
 void playAnimation(spritesheet *anim);

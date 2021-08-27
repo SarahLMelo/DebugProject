@@ -4,9 +4,11 @@
 #include "raylib.h"
 #include "player.h"
 #include "armas.h"
+#include "animacao.h"
 
 typedef struct
 {
+    spritesheetCreature anima;
     int vida, dano, armadura, alguemJaChocou;
     double velocidade;
     Rectangle colisao, pequenaColisao;

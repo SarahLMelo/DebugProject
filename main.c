@@ -29,22 +29,12 @@ int main(){
     PlayMusicStream(music);
     int acao = 0;
     int acaoAntiga = 1;
+    //Loading texturas
     Texture2D mapa = abrirMapa();
-    Texture2D corpoNerdola=LoadTexture("Assets/personagens/Runrobo.png");
-    Rectangle frameRec={0.0f, 0.0f, (float)corpoNerdola.width/8, (float)corpoNerdola.height};
-    int frameAtual = 0;
-    int countFrames = 0;
-    int velFrames = 8;
+    //------Criatura 1
+    Texture2D criatura1TexRed = LoadTexture("etc/personagens/principal/criatura1red.png");
+    Rectangle criatura1Rec = {0.0f, 0.0f, criatura1TexRed.width/2, criatura1TexRed.height/2};
     //spritesheets load;
-    spritesheet teste = {
-        8,
-        0,
-        12,
-        0,
-        LoadTexture("etc/personagens/principal/runrobocolorblue.png"),
-        (Rectangle) {0.0f, 0.0f, teste.textura.width/8, teste.textura.height/3},
-        (Vector2) {0.0f, 0.0f}
-    };
     spritesheet player = {
         8,
         0,
@@ -90,17 +80,6 @@ int main(){
                 }
             }
 
-            countFrames++;
-
-            if (countFrames>=(60/velFrames))
-            {
-                countFrames = 0;
-                frameAtual++;
-
-                if (frameAtual>7) frameAtual = 0;
-
-                frameRec.x = (float)frameAtual*(float)corpoNerdola.width/8;
-            }
 
             mob *Criaturas;
 
@@ -134,6 +113,7 @@ int main(){
                     ClearBackground(BLACK);
                     //Desenhando o mapa
                     DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
+
                     for (int i = 0; i < wave; i++)
                     {
                         if (Criaturas[i].vida > 0)
@@ -161,15 +141,23 @@ int main(){
                     
                     // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
                     
-                    //teste
-                    teste.frameCounter++;
-                    teste.position.x = jogador.colisao.x;
-                    teste.position.y = jogador.colisao.y;
-                    //playAnimation(&teste);
-                    //teste
-                    
                     //Mover tudo
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave);
+                    //Animacao criatura
+                    for (int i = 0; i < wave; i++)
+                    {   
+                        
+                        if (Criaturas[i].vida > 0){
+                            DrawRectangleRec(Criaturas[i].colisao, RED);
+                            Criaturas[i].anima.frameCounter++;
+                            Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
+                            Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
+                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexRed, &criatura1Rec, 64, 64);
+                            Criaturas[i].anima.oldposition.x = Criaturas[i].anima.position.x;
+                            Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
+                        }
+                    }
+                    
                     acao = movimentarPlayer(&jogador, grid, qtdDeParedes);
                     //Animando player
                     switch(acao){
@@ -279,7 +267,8 @@ int main(){
             free(Criaturas);
         }
     }
-    UnloadTexture(corpoNerdola);
+    UnloadTexture(player.textura);
+    UnloadTexture(criatura1TexRed);
     UnloadTexture(mapa);
     UnloadMusicStream(music);
     CloseAudioDevice();

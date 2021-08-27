@@ -12,7 +12,8 @@ typedef struct
     spritesheetCreature anima;
     int vida, dano, armadura, alguemJaChocou, tipo;
     double velocidade;
-    Rectangle colisao, pequenaColisao;
+    Rectangle colisao, pequenaColisao, ataque;
+    
 } mob;
 
 void criarCriatura(mob *criatura, double posX, double posY);

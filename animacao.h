@@ -26,6 +26,8 @@ typedef struct{
     int flagAnimMorte;
     int morreu;
     int tipo;
+    int estaAtacando;
+    int atacou;
 } spritesheetCreature;
 
 void AnimarBala(spritesheet *anim);
@@ -33,5 +35,7 @@ void AnimarBala(spritesheet *anim);
 void AnimarPlayer(spritesheet *anim, int acao);
 
 void AnimarCriatura1(spritesheetCreature *anim, Texture2D *textura, Rectangle *frame, int wi, int hi);
+
+void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *frame, int wi, int hi);
 
 #endif

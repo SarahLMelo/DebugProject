@@ -142,7 +142,16 @@ void criarCriatura(mob *criatura, double posX, double posY)
 
 int bateuNaParede(Rectangle *grid, mob criatura, int quantidadeDeParedes){
     int bateu = 0;
-    for(int i=0; i<quantidadeDeParedes && bateu == 0; i++){
+    for(int i=0; i<4 && bateu == 0; i++){
+        if(CheckCollisionRecs(criatura.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=10; i<20 && bateu == 0; i++){
+        if(CheckCollisionRecs(criatura.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=26; i<30 && bateu == 0; i++){
+        if(CheckCollisionRecs(criatura.colisao, grid[i])) bateu = 1;
+    }
+    for(int i=41; i<44 && bateu == 0; i++){
         if(CheckCollisionRecs(criatura.colisao, grid[i])) bateu = 1;
     }
     return bateu;

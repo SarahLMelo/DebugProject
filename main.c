@@ -14,7 +14,7 @@
 //P virou a tecla de fechar o programa para S
 
 bala armaPrincipal[256];
-bala armaSecundaria[256];
+bala armaSecundaria[1024];
 Rectangle grid[50];
 int qtdDeParedes = 45;
 
@@ -59,7 +59,7 @@ int main(){
     cameraJogador.offset = (Vector2) {GetScreenWidth()/2.0f, GetScreenHeight()/2.0f};
     cameraJogador.target = (Vector2) {0.0f, 0.0f};
     cameraJogador.rotation = 0.0f;
-    cameraJogador.zoom = 0.2f;
+    cameraJogador.zoom = 1.0f;
 
     //Iniciando o game
     SetTargetFPS(60);
@@ -105,7 +105,7 @@ int main(){
             mob *Criaturas;
 
             nerdola jogador;
-            int balasGastas = 0, criaturasVivas = 0, wave = 1, armaAtiva = 0;
+            int balasGastasPrincipal = 0, balasGastasSecundaria = 0,criaturasVivas = 0, wave = 1, armaAtiva = 1;
             int pontuacao = 0;
             Vector2 miraPosicao = {-100.0f, -100.0f};
             Vector2 circlePosicao;
@@ -148,7 +148,8 @@ int main(){
                     {
                         DrawRectangle(jogador.colisao.x-1450 + 7*i, jogador.colisao.y-700, 20, 20, GREEN);
                     }
-                    DrawText(TextFormat("balas restantes: %i", 256-balasGastas), jogador.colisao.x-1450, jogador.colisao.y-650, 60, YELLOW);
+                    DrawText(TextFormat("balas restantes na arma secundaria: %i", 1024-balasGastasSecundaria), jogador.colisao.x-1450, jogador.colisao.y-580, 60, YELLOW);
+                    DrawText(TextFormat("balas restantes na arma principal: %i", 256-balasGastasPrincipal), jogador.colisao.x-1450, jogador.colisao.y-650, 60, YELLOW);
                     for (int i = 0; i < 256; i++)
                         if (armaPrincipal[i].viva == 1)
                             DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
@@ -190,7 +191,7 @@ int main(){
 
                     //Atualizando a camera
                     cameraJogador.target = (Vector2) {jogador.colisao.x, jogador.colisao.y};
-                    cameraJogador.zoom = 1.3f;
+                    cameraJogador.zoom = 0.75f;
                     
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();
@@ -208,8 +209,10 @@ int main(){
                         jogador.velocidade = 15;
                     }
 
-                    if (balasGastas < 256)
-                        playerEstaAtirando(&armaPrincipal[balasGastas], jogador, &balasGastas, tiro, miraPosicao, armaAtiva);
+                    if (balasGastasPrincipal < 256 && armaAtiva == 1)
+                        playerEstaAtirando(&armaPrincipal[balasGastasPrincipal], jogador, &balasGastasPrincipal, tiro, miraPosicao, armaAtiva);
+                    if (balasGastasSecundaria < 256 && armaAtiva == 1)
+                        playerEstaAtirando(&armaSecundaria[balasGastasSecundaria], jogador, &balasGastasSecundaria, tiro, miraPosicao, armaAtiva);
                     for (int i = 0; i < wave; i++)
                         if (Criaturas[i].vida > 0)
                             atingiuOPlayer(&Criaturas[i], &jogador);
@@ -256,7 +259,8 @@ int main(){
                 for(int i=0; i<256; i++){
                     armaPrincipal[i].viva = 0;
                 }
-                balasGastas = 0;
+                balasGastasPrincipal = 0;
+                balasGastasSecundaria = 0;
 
             }
             free(Criaturas);

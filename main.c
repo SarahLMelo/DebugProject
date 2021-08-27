@@ -11,7 +11,7 @@
 #include "animacao.h"
 #define miraRaio 5
 
-//P virou a tecla de fechar o programa para S
+//P virou a tecla de fechar o programa para S.
 
 bala armaPrincipal[256];
 bala armaSecundaria[1024];

@@ -20,6 +20,9 @@ typedef struct{
     int frameCounter;
     int frameSpeed;
     int currentFrame;
+    double angulo;
+    double oldangulo;
+    int podeVirar;
     Vector2 position;
     Vector2 oldposition;
     int dirOuEsq;
@@ -28,6 +31,7 @@ typedef struct{
     int tipo;
     int estaAtacando;
     int atacou;
+    int delayAnimacao;
 } spritesheetCreature;
 
 void AnimarBala(spritesheet *anim);
@@ -36,6 +40,6 @@ void AnimarPlayer(spritesheet *anim, int acao);
 
 void AnimarCriatura1(spritesheetCreature *anim, Texture2D *textura, Rectangle *frame, int wi, int hi);
 
-void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *frame, int wi, int hi);
+void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *frame, int wi, int hi, int x, int y);
 
 #endif

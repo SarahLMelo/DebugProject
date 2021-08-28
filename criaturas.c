@@ -7,9 +7,9 @@
 #include "mapa.h"
 //pedro passou aqui
 
-void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[])
+void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[])
 {
-    int porcentagemMobs[10] = {1, 1, 1, 4, 4, 4, 4, 4, 4, 4};
+    int porcentagemMobs[10] = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4};
     int tipo = rand() % 10;
 
     switch (porcentagemMobs[tipo])
@@ -28,6 +28,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[])
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
+        (*criatura).animaMorte.frame = (Rectangle) {0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
         (*criatura).animaMorte.quantFrames = 8;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.frameSpeed = 12;
@@ -70,6 +71,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[])
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
+        (*criatura).animaMorte.frame = (Rectangle) {0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
         (*criatura).animaMorte.quantFrames = 8;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.frameSpeed = 16;
@@ -112,6 +114,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[])
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
+        (*criatura).animaMorte.frame = (Rectangle) {0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
         (*criatura).animaMorte.quantFrames = 8;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.frameSpeed = 10;
@@ -141,8 +144,9 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[])
         (*criatura).pequenaColisao.y = posY;
         break;
     case 4:
-        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[2].width, criaRec[2].height};
+        
         //Setando animação da criatura
+        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[2].width, criaRec[2].height};
         (*criatura).anima.delayAnimacao = 0;
         (*criatura).anima.morreu = 0;
         (*criatura).anima.lrTimer = 0;
@@ -157,6 +161,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[])
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
+        (*criatura).animaMorte.frame = (Rectangle) {0.0f, 0.0f, criaRecMorte[2].width, criaRecMorte[2].height};
         (*criatura).animaMorte.quantFrames = 11;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.estaAtacando = 0;
@@ -314,7 +319,7 @@ void atingiuOPlayer(mob *criatura, nerdola *player)
 
 void atingiuOPlayer2(mob *criatura, nerdola *player)
 {
-    if (CheckCollisionRecs((*criatura).ataque, (*player).colisao))
+    if ((CheckCollisionRecs((*criatura).ataque, (*player).colisao)) && (*criatura).anima.estaAtacando == 1)
     {
         (*player).vida -= ((*criatura).dano - (*player).armadura);
     }
@@ -322,7 +327,7 @@ void atingiuOPlayer2(mob *criatura, nerdola *player)
     return;
 }
 
-void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, Rectangle criaRec[])
+void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, Rectangle criaRec[], Rectangle criaRecMorte[])
 {
     (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
     for (int i = 0; i < wave; i++)
@@ -332,7 +337,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, 
         // x = rand()%1700;
         // y = rand()%800;
         Vector2 localizacao = spawnPoints(sIndex, w, h);
-        criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec);
+        criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte);
     }
 
     //(*qtdCriaturasVivas) = wave;

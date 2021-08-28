@@ -29,6 +29,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
         int compraAzul=0;
         int compraAmarela=0;
         int compraVida=0;
+        int recarregar=0;
 
         if(posicaoMouse.x>=80 && posicaoMouse.x<=1780 && posicaoMouse.y>=370 && posicaoMouse.y<=440)
             compraAzul=1;
@@ -36,6 +37,8 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
             compraAmarela=1;
         if(posicaoMouse.x>=80 && posicaoMouse.x<1780 && posicaoMouse.y>=610 && posicaoMouse.y<=680)
             compraVida=1;
+        if(posicaoMouse.x>=80 && posicaoMouse.x<=1780 && posicaoMouse.y>=730 && posicaoMouse.y<=800)
+            recarregar=1;
 
 
         BeginDrawing();
@@ -47,6 +50,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
         DrawText("25 moedas", 1500, 495, 50, WHITE);
         DrawText("armadura ------ +1", 95, 615, 50, WHITE);
         DrawText("20 moedas", 1500, 615, 50, WHITE);
+        DrawText("recarregar", 95, 735, 50, WHITE);
         DrawText("Para SAIR aperte Q", 1450, 1000, 30, WHITE);
 
         if(compraAzul==1)
@@ -84,6 +88,14 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
             else DrawRectangleLines(80, 610, 1700, 70, RED);
         } 
         else DrawRectangleLines(80, 610, 1700, 70, LIME);
+
+        if(recarregar==1)
+        {
+            DrawRectangleLines(80, 730, 1700, 70, GRAY);
+            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+                //recarregarArmas(bala (*armaPrincipal)[], bala (*armaSecundaria)[], int qntdMaxP, int qntdMaxS, int *balasGastasPrincipal, int *balasGastasSec)            
+        } 
+        else DrawRectangleLines(80, 730, 1700, 70, VIOLET);
 
         DrawText(TextFormat("moedas: %d", (*moeda)), 1500, 60, 50, YELLOW);
 

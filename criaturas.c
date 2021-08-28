@@ -9,7 +9,7 @@
 
 void criarCriatura(mob *criatura, double posX, double posY)
 {
-    int porcentagemMobs[10] = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4};
+    int porcentagemMobs[10] = {1, 1, 1, 4, 4, 4, 4, 4, 4, 4};
     int tipo = rand() % 10;
 
     switch (porcentagemMobs[tipo])
@@ -136,23 +136,27 @@ void criarCriatura(mob *criatura, double posX, double posY)
         break;
     case 4:
         //Setando animação da criatura
+        (*criatura).anima.delayAnimacao = 0;
+        (*criatura).anima.angulo = (double) 0;
+        (*criatura).anima.oldangulo = (double) 0;
+        (*criatura).anima.podeVirar = 0;
         (*criatura).anima.morreu = 0;
         (*criatura).anima.estaAtacando = 0;
         (*criatura).anima.atacou = 0;
         (*criatura).anima.quantFrames = 10;
         (*criatura).anima.frameCounter = 0;
-        (*criatura).anima.frameSpeed = 12;
+        (*criatura).anima.frameSpeed = 6;
         (*criatura).anima.currentFrame = 0;
         (*criatura).anima.flagAnimMorte = 0;
         (*criatura).anima.oldposition = (Vector2){posX * 1.0f, posY * 1.0f};
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
-        (*criatura).animaMorte.quantFrames = 10;
+        (*criatura).animaMorte.quantFrames = 11;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.estaAtacando = 0;
         (*criatura).animaMorte.atacou = 0;
-        (*criatura).animaMorte.frameSpeed = 10;
+        (*criatura).animaMorte.frameSpeed = 6;
         (*criatura).animaMorte.currentFrame = 0;
         (*criatura).animaMorte.flagAnimMorte = 0;
         (*criatura).animaMorte.morreu = 0;
@@ -223,12 +227,13 @@ void moverCriatura(mob **criatura, int posX, int posY, Rectangle *grid, int quan
 {
     //posição do player
     double playerX = (double)posX, playerY = (double)posY;
-
+     
     for (int i = 0; i < wave; i++)
     {
         if ((*criatura)[i].vida <= 0)
             continue;
         double angulo = atan2(playerY - (*criatura)[i].colisao.y, playerX - (*criatura)[i].colisao.x); //angulação da reta entre o player e o mob
+        (*criatura)[i].anima.angulo = angulo;
         //alterando posição do mob
         (*criatura)[i].colisao.x += (int)(cos(angulo) * (*criatura)[i].velocidade);
         (*criatura)[i].colisao.y += (int)(sin(angulo) * (*criatura)[i].velocidade);
@@ -368,7 +373,7 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao, 
 }
 
 void achouOplayer(mob *criatura, nerdola *player){
-    if (CheckCollisionRecs((*criatura).ataque, (*player).colisao))
+    if (CheckCollisionRecs((*criatura).ataque, (*player).colisao) && (*criatura).anima.estaAtacando == 0)
     {
         (*criatura).prontoPraAtacar = 0;
         (*criatura).anima.estaAtacando = 1;

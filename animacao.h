@@ -22,6 +22,7 @@ typedef struct{
     int currentFrame;
     int lrTimer;
     int delta;
+    double angulo;
     Vector2 position;
     Vector2 oldposition;
     Rectangle frame;

@@ -178,6 +178,7 @@ int main()
                     double AnguloAt;
                     for (int i = 0; i < wave * 5; i++)
                     {   
+                        
                         //DrawRectangleRec(Criaturas[i].ataque, RED);
                         //DrawRectangleRec(Criaturas[i].colisao, PINK);
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 1)
@@ -215,6 +216,8 @@ int main()
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
+                            if(Criaturas[i].animaMorte.dirOuEsq) Criaturas[i].anima.dirOuEsq = 0;
+                            else Criaturas[i].anima.dirOuEsq = 1;
                         }
                         if (Criaturas[i].vida > 0 && Criaturas[i].tipo == 2)
                         {
@@ -231,6 +234,8 @@ int main()
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
+                            if(Criaturas[i].animaMorte.dirOuEsq) Criaturas[i].anima.dirOuEsq = 0;
+                            else Criaturas[i].anima.dirOuEsq = 1;
                         }
                         if (Criaturas[i].vida > 0 && Criaturas[i].tipo == 3)
                         {
@@ -247,6 +252,8 @@ int main()
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
+                            if(Criaturas[i].animaMorte.dirOuEsq) Criaturas[i].anima.dirOuEsq = 0;
+                            else Criaturas[i].anima.dirOuEsq = 1;
                         }
                         if (Criaturas[i].vida > 0 && Criaturas[i].tipo == 4)
                         {
@@ -264,12 +271,12 @@ int main()
                                 (Criaturas[i]).ataque.y = Criaturas[i].colisao.y + (float)sin(AnguloAt)*130;
                                 (Criaturas[i]).ataque.width = 120;
                                 (Criaturas[i]).ataque.height = 120;
-                                //DrawRectangleRec((Criaturas[i]).ataque, RED);
+                                DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 achouOplayer(&Criaturas[i], &jogador);
                             } else {
-                                //DrawRectangleRec((Criaturas[i]).ataque, RED);
+                                DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 Criaturas[i].frameTimer++;
-                                if(Criaturas[i].frameTimer > 90){
+                                if(Criaturas[i].frameTimer > 120){
                                     //printf("\n%d\n", Criaturas[i].frameTimer);
                                     Criaturas[i].frameTimer = 0;
                                     Criaturas[i].prontoPraAtacar = 1;
@@ -285,17 +292,19 @@ int main()
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
+                            Criaturas[i].animaMorte.dirOuEsq = Criaturas[i].anima.dirOuEsq;
                             //DrawRectangleRec(Criaturas[i].anima.position.x);
                             if(Criaturas[i].anima.estaAtacando == 0){
                                 
                                 AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &Criaturas[i].anima.frame, criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
                             } else {
+                                if(Criaturas[i].anima.currentFrame == 7 || Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 Criaturas[i].anima.delayAnimacao++;
                                 if(Criaturas[i].anima.delayAnimacao < 20){
                                     Criaturas[i].anima.frameSpeed = 2;
                                 } 
                                 if(Criaturas[i].anima.delayAnimacao > 20){ 
-                                    Criaturas[i].anima.frameSpeed = 4;
+                                    Criaturas[i].anima.frameSpeed = 3;
                                     AnimarCriatura2(&Criaturas[i].anima, &criatura2TexAttack, &criatura2RecAttack, criatura2TexAttack.width/(17*3.5), criatura2TexAttack.height/(2*3.5), 96, 50);
                                     if(Criaturas[i].anima.currentFrame == 7 && Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 } else {

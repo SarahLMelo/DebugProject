@@ -440,6 +440,14 @@ int main()
                             if (IsKeyDown(KEY_P))
                             {
                                 //free(Criaturas);
+                                UnloadTexture(criatura1TexYellow);
+                                UnloadTexture(criatura1TexYellowMorte);
+                                UnloadTexture(criatura1TexGreen);
+                                UnloadTexture(criatura1TexGreenMorte);
+                                UnloadTexture(criatura2Tex);
+                                UnloadTexture(criatura2TexAttack);
+                                UnloadTexture(criatura2TexMorte);
+                                UnloadTexture(shadow);
                                 UnloadTexture(plasma.textura1);
                                 UnloadTexture(plasma.textura2);
                                 UnloadTexture(player.textura1);
@@ -464,13 +472,20 @@ int main()
             }
         }
     }
+    UnloadTexture(criatura1TexYellow);
+    UnloadTexture(criatura1TexYellowMorte);
+    UnloadTexture(criatura1TexGreen);
+    UnloadTexture(criatura1TexGreenMorte);
+    UnloadTexture(criatura2Tex);
+    UnloadTexture(criatura2TexAttack);
+    UnloadTexture(criatura2TexMorte);
+    UnloadTexture(shadow);
     UnloadTexture(plasma.textura1);
     UnloadTexture(plasma.textura2);
     UnloadTexture(player.textura1);
     UnloadTexture(player.textura2);
     UnloadTexture(criatura1TexRed);
     UnloadTexture(criatura1TexRedMorte);
-    //UnloadTexture(criatura1TexYellow);
     UnloadTexture(mapa);
     UnloadMusicStream(music);
     CloseAudioDevice();

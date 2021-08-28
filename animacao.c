@@ -43,17 +43,19 @@ void AnimarCriatura1(spritesheetCreature *anim, Texture2D *textura, Rectangle *f
     switch(aux.morreu){
         case 0:
             if (aux.frameCounter >= (60/aux.frameSpeed)) {
-                    if( aux.oldposition.x > aux.position.x) aux.dirOuEsq = 0;
-                    else aux.dirOuEsq = 1;
                     
                     aux.frameCounter = 0;
                     aux.currentFrame++;
 
-                    if (aux.currentFrame > aux.quantFrames) aux.currentFrame = 0;            
-                    (*frame).y = (float)aux.dirOuEsq*(float)(*textura).height/2;
-                    (*frame).x = (float)aux.currentFrame*(float)(*textura).width/aux.quantFrames;
+                    if (aux.currentFrame > aux.quantFrames){ 
+                        aux.currentFrame = 0;            
+                        if( aux.delta > 0) aux.dirOuEsq = 0;
+                        else aux.dirOuEsq = 1;
+                        aux.frame.y = (float)aux.dirOuEsq*(float)(*textura).height/2;
+                    }
+                    aux.frame.x = (float)aux.currentFrame*(float)(*textura).width/aux.quantFrames;
             }
-            DrawTexturePro((*textura), (*frame), destRec, (Vector2) {0.0f, 0.0f},(float) 0, WHITE);
+            DrawTexturePro((*textura), aux.frame, destRec, (Vector2) {0.0f, 0.0f},(float) 0, WHITE);
             *anim = aux;
             break;
         case 1: 
@@ -79,26 +81,24 @@ void AnimarCriatura1(spritesheetCreature *anim, Texture2D *textura, Rectangle *f
 void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *frame, int wi, int hi, int x, int y){
     spritesheetCreature aux = *anim; //0 Para direita 1 para esquerda
     Rectangle destRec = {aux.position.x-x,aux.position.y-y, wi, hi};
+    aux.frame.y = (float)aux.dirOuEsq*(float)(*textura).height/2;
     if(aux.morreu == 0){
         if(aux.estaAtacando == 0){
         if (aux.frameCounter >= (60/6)) {
-
-               if(aux.oldposition.x > aux.position.x) aux.dirOuEsq = 1;
-                else aux.dirOuEsq = 0;
-                
                 aux.frameCounter = 0;
                 aux.currentFrame++;
-
-                if (aux.currentFrame > aux.quantFrames)
-                    aux.currentFrame = 0;
-                
-                (*frame).y = aux.dirOuEsq*(float)(*textura).height/2;
-                (*frame).x = (float)aux.currentFrame*(float)(*textura).width/aux.quantFrames;
+                if (aux.currentFrame > aux.quantFrames){
+                    aux.currentFrame = 0;            
+                    if( aux.delta > 0) aux.dirOuEsq = 1;
+                    else aux.dirOuEsq = 0;
+                }  
+                //(*frame).y = aux.dirOuEsq*(float)(*textura).height/2;
+                aux.frame.x = (float)aux.currentFrame*(float)(*textura).width/aux.quantFrames;
         }
         DrawTexturePro((*textura), (*frame), destRec, (Vector2) {2.0f, 1.0f},(float) 0, WHITE);
         *anim = aux;
         } else {
-            if (aux.frameCounter >= (60/aux.frameSpeed)) {
+            if (aux.frameCounter >= (60/4)) {
                 aux.frameCounter = 0;
                 aux.currentFrame++;
                 if (aux.currentFrame > aux.quantFrames){
@@ -115,7 +115,7 @@ void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *f
         *anim = aux;
         }
     } else { 
-        if (aux.frameCounter >= (60/aux.frameSpeed)) {
+        if (aux.frameCounter >= (60/4)) {
                 aux.frameCounter = 0;
                 aux.currentFrame++;
                 if (aux.currentFrame > 10){

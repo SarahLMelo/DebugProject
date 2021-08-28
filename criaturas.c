@@ -7,7 +7,7 @@
 #include "mapa.h"
 //pedro passou aqui
 
-void criarCriatura(mob *criatura, double posX, double posY)
+void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[])
 {
     int porcentagemMobs[10] = {1, 1, 1, 4, 4, 4, 4, 4, 4, 4};
     int tipo = rand() % 10;
@@ -16,7 +16,9 @@ void criarCriatura(mob *criatura, double posX, double posY)
     {
     case 1:
         //Setando animação da criatura
+        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
         (*criatura).anima.morreu = 0;
+        (*criatura).anima.lrTimer = 0;
         (*criatura).anima.quantFrames = 2;
         (*criatura).anima.frameCounter = 0;
         (*criatura).anima.frameSpeed = 12;
@@ -56,7 +58,9 @@ void criarCriatura(mob *criatura, double posX, double posY)
         break;
     case 2:
         //Setando animação da criatura
+        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
         (*criatura).anima.morreu = 0;
+        (*criatura).anima.lrTimer = 0;
         (*criatura).anima.quantFrames = 2;
         (*criatura).anima.frameCounter = 0;
         (*criatura).anima.frameSpeed = 12;
@@ -96,7 +100,9 @@ void criarCriatura(mob *criatura, double posX, double posY)
         break;
     case 3:
         //Setando animação da criatura
+        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
         (*criatura).anima.morreu = 0;
+        (*criatura).anima.lrTimer = 0;
         (*criatura).anima.quantFrames = 2;
         (*criatura).anima.frameCounter = 0;
         (*criatura).anima.frameSpeed = 12;
@@ -135,12 +141,11 @@ void criarCriatura(mob *criatura, double posX, double posY)
         (*criatura).pequenaColisao.y = posY;
         break;
     case 4:
+        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[2].width, criaRec[2].height};
         //Setando animação da criatura
         (*criatura).anima.delayAnimacao = 0;
-        (*criatura).anima.angulo = (double) 0;
-        (*criatura).anima.oldangulo = (double) 0;
-        (*criatura).anima.podeVirar = 0;
         (*criatura).anima.morreu = 0;
+        (*criatura).anima.lrTimer = 0;
         (*criatura).anima.estaAtacando = 0;
         (*criatura).anima.atacou = 0;
         (*criatura).anima.quantFrames = 10;
@@ -233,7 +238,6 @@ void moverCriatura(mob **criatura, int posX, int posY, Rectangle *grid, int quan
         if ((*criatura)[i].vida <= 0)
             continue;
         double angulo = atan2(playerY - (*criatura)[i].colisao.y, playerX - (*criatura)[i].colisao.x); //angulação da reta entre o player e o mob
-        (*criatura)[i].anima.angulo = angulo;
         //alterando posição do mob
         (*criatura)[i].colisao.x += (int)(cos(angulo) * (*criatura)[i].velocidade);
         (*criatura)[i].colisao.y += (int)(sin(angulo) * (*criatura)[i].velocidade);
@@ -318,7 +322,7 @@ void atingiuOPlayer2(mob *criatura, nerdola *player)
     return;
 }
 
-void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h)
+void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, Rectangle criaRec[])
 {
     (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
     for (int i = 0; i < wave; i++)
@@ -328,7 +332,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h)
         // x = rand()%1700;
         // y = rand()%800;
         Vector2 localizacao = spawnPoints(sIndex, w, h);
-        criarCriatura((*criaturas) + i, localizacao.x, localizacao.y);
+        criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec);
     }
 
     //(*qtdCriaturasVivas) = wave;

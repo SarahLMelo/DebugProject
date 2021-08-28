@@ -10,5 +10,6 @@ void aumentoDanoRifle(int *modRifle, int *moeda);
 
 void aumentoArmadura(nerdola *jogador, int *moeda);
 
+void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador);
 
 #endif

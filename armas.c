@@ -62,7 +62,7 @@ bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int ar
 
     //Inicializando projetil
     bala projetil;
-    double angulo = atan2(jogador.colisao.x - xMira, jogador.colisao.y - yMira);
+    double angulo = atan2(jogador.colisao.x - xMira, jogador.colisao.y - 120 - yMira);
     projetil.frameCounter = 0;
     projetil.velocidade = 20;
     projetil.x = -sin(angulo);
@@ -87,7 +87,7 @@ Vector2 circleMira(Vector2 coord, Vector2 p){
     const double angulo = atan2(coord.x - p.x, coord.y - p.y);
     
     newCoord.x = p.x + miraRadius * sin(angulo);
-    newCoord.y = p.y + miraRadius * cos(angulo);
+    newCoord.y = p.y + miraRadius * cos(angulo) - 120;
     return newCoord;
 }
 

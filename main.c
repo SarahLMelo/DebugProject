@@ -9,6 +9,8 @@
 #include "menu.h"
 #include "time.h"
 #include "animacao.h"
+#include "loja.h"
+
 #define miraRaio 5
 
 //P virou a tecla de fechar o programa para S
@@ -382,6 +384,8 @@ int main()
                     }
                     EndMode2D();
                     EndDrawing();
+
+                    if(IsKeyDown(KEY_E)) abrirLoja(&moeda, &modPistola, &modRifle, &jogador);
 
                     if (jogador.vida <= 0)
                     {

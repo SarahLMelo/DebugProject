@@ -302,7 +302,8 @@ void atingiuOPlayer(mob *criatura, nerdola *player)
 {
     if (CheckCollisionRecs((*criatura).colisao, (*player).colisao))
     {
-        (*player).vida -= ((*criatura).dano - (*player).armadura);
+        if((*player).armadura>(*criatura).dano) return;
+        else (*player).vida -= ((*criatura).dano - (*player).armadura);
     }
 
     return;
@@ -312,7 +313,8 @@ void atingiuOPlayer2(mob *criatura, nerdola *player)
 {
     if (CheckCollisionRecs((*criatura).ataque, (*player).colisao))
     {
-        (*player).vida -= ((*criatura).dano - (*player).armadura);
+        if((*player).armadura>(*criatura).dano) return;
+        else (*player).vida -= ((*criatura).dano - (*player).armadura);
     }
 
     return;

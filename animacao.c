@@ -115,7 +115,7 @@ void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *f
         *anim = aux;
         }
     } else { 
-        if (aux.frameCounter >= (60/4)) {
+        if (aux.frameCounter >= (60/11)) {
                 aux.frameCounter = 0;
                 aux.currentFrame++;
                 if (aux.currentFrame > 10){

@@ -280,7 +280,7 @@ int main()
                             } else {
                                 DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 Criaturas[i].frameTimer++;
-                                if(Criaturas[i].frameTimer > 120){
+                                if(Criaturas[i].frameTimer > 170){
                                     //printf("\n%d\n", Criaturas[i].frameTimer);
                                     Criaturas[i].frameTimer = 0;
                                     Criaturas[i].prontoPraAtacar = 1;
@@ -363,7 +363,7 @@ int main()
                     AnimarPlayer(&player, acao);
                     //Atualizando a camera
                     cameraJogador.target = (Vector2){jogador.colisao.x, jogador.colisao.y};
-                    cameraJogador.zoom = 0.75f;
+                    cameraJogador.zoom = 0.75f; //0.75 paradao 
 
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();

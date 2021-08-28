@@ -16,7 +16,7 @@ typedef struct
     
 } mob;
 
-void criarCriatura(mob *criatura, double posX, double posY);
+void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[]);
 
 int bateuNaParede(Rectangle *grid, mob criatura, int quantidadeDeParedes);
 
@@ -28,7 +28,7 @@ void atingiuOPlayer(mob *criatura, nerdola *player);
 
 void atingiuOPlayer2(mob *criatura, nerdola *player);
 
-void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h);
+void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, Rectangle criaRec[]);
 
 int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao, int *moeda);
 

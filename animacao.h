@@ -20,11 +20,12 @@ typedef struct{
     int frameCounter;
     int frameSpeed;
     int currentFrame;
+    int lrTimer;
+    int delta;
     double angulo;
-    double oldangulo;
-    int podeVirar;
     Vector2 position;
     Vector2 oldposition;
+    Rectangle frame;
     int dirOuEsq;
     int flagAnimMorte;
     int morreu;

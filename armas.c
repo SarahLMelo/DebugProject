@@ -76,7 +76,7 @@ bala atirarComMouse(float xMira, float yMira, nerdola jogador, Sound som, int ar
     projetil.colisao.height = 10;
     projetil.colisao.width = 10;
     projetil.colisao.x = jogador.colisao.x;
-    projetil.colisao.y = jogador.colisao.y;
+    projetil.colisao.y = jogador.colisao.y - 120;
 
     return projetil;
 }

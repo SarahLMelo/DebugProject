@@ -35,13 +35,14 @@ int main()
     int acao = 0;
     int acaoAntiga = 1;
     Rectangle criaturaRec[2];
+    Rectangle criaturaRecMorte[2];
     //Loading texturas
     Texture2D mapa = abrirMapa();
     Texture2D shadow = LoadTexture("etc/personagens/principal/shadow.png");
     //------Criatura Bug Red
     Texture2D criatura1TexRed = LoadTexture("etc/personagens/principal/criatura1red.png");
     Texture2D criatura1TexRedMorte = LoadTexture("etc/personagens/principal/criatura1redxplosion.png");
-    Rectangle criatura1RecMorte = {0.0f, 0.0f, criatura1TexRedMorte.width / 8, criatura1TexRedMorte.height / 2};
+    criaturaRecMorte[1] = (Rectangle) {0.0f, 0.0f, criatura1TexRedMorte.width / 8, criatura1TexRedMorte.height / 2};
     criaturaRec[1] = (Rectangle) {0.0f, 0.0f, criatura1TexRed.width / 2, criatura1TexRed.height / 2};
     //------Criatura Bug Yellow
     Texture2D criatura1TexYellow = LoadTexture("etc/personagens/principal/criatura1yellow.png");
@@ -51,10 +52,10 @@ int main()
     Texture2D criatura1TexGreenMorte = LoadTexture("etc/personagens/principal/criatura1greenxplosion.png");
     //------Criatura Skeleton Warrior
     Texture2D criatura2Tex = LoadTexture("etc/personagens/principal/skeletonwalk.png");
-    Texture2D criatura2TexAttack = LoadTexture("etc/personagens/principal/skeletonAttack.png");
+    Texture2D criatura2TexAttack = LoadTexture("etc/personagens/principal/skeletonAttack2.png");
     Texture2D criatura2TexMorte = LoadTexture("etc/personagens/principal/skeletonDeath.png");
     criaturaRec[2] = (Rectangle) {0.0f, 0.0f, criatura2Tex.width/10, criatura2Tex.height/2};
-    Rectangle criatura2RecAttack = {0.0f, 0.0f, criatura2TexAttack.width/17, criatura2TexAttack.height/2};
+    criaturaRecMorte[2] = (Rectangle) {0.0f, 0.0f, criatura2TexAttack.width/17, criatura2TexAttack.height/2}; 
     //spritesheets load;
     spritesheet player = {
         8,
@@ -132,7 +133,7 @@ int main()
 
                 UpdateMusicStream(music);
 
-                criarWave(wave * 5, &criaturasVivas, &Criaturas, mapa.width, mapa.height, criaturaRec);
+                criarWave(wave * 5, &criaturasVivas, &Criaturas, mapa.width, mapa.height, criaturaRec, criaturaRecMorte);
                 criaturasVivas = wave * 5;
                 while (criaturasVivas > 0)
                 {
@@ -186,22 +187,22 @@ int main()
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 1)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
-                            AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexYellowMorte, &criatura1RecMorte, 96, 96);
+                            AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexYellowMorte, 96, 96);
                         }
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 2)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
-                            AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexGreenMorte, &criatura1RecMorte, 96, 96);
+                            AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexGreenMorte, 96, 96);
                         }
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 3)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
-                            AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexRedMorte, &criatura1RecMorte, 96, 96);
+                            AnimarCriatura1(&Criaturas[i].animaMorte, &criatura1TexRedMorte, 96, 96);
                         }
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 4)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
-                            if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criatura2RecAttack, criatura2TexMorte.width/(12*3.5), criatura2TexMorte.height/(2*3.5), 96, 50);
+                            if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(12*3.5), criatura2TexMorte.height/(2*3.5), 96, 50);
                         }
                         if (Criaturas[i].vida > 0 && Criaturas[i].tipo == 1)
                         {
@@ -214,7 +215,7 @@ int main()
                             Criaturas[i].anima.frameCounter++;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
-                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexYellow, &Criaturas[i].anima.frame, 96, 96);
+                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexYellow, 96, 96);
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
@@ -232,7 +233,7 @@ int main()
                             Criaturas[i].anima.frameCounter++;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
-                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexGreen, &Criaturas[i].anima.frame, 96, 96);
+                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexGreen, 96, 96);
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
@@ -250,7 +251,7 @@ int main()
                             Criaturas[i].anima.frameCounter++;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
-                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexRed, &Criaturas[i].anima.frame, 96, 96);
+                            AnimarCriatura1(&Criaturas[i].anima, &criatura1TexRed, 96, 96);
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].animaMorte.position.x = Criaturas[i].anima.position.x;
                             Criaturas[i].animaMorte.position.y = Criaturas[i].anima.position.y;
@@ -298,9 +299,13 @@ int main()
                             Criaturas[i].animaMorte.dirOuEsq = Criaturas[i].anima.dirOuEsq;
                             //DrawRectangleRec(Criaturas[i].anima.position.x);
                             if(Criaturas[i].anima.estaAtacando == 0){
-                                AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &Criaturas[i].anima.frame, criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
+                                if(Criaturas[i].anima.atacou == 1){
+                                    Criaturas[i].anima.frame = criaturaRec[2];
+                                    Criaturas[i].anima.atacou = 0;
+                                }
+                                AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
                             } else {
-                                if(Criaturas[i].anima.currentFrame == 7 || Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
+                                if(Criaturas[i].anima.currentFrame == 7) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 Criaturas[i].anima.delayAnimacao++;
                                 if(Criaturas[i].anima.delayAnimacao < 20){
                                     Criaturas[i].anima.frameSpeed = 2;
@@ -308,10 +313,11 @@ int main()
                                 if(Criaturas[i].anima.delayAnimacao > 20){ 
                                     
                                     Criaturas[i].anima.frameSpeed = 3;
-                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2TexAttack, &criatura2RecAttack, criatura2TexAttack.width/(17*3.5), criatura2TexAttack.height/(2*3.5), 96, 50);
-                                    if(Criaturas[i].anima.currentFrame == 7 && Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
+                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2TexAttack, &criaturaRecMorte[2],criatura2TexAttack.width/(17*3.5), criatura2TexAttack.height/(2*3.5), 96, 50);
+                                    if(Criaturas[i].anima.currentFrame == 7 || Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 } else {
-                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &Criaturas[i].anima.frame, criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
+                                    
+                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
                                     Criaturas[i].anima.frameSpeed = 2;
                                 }
                             }
@@ -433,11 +439,19 @@ int main()
                             modRifle = 0;
                             modPistola = 0;
                             criaturasVivas = 0;
-                            criarWave(wave * 5, &criaturasVivas, &Criaturas, mapa.width, mapa.height, criaturaRec);
+                            criarWave(wave * 5, &criaturasVivas, &Criaturas, mapa.width, mapa.height, criaturaRec, criaturaRecMorte);
                             inicializaPlayer(&jogador);
                             if (IsKeyDown(KEY_P))
                             {
                                 //free(Criaturas);
+                                UnloadTexture(criatura1TexYellow);
+                                UnloadTexture(criatura1TexYellowMorte);
+                                UnloadTexture(criatura1TexGreen);
+                                UnloadTexture(criatura1TexGreenMorte);
+                                UnloadTexture(criatura2Tex);
+                                UnloadTexture(criatura2TexAttack);
+                                UnloadTexture(criatura2TexMorte);
+                                UnloadTexture(shadow);
                                 UnloadTexture(plasma.textura1);
                                 UnloadTexture(plasma.textura2);
                                 UnloadTexture(player.textura1);
@@ -462,13 +476,20 @@ int main()
             }
         }
     }
+    UnloadTexture(criatura1TexYellow);
+    UnloadTexture(criatura1TexYellowMorte);
+    UnloadTexture(criatura1TexGreen);
+    UnloadTexture(criatura1TexGreenMorte);
+    UnloadTexture(criatura2Tex);
+    UnloadTexture(criatura2TexAttack);
+    UnloadTexture(criatura2TexMorte);
+    UnloadTexture(shadow);
     UnloadTexture(plasma.textura1);
     UnloadTexture(plasma.textura2);
     UnloadTexture(player.textura1);
     UnloadTexture(player.textura2);
     UnloadTexture(criatura1TexRed);
     UnloadTexture(criatura1TexRedMorte);
-    //UnloadTexture(criatura1TexYellow);
     UnloadTexture(mapa);
     UnloadMusicStream(music);
     CloseAudioDevice();

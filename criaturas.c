@@ -206,7 +206,7 @@ int bateuNaParede(Rectangle *grid, mob criatura, int quantidadeDeParedes)
     int bateu = 0;
     for (int i = 0; i < quantidadeDeParedes && bateu == 0; i++)
     {
-        if (CheckCollisionRecs(criatura.colisao, grid[i]) && i!= 14 &&!(i >= 30 && i<=35))
+        if (CheckCollisionRecs(criatura.colisao, grid[i]) && ((i!= 14 && !(i >= 30 && i<=35)) || (criatura.tipo == 4)))
             bateu = 1;
     }
     return bateu;

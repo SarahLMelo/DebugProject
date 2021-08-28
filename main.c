@@ -49,7 +49,7 @@ int main()
     Texture2D criatura1TexGreenMorte = LoadTexture("etc/personagens/principal/criatura1greenxplosion.png");
     //------Criatura Skeleton Warrior
     Texture2D criatura2Tex = LoadTexture("etc/personagens/principal/skeletonwalk.png");
-    Texture2D criatura2TexAttack = LoadTexture("etc/personagens/principal/skeletonAttack.png");
+    Texture2D criatura2TexAttack = LoadTexture("etc/personagens/principal/skeletonAttack2.png");
     Texture2D criatura2TexMorte = LoadTexture("etc/personagens/principal/skeletonDeath.png");
     criaturaRec[2] = (Rectangle) {0.0f, 0.0f, criatura2Tex.width/10, criatura2Tex.height/2};
     Rectangle criatura2RecAttack = {0.0f, 0.0f, criatura2TexAttack.width/17, criatura2TexAttack.height/2};
@@ -307,7 +307,7 @@ int main()
                                     
                                     Criaturas[i].anima.frameSpeed = 3;
                                     AnimarCriatura2(&Criaturas[i].anima, &criatura2TexAttack, &criatura2RecAttack, criatura2TexAttack.width/(17*3.5), criatura2TexAttack.height/(2*3.5), 96, 50);
-                                    if(Criaturas[i].anima.currentFrame == 7 && Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
+                                    if(Criaturas[i].anima.currentFrame == 7 || Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 } else {
                                     AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &Criaturas[i].anima.frame, criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
                                     Criaturas[i].anima.frameSpeed = 2;

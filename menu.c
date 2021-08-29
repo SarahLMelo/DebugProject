@@ -2,9 +2,10 @@
 #include "raylib.h"
 #include <stdio.h>
 #include <math.h>
+#include "glossario.h"
 
 
-void abrirGlossario(){
+void mostrarGlossario(){
     char mensagem[]="glossario de monstros e armas";
 
     BeginDrawing();
@@ -134,7 +135,7 @@ int menuInicial(){
         PlaySound(ratinho);
         glossario=1;
         while(glossario==1){
-            abrirGlossario();
+            mostrarGlossario();
             if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
                 glossario=0;
             }

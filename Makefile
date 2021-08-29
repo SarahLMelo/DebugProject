@@ -27,7 +27,7 @@
 PROJECT_NAME       ?= TheBugger
 RAYLIB_VERSION     ?= 3.8.0
 ## @TODO: Mude aqui para o caminho de onde está o raylib
-RAYLIB_PATH        ?= C:\Users\User\Documents\raylib-master
+RAYLIB_PATH        ?= C:\Users\lucas\Desktop\raylib-3.7.0
 
 # Define compiler path on Windows
 COMPILER_PATH      ?= C:/raylib/mingw/bin

@@ -2,18 +2,7 @@
 #include "raylib.h"
 #include <stdio.h>
 #include <math.h>
-
-
-void abrirGlossario(){
-    char mensagem[]="glossario de monstros e armas";
-
-    BeginDrawing();
-        ClearBackground(DARKBROWN);
-        DrawText(mensagem, 290 ,20 , 75, WHITE);
-    
-        
-    EndDrawing();
-}
+#include "glossario.h"
 
 void telaCarregamento(){
     Camera2D menu;
@@ -131,10 +120,9 @@ int menuInicial(){
     if(mouseButaoGlossario && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
     {
         glossario=1;
-        while(glossario==1)
-        {
-            abrirGlossario();
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        while(glossario==1){
+            mostrarGlossario();
+            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
                 glossario=0;
         }
     }

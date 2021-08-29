@@ -304,10 +304,6 @@ int main()
                                     Criaturas[i].velocidade = 2;
                                 }
                             }
-                            //DrawRectangle((int)(Criaturas[i]).ataque.x,(int)(Criaturas[i]).ataque.y, 50, 50, RED);
-                            //Andando normal
-                            //Criaturas[i].anima.oldposition.x = Criaturas[i].anima.position.x;
-                            //Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
@@ -316,12 +312,7 @@ int main()
                             Criaturas[i].animaMorte.dirOuEsq = Criaturas[i].anima.dirOuEsq;
                             //DrawRectangleRec(Criaturas[i].anima.position.x);
                             if(Criaturas[i].anima.estaAtacando == 0){
-                                // if(Criaturas[i].anima.atacou == 1){
-                                //     Criaturas[i].anima.frame = criaturaRec[2];
-                                //     Criaturas[i].anima.atacou = 0;
-                                // }
                                 AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/35, criatura2Tex.height/7, 64+128, 32+128-32);
-                                //if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64);
                             } else {
                                 if(Criaturas[i].anima.currentFrame == 7) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 Criaturas[i].anima.delayAnimacao++;

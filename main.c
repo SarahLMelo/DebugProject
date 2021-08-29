@@ -455,16 +455,16 @@ int main()
                     plasmaHUD.frameCounter++;
                     pcHUD.frameCounter++;
                     DrawText(TextFormat("Vida: %d", jogador.vida), cameraJogador.target.x - wid/2.5 + wid/20, cameraJogador.target.y + hei/2.5, 35, RED);
-                    DrawText(TextFormat("%i", 256 - balasGastasPrincipal), cameraJogador.target.x + wid/2.5 + wid/20, cameraJogador.target.y + hei/2.5 - hei/16, 35, BLUE);
-                    DrawText(TextFormat("%i", 1024 - balasGastasSecundaria), cameraJogador.target.x + wid/2.5 + wid/20,cameraJogador.target.y + hei/2.5, 35, (Color){255, 58, 0, 255});
+                    DrawText(TextFormat("%i", 256 - balasGastasPrincipal), cameraJogador.target.x + wid/2.8 + wid/20, cameraJogador.target.y + hei/2.8 - hei/16, 35, BLUE);
+                    DrawText(TextFormat("%i", 1024 - balasGastasSecundaria), cameraJogador.target.x + wid/2.8 + wid/20,cameraJogador.target.y + hei/2.8, 35, (Color){255, 58, 0, 255});
                     AnimarHud(&pcHUD, pcHUD.textura1, 200, 150, cameraJogador.target.x+wid/2.8, cameraJogador.target.y-hei/2.5-64);
                     DrawText(TextFormat("%d CODIGOS DEBUGADOS", pontuacao), cameraJogador.target.x+wid/8, cameraJogador.target.y - hei/2.5 ,30, PURPLE);
                     switch(armaAtiva){
                         case(1):
-                            AnimarHud(&plasmaHUD, plasmaHUD.textura1, 100, 100, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.5);
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura1, 100, 100, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.8);
                             break;
                         case(2):
-                            AnimarHud(&plasmaHUD, plasmaHUD.textura2, 100, 100, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.5+hei/16);
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura2, 100, 100, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.8+hei/16);
                             //DrawRectangleLines(cameraJogador.target.x + wid/2, cameraJogador.target.y + hei/2 + 54 , 150, 50, (Color){255, 58, 0, 255});
                             break;
                     }

@@ -178,6 +178,7 @@ int main()
                 criaturasVivas = wave * 5;
                 while (criaturasVivas > 0)
                 {
+                    DisableCursor();
                     //Atualizando a stream da música
                     UpdateMusicStream(music);
                     //Criando a parte de imagem

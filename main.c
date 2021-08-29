@@ -25,7 +25,7 @@ double oldangulo;
 
 int main()
 {
-    InitWindow(1280, 720, "Nosso jogo");
+    InitWindow(1920, 1080, "Nosso jogo");
     //ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();

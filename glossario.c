@@ -57,14 +57,13 @@ void lore(){
 }
 
 void mostrarGlossario(){
-    //dimensoes:drawtext(string, 460 > metade da tela, 20 > parte de cima  
-    //da tela, 75 (para titulos), verde);
-    //
-    //
-    const int larguraTela = 1366;
-    const int alturaTela = 768;
 
     //ToggleFullscreen();
+    Camera2D menu;
+    menu.zoom = GetScreenWidth()/1366.0f;
+    menu.target = (Vector2){0.0f, 0.0f};
+    menu.offset = (Vector2){0.0f, 0.0f};
+    menu.rotation = 0.0f;
 
     const char titulo[] = "GLOSSÁRIO";
     
@@ -87,13 +86,15 @@ void mostrarGlossario(){
     int mousebotaoFormas = 0;
     int mousebotaoInimigos = 0;
     int contsom = 0;
-
+    posicaoMouse.x=GetMouseX();
+    posicaoMouse.y=GetMouseY();
+    double p = GetScreenWidth()/(double)1366;
+    SetMouseScale(1/p, 1/p);
+    Rectangle mouse = {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
     SetTargetFPS(60);
 
     if (sair){
         //posicao do mause
-        posicaoMouse.x=GetMouseX();
-        posicaoMouse.y=GetMouseY();
 
         //CHECANDO O MOUSE
         if(posicaoMouse.x>=130 && posicaoMouse.x<=430 && posicaoMouse.y>=120 && posicaoMouse.y<=220){
@@ -117,6 +118,8 @@ void mostrarGlossario(){
         int abrirInimigos = 0;
 
         BeginDrawing();
+        BeginMode2D(menu);
+            DrawRectangleRec(mouse, PINK);
             ClearBackground(BLACK);
             DrawText(titulo, 460, 20, 75, DARKGREEN); // 0 (x), 0 (y) = cant.sup.esq.
             if(mousebotaoLore){
@@ -172,19 +175,20 @@ void mostrarGlossario(){
             contsom = 0;
 
     EndDrawing();  
+    EndMode2D();
     } else {
         UnloadSound(somBotao);
         CloseAudioDevice();
-        
         UnloadTexture(botaoLore);
         UnloadTexture(botaoInimigos);
         UnloadTexture(botaoFormas);
+        UnloadTExture(botaoVoltar);
         UnloadTexture(libelulaverde);
         UnloadTexture(libelulaamarela);
         UnloadTexture(libelulavermelha);
         UnloadTexture(esqueletoimg);
         UnloadTexture(formaazul);
         UnloadTexture(formaamarela);
-    sair = 0;
     }
+    sair = 0;
 }

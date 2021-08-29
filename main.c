@@ -25,8 +25,7 @@ double oldangulo;
 
 int main()
 {
-    
-    InitWindow(1920, 1080, "Nosso jogo");
+    InitWindow(1366, 768, "Nosso jogo");
     //ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
@@ -94,17 +93,28 @@ int main()
         LoadTexture("etc/personagens/principal/plasmaRed.png"),
         (Rectangle){0.0f, 0.0f, plasma.textura1.width / plasma.quantFrames, plasma.textura1.height},
         (Vector2){0.0f, 0.0f}};
-        spritesheet pcHUD = {
-        2,
-        0,
-        12,
-        0,
-        1,
-        0.0f,
-        LoadTexture("etc/pcpc.png"),
-        (Texture2D) {0},
-        (Rectangle){0.0f, 0.0f, pcHUD.textura1.width / pcHUD.quantFrames, pcHUD.textura1.height},
-        (Vector2){0.0f, 0.0f}};
+    spritesheet pcHUD = {
+    2,
+    0,
+    12,
+    0,
+    1,
+    0.0f,
+    LoadTexture("etc/pcpc.png"),
+    (Texture2D) {0},
+    (Rectangle){0.0f, 0.0f, pcHUD.textura1.width / pcHUD.quantFrames, pcHUD.textura1.height},
+    (Vector2){0.0f, 0.0f}};
+    spritesheet heart = {
+    5,
+    0,
+    10,
+    0,
+    1,
+    0.0f,
+    LoadTexture("etc/heart.png"),
+    (Texture2D) {0},
+    (Rectangle){0.0f, 0.0f, heart.textura1.width / heart.quantFrames, heart.textura1.height},
+    (Vector2){0.0f, 0.0f}};
     //Setando camera
     Camera2D cameraJogador;
     cameraJogador.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -429,19 +439,22 @@ int main()
                         criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave * 5, &pontuacao, &moeda);
                     }
                     //********************************************   HUD DO JOGO   ***********************************************************************
-                    BeginMode2D(menu);
+                    
+                    //BeginMode2D(menu);
                     plasmaHUD.frameCounter++;
                     pcHUD.frameCounter++;
-                    DrawText(TextFormat("Vida: %d", jogador.vida), cameraJogador.target.x - wid/2.5 + wid/20, cameraJogador.target.y + hei/2 , 35, RED);
-                    AnimarHud(&pcHUD, pcHUD.textura1, 200, 150, cameraJogador.target.x+wid/2.8, cameraJogador.target.y-hei/2.3-hei/16);
-                    DrawText(TextFormat("%d CODIGOS DEBUGADOS", pontuacao), cameraJogador.target.x+wid/8, cameraJogador.target.y - hei/2.3 ,30, PURPLE);
+                    heart.frameCounter++;
+                    DrawText(TextFormat("Vida: %d", jogador.vida), cameraJogador.target.x - wid/2.5, cameraJogador.target.y + hei/2.5 , 35, RED);
+                    AnimarHud(&pcHUD, pcHUD.textura1, wid/10, wid/12, cameraJogador.target.x+wid/2.8, cameraJogador.target.y-hei/2.3-hei/16);
+                    DrawText(TextFormat("%d Breakpoints", pontuacao), cameraJogador.target.x+wid/8, cameraJogador.target.y - hei/2.3 ,30, PURPLE);
+                    AnimarHud(&heart, heart.textura1, wid/40, wid/36, cameraJogador.target.x-wid/2.2, cameraJogador.target.y+hei/2.6);
                     switch(armaAtiva){
                         case(1):
-                            AnimarHud(&plasmaHUD, plasmaHUD.textura1, 100, 100, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.2);
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura1, hei/10, hei/10, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.2);
                             DrawText(TextFormat("%i", 256 - balasGastasPrincipal), cameraJogador.target.x + wid/2.5 + wid/20, cameraJogador.target.y + hei/2.2 - hei/16, 35, BLUE);
                             break;
                         case(2):
-                            AnimarHud(&plasmaHUD, plasmaHUD.textura2, 100, 100, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.2);
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura2, hei/10, hei/10, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.2);
                             DrawText(TextFormat("%i", 1024 - balasGastasSecundaria), cameraJogador.target.x + wid/2.5 + wid/20,cameraJogador.target.y + hei/2.2 - hei/16, 35, (Color){255, 58, 0, 255});
                             //DrawRectangleLines(cameraJogador.target.x + wid/2, cameraJogador.target.y + hei/2 + 54 , 150, 50, (Color){255, 58, 0, 255});
                             break;

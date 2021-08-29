@@ -25,8 +25,8 @@ double oldangulo;
 
 int main()
 {
-    InitWindow(1366, 768, "Nosso jogo");
-    //ToggleFullscreen();
+    InitWindow(1920, 1080, "Nosso jogo");
+    ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
     float pX = GetScreenWidth()/1920.0f;
@@ -443,18 +443,19 @@ int main()
                     plasmaHUD.frameCounter++;
                     pcHUD.frameCounter++;
                     heart.frameCounter++;
-                    DrawText(TextFormat("Vida: %d", jogador.vida), cameraJogador.target.x - wid/2.5, cameraJogador.target.y + hei/2.5 , 35, RED);
                     AnimarHud(&pcHUD, pcHUD.textura1, wid/10, wid/12, cameraJogador.target.x+wid/2.8, cameraJogador.target.y-hei/2.3-hei/16);
                     DrawText(TextFormat("%d Breakpoints", pontuacao), cameraJogador.target.x+wid/8, cameraJogador.target.y - hei/2.3 ,30, PURPLE);
+                    
+                    DrawText(TextFormat("Vida: %d", jogador.vida), cameraJogador.target.x - wid/2.5, cameraJogador.target.y + hei/2.5 , 35, RED);
                     AnimarHud(&heart, heart.textura1, wid/40, wid/36, cameraJogador.target.x-wid/2.2, cameraJogador.target.y+hei/2.6);
                     switch(armaAtiva){
                         case(1):
-                            AnimarHud(&plasmaHUD, plasmaHUD.textura1, hei/10, hei/10, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.2);
-                            DrawText(TextFormat("%i", 256 - balasGastasPrincipal), cameraJogador.target.x + wid/2.5 + wid/20, cameraJogador.target.y + hei/2.2 - hei/16, 35, BLUE);
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura1, hei/10, hei/10, cameraJogador.target.x+wid/2.4, cameraJogador.target.y+hei/2.2);
+                            DrawText(TextFormat("%i", 256 - balasGastasPrincipal), cameraJogador.target.x + wid/2.3, cameraJogador.target.y + hei/2.2 - hei/16, 35, BLUE);
                             break;
                         case(2):
-                            AnimarHud(&plasmaHUD, plasmaHUD.textura2, hei/10, hei/10, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.2);
-                            DrawText(TextFormat("%i", 1024 - balasGastasSecundaria), cameraJogador.target.x + wid/2.5 + wid/20,cameraJogador.target.y + hei/2.2 - hei/16, 35, (Color){255, 58, 0, 255});
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura2, hei/10, hei/10, cameraJogador.target.x + wid/2.4, cameraJogador.target.y+hei/2.2);
+                            DrawText(TextFormat("%i", 1024 - balasGastasSecundaria), cameraJogador.target.x + wid/2.3,cameraJogador.target.y + hei/2.2 - hei/16, 35, (Color){255, 58, 0, 255});
                             //DrawRectangleLines(cameraJogador.target.x + wid/2, cameraJogador.target.y + hei/2 + 54 , 150, 50, (Color){255, 58, 0, 255});
                             break;
                     }

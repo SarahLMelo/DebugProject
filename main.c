@@ -120,7 +120,7 @@ int main()
     cameraJogador.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     cameraJogador.target = (Vector2){0.0f, 0.0f};
     cameraJogador.rotation = 0.0f;
-    cameraJogador.zoom = 0.9f;
+    cameraJogador.zoom = 1.0f;
     
     // Camera2D menu;
     // menu.zoom = 1 - 0.08*pX;

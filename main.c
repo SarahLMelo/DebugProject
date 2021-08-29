@@ -25,11 +25,10 @@ double oldangulo;
 
 int main()
 {
-    InitWindow(1920, 1080, "Nosso jogo");
-    ToggleFullscreen();
+    InitWindow(1280, 720, "Nosso jogo");
+    //ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
-    float pX = GetScreenWidth()/1920.0f;
     InitAudioDevice();
     Music music = LoadMusicStream("musica/TheBuggerOST.mp3");
     Sound tiro;
@@ -122,11 +121,11 @@ int main()
     cameraJogador.rotation = 0.0f;
     cameraJogador.zoom = 1.0f;
     
-    // Camera2D menu;
-    // menu.zoom = 1 - 0.08*pX;
-    // menu.target = (Vector2){0.0f, 0.0f};
-    // menu.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
-    // menu.rotation = 0.0f;
+    Camera2D menu;
+    menu.zoom = GetScreenWidth()/1920.0f;
+    menu.target = (Vector2){0.0f, 0.0f};
+    menu.offset = (Vector2){0.0f, 0.0f};
+    menu.rotation = 0.0f;
     
     //Iniciando o game
     SetTargetFPS(60);
@@ -305,10 +304,6 @@ int main()
                                     Criaturas[i].velocidade = 2;
                                 }
                             }
-                            //DrawRectangle((int)(Criaturas[i]).ataque.x,(int)(Criaturas[i]).ataque.y, 50, 50, RED);
-                            //Andando normal
-                            //Criaturas[i].anima.oldposition.x = Criaturas[i].anima.position.x;
-                            //Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
                             Criaturas[i].anima.position.x = Criaturas[i].colisao.x;
                             Criaturas[i].anima.position.y = Criaturas[i].colisao.y;
                             Criaturas[i].anima.oldposition.y = Criaturas[i].anima.position.y;
@@ -317,12 +312,7 @@ int main()
                             Criaturas[i].animaMorte.dirOuEsq = Criaturas[i].anima.dirOuEsq;
                             //DrawRectangleRec(Criaturas[i].anima.position.x);
                             if(Criaturas[i].anima.estaAtacando == 0){
-                                // if(Criaturas[i].anima.atacou == 1){
-                                //     Criaturas[i].anima.frame = criaturaRec[2];
-                                //     Criaturas[i].anima.atacou = 0;
-                                // }
                                 AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/35, criatura2Tex.height/7, 64+128, 32+128-32);
-                                //if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64);
                             } else {
                                 if(Criaturas[i].anima.currentFrame == 7) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 Criaturas[i].anima.delayAnimacao++;
@@ -468,6 +458,7 @@ int main()
                     {
                         while (IsKeyUp(KEY_SPACE))
                         {
+                            BeginMode2D(menu);
                             free(Criaturas);
                             ClearBackground(BLACK);
                             DrawText("VOCE MORREU!", 345, 400, 150, RED);
@@ -481,6 +472,7 @@ int main()
                             criaturasVivas = 0;
                             criarWave(wave * 5, &criaturasVivas, &Criaturas, mapa.width, mapa.height, criaturaRec, criaturaRecMorte);
                             inicializaPlayer(&jogador);
+                            EndMode2D();
                             if (IsKeyDown(KEY_P))
                             {
                                 //free(Criaturas);

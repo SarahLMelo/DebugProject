@@ -32,14 +32,11 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
         ShowCursor();
 
         Vector2 posicaoMouse={0,0};
-        Vector2 mouse={0,0};
+        double p = GetScreenWidth()/(double)1920;
         posicaoMouse.x=GetMouseX();
         posicaoMouse.y=GetMouseY();
-
-        double p = GetScreenWidth()/(double)1920;
-        double k = 3.43431*p*p-7.2143*p+3.78134;
-        mouse.x = posicaoMouse.x + k*posicaoMouse.x;
-        mouse.y = posicaoMouse.y + k*posicaoMouse.y;
+        SetMouseScale((1/p), (1/p));
+        Rectangle mouse = (Rectangle) {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
 
         int compraAzul=0;
         int compraAmarela=0;

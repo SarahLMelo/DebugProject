@@ -2,18 +2,7 @@
 #include "raylib.h"
 #include <stdio.h>
 #include <math.h>
-
-
-void abrirGlossario(){
-    char mensagem[]="glossario de monstros e armas";
-
-    BeginDrawing();
-        ClearBackground(DARKBROWN);
-        DrawText(mensagem, 290 ,20 , 75, WHITE);
-    
-        
-    EndDrawing();
-}
+#include "glossario.h"
 
 void telaCarregamento(){
     Camera2D menu;
@@ -90,11 +79,9 @@ int menuInicial(){
     posicaoMouse.x=GetMouseX();
     posicaoMouse.y=GetMouseY();
     double p = GetScreenWidth()/(double)1920;
-    double k = 3.43431*p*p-7.2143*p+3.78134;
-    mouse.x = posicaoMouse.x + k*posicaoMouse.x;
-    mouse.y = posicaoMouse.y + k*posicaoMouse.y;
-    printf(" x = %f\n ", mouse.x);
-    printf(" y = %f\n ", mouse.y);
+    SetMouseScale((1/p), (1/p));
+    mouse = (Rectangle) {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
+
     DrawRectangleRec(mouse, PINK);
     if(CheckCollisionRecs(botaoStartRec, mouse)){
         mouseButaoStart=1;
@@ -129,16 +116,13 @@ int menuInicial(){
 
     
     if(mouseButaoGlossario && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
-    {
-        glossario=1;
-        while(glossario==1)
-        {
-            abrirGlossario();
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-                glossario=0;
+    glossario=1;
+            while(glossario==1){
+                mostrarGlossario();
+                if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+                    glossario=0;
+            }
         }
-    }
-
     if(mouseButaoStart && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
         return 1;
     

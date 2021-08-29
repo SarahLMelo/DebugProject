@@ -14,7 +14,7 @@
 #define miraRaio 5
 
 //P virou a tecla de fechar o programa para S
-
+int hudFramecounter = 0;
 bala armaPrincipal[256];
 bala armaSecundaria[1024];
 Rectangle grid[50];
@@ -22,11 +22,16 @@ int qtdDeParedes = 45;
 int timerPosition = 0;
 double oldangulo;
 
+
 int main()
 {
-
+    
     InitWindow(1920, 1080, "Nosso jogo");
-    ToggleFullscreen();
+    //ToggleFullscreen();
+    int wid = GetScreenWidth();
+    int hei = GetScreenHeight();
+    float pX = GetScreenWidth()/1920;
+    float pY = GetScreenHeight()/1080;
     InitAudioDevice();
     Music music = LoadMusicStream("musica/TheBuggerOST.mp3");
     Sound tiro;
@@ -79,6 +84,28 @@ int main()
         LoadTexture("etc/personagens/principal/plasmaRed.png"),
         (Rectangle){0.0f, 0.0f, plasma.textura1.width / plasma.quantFrames, plasma.textura1.height},
         (Vector2){0.0f, 0.0f}};
+        spritesheet plasmaHUD = {
+        8,
+        0,
+        18,
+        0,
+        1,
+        180.0f,
+        LoadTexture("etc/personagens/principal/plasmaBlue.png"),
+        LoadTexture("etc/personagens/principal/plasmaRed.png"),
+        (Rectangle){0.0f, 0.0f, plasma.textura1.width / plasma.quantFrames, plasma.textura1.height},
+        (Vector2){0.0f, 0.0f}};
+        spritesheet pcHUD = {
+        2,
+        0,
+        12,
+        0,
+        1,
+        0.0f,
+        LoadTexture("etc/pcpc.png"),
+        (Texture2D) {0},
+        (Rectangle){0.0f, 0.0f, pcHUD.textura1.width / pcHUD.quantFrames, pcHUD.textura1.height},
+        (Vector2){0.0f, 0.0f}};
     //Setando camera
     Camera2D cameraJogador;
     cameraJogador.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -86,6 +113,10 @@ int main()
     cameraJogador.rotation = 0.0f;
     cameraJogador.zoom = 1.0f;
 
+    Camera2D menu;
+    menu.zoom = 1.0f;
+    menu.target = (Vector2){0.0f, 0.0f};
+    menu.rotation = 0.0f;
     //Iniciando o game
     SetTargetFPS(60);
     //Setando os grids do collision map
@@ -93,6 +124,8 @@ int main()
 
     while (!WindowShouldClose())
     {
+        
+        menu.zoom = (0.6f);
         //tela de carregamento
         int contadorTempo = 0;
         clock_t prevTime = clock();
@@ -100,13 +133,12 @@ int main()
 
         if (menuInicial() == 1)
         {
-
+            menu.zoom = (0.6f);
             //tela de carregamento (abre uma tela rosa por 20s antes do jogo começar)
             while (contadorTempo < 20000 && flag == 0)
             {
                 clock_t currentTime = clock() - prevTime;
                 contadorTempo = currentTime * 1000 / CLOCKS_PER_SEC;
-
                 telaCarregamento();
 
                 if (IsKeyPressed(KEY_T))
@@ -125,7 +157,6 @@ int main()
             Color miraCor = DARKBLUE;
 
             inicializaPlayer(&jogador);
-
             while (IsKeyUp(KEY_P))
             {
                 //Atualizando a stream da música
@@ -155,12 +186,11 @@ int main()
                     //DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
 
                     //colocando a vida no canto da tela (seguindo a camera)  MUDEI AQUI
-                    for (int i = 0; i < jogador.vida; i++)
+                    /*for (int i = 0; i < jogador.vida; i++)
                     {
                         DrawRectangle(jogador.colisao.x - 1450 + 7 * i, jogador.colisao.y - 700, 20, 20, GREEN);
-                    }
-                    DrawText(TextFormat("balas restantes na arma secundaria: %i", 1024 - balasGastasSecundaria), jogador.colisao.x - 1450, jogador.colisao.y - 580, 60, YELLOW);
-                    DrawText(TextFormat("balas restantes na arma principal: %i", 256 - balasGastasPrincipal), jogador.colisao.x - 1450, jogador.colisao.y - 650, 60, YELLOW);
+                    }*/
+                    
                     // for (int i = 0; i < 256; i++)
                     //     if (armaPrincipal[i].viva == 1)
                     //         DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
@@ -364,7 +394,7 @@ int main()
                     AnimarPlayer(&player, acao);
                     //Atualizando a camera
                     cameraJogador.target = (Vector2){jogador.colisao.x, jogador.colisao.y};
-                    cameraJogador.zoom = 0.75f; //0.75 paradao 
+                    cameraJogador.zoom = 1.1f; //0.75 paradao 
 
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();
@@ -419,14 +449,32 @@ int main()
                         armaSecundaria[i].frameCounter = plasma.frameCounter;
                         criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave * 5, &pontuacao, &moeda);
                     }
+                    
+                    //********************************************   HUD DO JOGO   ***********************************************************************
+
+                    plasmaHUD.frameCounter++;
+                    pcHUD.frameCounter++;
+                    DrawText(TextFormat("Vida: %d", jogador.vida), cameraJogador.target.x - wid/2.5 + wid/20, cameraJogador.target.y + hei/2.5, 35, RED);
+                    DrawText(TextFormat("%i", 256 - balasGastasPrincipal), cameraJogador.target.x + wid/2.5 + wid/20, cameraJogador.target.y + hei/2.5 - hei/16, 35, BLUE);
+                    DrawText(TextFormat("%i", 1024 - balasGastasSecundaria), cameraJogador.target.x + wid/2.5 + wid/20,cameraJogador.target.y + hei/2.5, 35, (Color){255, 58, 0, 255});
+                    AnimarHud(&pcHUD, pcHUD.textura1, 200, 150, cameraJogador.target.x+wid/2.8, cameraJogador.target.y-hei/2.5-64);
+                    DrawText(TextFormat("%d CODIGOS DEBUGADOS", pontuacao), cameraJogador.target.x+wid/8, cameraJogador.target.y - hei/2.5 ,30, PURPLE);
+                    switch(armaAtiva){
+                        case(1):
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura1, 100, 100, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.5);
+                            break;
+                        case(2):
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura2, 100, 100, cameraJogador.target.x+wid/2.5, cameraJogador.target.y+hei/2.5+hei/16);
+                            //DrawRectangleLines(cameraJogador.target.x + wid/2, cameraJogador.target.y + hei/2 + 54 , 150, 50, (Color){255, 58, 0, 255});
+                            break;
+                    }
                     EndMode2D();
                     EndDrawing();
-
+                    //********************************************   HUD DO JOGO   ***********************************************************************
                     if(IsKeyDown(KEY_E)) abrirLoja(&moeda, &modPistola, &modRifle, &jogador);
 
                     if (jogador.vida <= 0)
                     {
-
                         while (IsKeyUp(KEY_SPACE))
                         {
                             free(Criaturas);
@@ -487,6 +535,8 @@ int main()
     UnloadTexture(shadow);
     UnloadTexture(plasma.textura1);
     UnloadTexture(plasma.textura2);
+    UnloadTexture(plasmaHUD.textura1);
+    UnloadTexture(plasmaHUD.textura2);
     UnloadTexture(player.textura1);
     UnloadTexture(player.textura2);
     UnloadTexture(criatura1TexRed);

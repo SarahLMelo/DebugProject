@@ -22,7 +22,6 @@ int qtdDeParedes = 45;
 int timerPosition = 0;
 double oldangulo;
 
-
 int main()
 {
     InitWindow(1280, 720, "Nosso jogo");
@@ -189,11 +188,7 @@ int main()
                     //Desenhando o mapa
                     DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
                     DrawTextureEx(shadow, (Vector2){(float)cameraJogador.target.x - 16 * 2.75 * 6, (float)cameraJogador.target.y - 16 * 3 * 8}, 0.0f, 3.0f, WHITE);
-
-
                     DrawCircleV(circlePosicao, 5, miraCor);
-
-                  
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave * 5);
                     //Animando criatura
                     double AnguloAt;
@@ -476,7 +471,6 @@ int main()
                             EndMode2D();
                             if (IsKeyDown(KEY_P))
                             {
-                                //free(Criaturas);
                                 UnloadTexture(criatura1TexYellow);
                                 UnloadTexture(criatura1TexYellowMorte);
                                 UnloadTexture(criatura1TexGreen);

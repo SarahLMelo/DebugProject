@@ -119,7 +119,7 @@ void mostrarGlossario(){
 
         BeginDrawing();
         BeginMode2D(menu);
-            DrawRectangleRec(mouse, PINK);
+            //DrawRectangleRec(mouse, PINK);
             ClearBackground(BLACK);
             DrawText(titulo, 460, 20, 75, DARKGREEN); // 0 (x), 0 (y) = cant.sup.esq.
             if(mousebotaoLore){

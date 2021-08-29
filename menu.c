@@ -74,15 +74,15 @@ int menuInicial(){
     BeginMode2D(menu);
 
 
-    DrawRectangleRec(botaoStartRec, PINK);
-    DrawRectangleRec(botaoGlossarioRec, PINK);
+    //DrawRectangleRec(botaoStartRec, PINK);
+    //DrawRectangleRec(botaoGlossarioRec, PINK);
     posicaoMouse.x=GetMouseX();
     posicaoMouse.y=GetMouseY();
     double p = GetScreenWidth()/(double)1920;
     SetMouseScale((1/p), (1/p));
     mouse = (Rectangle) {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
 
-    DrawRectangleRec(mouse, PINK);
+    //DrawRectangleRec(mouse, PINK);
     if(CheckCollisionRecs(botaoStartRec, mouse)){
         mouseButaoStart=1;
     }

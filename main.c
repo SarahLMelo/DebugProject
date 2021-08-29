@@ -122,11 +122,11 @@ int main()
     cameraJogador.rotation = 0.0f;
     cameraJogador.zoom = 0.9f;
     
-    Camera2D menu;
-    menu.zoom = 1 - 0.08*pX;
-    menu.target = (Vector2){0.0f, 0.0f};
-    menu.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
-    menu.rotation = 0.0f;
+    // Camera2D menu;
+    // menu.zoom = 1 - 0.08*pX;
+    // menu.target = (Vector2){0.0f, 0.0f};
+    // menu.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
+    // menu.rotation = 0.0f;
     
     //Iniciando o game
     SetTargetFPS(60);
@@ -382,7 +382,6 @@ int main()
                     AnimarPlayer(&player, acao);
                     //Atualizando a camera
                     cameraJogador.target = (Vector2){jogador.colisao.x, jogador.colisao.y};
-                    menu.target = (Vector2){jogador.colisao.x, jogador.colisao.y};
                     //cameraJogador.zoom = 1.1f; //0.75 paradao 
 
                     //Atualizando a mira

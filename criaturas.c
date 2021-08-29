@@ -9,7 +9,7 @@
 
 void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[])
 {
-    int porcentagemMobs[10] = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4};
+    int porcentagemMobs[10] = {1, 1, 1, 1, 2, 2, 2, 3, 4, 4};
     int tipo = rand() % 10;
 
     switch (porcentagemMobs[tipo])
@@ -371,9 +371,13 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao, 
                     (*moeda)++;
                     (*pontuacao)+=2;
                 }
-                if((*Criaturas)[i].tipo == 2){
-                    (*moeda)++;
+                if((*Criaturas)[i].tipo == 3){
+                    (*moeda)+=2;
                     (*pontuacao)+=5;
+                }
+                if((*Criaturas)[i].tipo == 4){
+                    (*moeda)+=3;
+                    (*pontuacao)+=15;
                 }
                 
             }

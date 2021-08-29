@@ -183,7 +183,7 @@ int main()
                     {   
                         
                         //DrawRectangleRec(Criaturas[i].ataque, RED);
-                        //DrawRectangleRec(Criaturas[i].colisao, PINK);
+                        DrawRectangleRec(Criaturas[i].colisao, PINK);
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 1)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
@@ -202,7 +202,7 @@ int main()
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 4)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
-                            if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(12*3.5), criatura2TexMorte.height/(2*3.5), 96, 50);
+                            if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64); //(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64);
                         }
                         if (Criaturas[i].vida > 0 && Criaturas[i].tipo == 1)
                         {
@@ -299,11 +299,12 @@ int main()
                             Criaturas[i].animaMorte.dirOuEsq = Criaturas[i].anima.dirOuEsq;
                             //DrawRectangleRec(Criaturas[i].anima.position.x);
                             if(Criaturas[i].anima.estaAtacando == 0){
-                                if(Criaturas[i].anima.atacou == 1){
-                                    Criaturas[i].anima.frame = criaturaRec[2];
-                                    Criaturas[i].anima.atacou = 0;
-                                }
-                                AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
+                                // if(Criaturas[i].anima.atacou == 1){
+                                //     Criaturas[i].anima.frame = criaturaRec[2];
+                                //     Criaturas[i].anima.atacou = 0;
+                                // }
+                                AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/35, criatura2Tex.height/7, 64+128, 32+128-32);
+                                //if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64);
                             } else {
                                 if(Criaturas[i].anima.currentFrame == 7) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 Criaturas[i].anima.delayAnimacao++;
@@ -313,11 +314,11 @@ int main()
                                 if(Criaturas[i].anima.delayAnimacao > 20){ 
                                     
                                     Criaturas[i].anima.frameSpeed = 3;
-                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2TexAttack, &criaturaRecMorte[2],criatura2TexAttack.width/(17*3.5), criatura2TexAttack.height/(2*3.5), 96, 50);
+                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2TexAttack, &criaturaRecMorte[2],2*criatura2TexAttack.width/(17*3.5), criatura2TexAttack.height/(3.5), 96+32+128, 64+128-32);
                                     if(Criaturas[i].anima.currentFrame == 7 || Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 } else {
                                     
-                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
+                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], 2*criatura2Tex.width/70, 2*criatura2Tex.height/14, 64+128, 32+128-32);
                                     Criaturas[i].anima.frameSpeed = 2;
                                 }
                             }

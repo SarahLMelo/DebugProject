@@ -92,7 +92,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
         if(recarregar==1)
         {
             DrawRectangleLines(80, 730, 1700, 70, GRAY);
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
                 //recarregarArmas(bala (*armaPrincipal)[], bala (*armaSecundaria)[], int qntdMaxP, int qntdMaxS, int *balasGastasPrincipal, int *balasGastasSec)            
         } 
         else DrawRectangleLines(80, 730, 1700, 70, VIOLET);

@@ -29,7 +29,6 @@ int main()
     //ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
-    float pX = GetScreenWidth()/1920.0f;
     InitAudioDevice();
     Music music = LoadMusicStream("musica/TheBuggerOST.mp3");
     Sound tiro;

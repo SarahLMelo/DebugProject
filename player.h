@@ -5,29 +5,26 @@
 
 typedef struct
 {
-    int vida, armadura, dano; //O dano é o indicador de qual arma ele está utilizando
+    int vida, armadura; //O dano é o indicador de qual arma ele está utilizando
     double velocidade;
     Rectangle colisao;
+    Vector2 posicaoNerdola;
 
 } nerdola;
 
-typedef struct
-{
-    int viva, dano, x, y;
-    double velocidade;
-    Rectangle colisao;
-} bala;
+
+#include "player.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "armas.h"
 
 void inicializaPlayer(nerdola *jogador);
 
-void movimentarPlayer(nerdola *jogador);
+int acertouAParede(nerdola jogador, Rectangle *grid, int quantidadeDeParedes);
 
-bala atirar(int key1, int key2, nerdola jogador);
+int movimentarPlayer(nerdola *jogador, Rectangle *grid, int quantidadeDeParedes);
 
-void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho);
+void playerEstaAtirando(bala *vetor, nerdola jogador, int *tamanho, Sound tiro, Vector2 cameraTarget, int armaAtiva, int modRifle, int modPistola);
 
-void destruirProjetil(bala **vetor, int *tamanho);
-
-void movimentarProjetil(bala *projetil);
-
-#endif PLAYER
+#endif

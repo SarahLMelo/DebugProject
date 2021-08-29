@@ -1,5 +1,8 @@
 #include "menu.h"
 #include "raylib.h"
+#include <stdio.h>
+#include <math.h>
+
 
 void abrirGlossario(){
     char mensagem[]="glossario de monstros e armas";
@@ -13,26 +16,34 @@ void abrirGlossario(){
 }
 
 void telaCarregamento(){
-
+    Camera2D menu;
+    
+    menu.zoom = GetScreenWidth()/1920.0f;
+    menu.target = (Vector2){0.0f, 0.0f};
+    menu.offset = (Vector2){0.0f, 0.0f};
+    menu.rotation = 0.0f;
+    
     Texture2D teclado=LoadTexture("Assets/Botoes/wasd.png");
 
         char intro[]="Nas profundezas das cavernas das noites mal dormidas,\nhabita um grande mal que assombra a humanidade, um mal que\nsomente você, Nerdola, será capaz de eliminar.\n\nEssas criaturas monstruosas, capazes de destruir tudo que a humanidade\nconstruiu nos últimos anos, são conhecidas como bugs.\nElas possuem vários tipos e formas, mas não se engane, jovem,\ntodas estão dispostas a destruir a humanidade.";
         char instrucoes[]="Aperte WASD para andar, botão esquerdo do mouse\npara atirar, 1 para mudar para a arma pesada e 2\npara a arma leve.";
         BeginDrawing();
+        BeginMode2D(menu);
             ClearBackground(BLACK);
             DrawText(intro, 200, 200, 40, LIGHTGRAY);
             DrawText(instrucoes, 870, 800, 30, YELLOW);
             DrawTexture(teclado, 360, 730, GRAY);
             DrawText("Para pular aperte T", 1500, 1000, 30, RED);
         EndDrawing();
-
+        EndMode2D();
     UnloadTexture(teclado);
 }
 
 int menuInicial(){
-    //carregando os botoes
     Texture2D botaoStart=LoadTexture("Assets/Botoes/start.png");
+    Rectangle botaoStartRec = {1300, 550, botaoStart.width, botaoStart.height};
     Texture2D botaoGlossario=LoadTexture("Assets/Botoes/menu.png");
+    Rectangle botaoGlossarioRec = {1300, 730, botaoGlossario.width, botaoGlossario.height};
 
     //carregando o nerdola*
     Texture2D nerdola = LoadTexture("Assets/personagens/medieval/Idle.png");
@@ -57,31 +68,44 @@ int menuInicial(){
     Vector2 posicaoMouse={0,0};
     int mouseButaoGlossario=0;
     int mouseButaoStart=0;
-
     //posicao do mouse:
+    Rectangle mouse = {posicaoMouse.x, posicaoMouse.y, 20, 20};
+    //checando se o mouse esta nos limites do butao do glossario:
+        
+
+    Camera2D menu;
+    menu.zoom = GetScreenWidth()/1920.0f;
+    menu.target = (Vector2){0.0f, 0.0f};
+    menu.offset = (Vector2){0.0f, 0.0f};
+    menu.rotation = 0.0f;
+        
+    //geral:
+    int glossario=0;
+    BeginDrawing();
+    BeginMode2D(menu);
+    
+    
+    DrawRectangleRec(botaoStartRec, PINK);
+    DrawRectangleRec(botaoGlossarioRec, PINK);
     posicaoMouse.x=GetMouseX();
     posicaoMouse.y=GetMouseY();
-
-    //checando se o mouse esta nos limites do butao do glossario:
-    if(posicaoMouse.x>=1300 && posicaoMouse.x<=1600 && posicaoMouse.y>=730 && posicaoMouse.y<=830){
-        //PlaySound(ratinho);
-        mouseButaoGlossario=1;
-    }
-        
-    else mouseButaoGlossario=0;
-
-    //para o butao start
-    if(posicaoMouse.x>=1300 && posicaoMouse.x<=1600 && posicaoMouse.y>=550 && posicaoMouse.y<=650){
+    double p = GetScreenWidth()/(double)1920;
+    double k = 3.43431*p*p-7.2143*p+3.78134;
+    mouse.x = posicaoMouse.x + k*posicaoMouse.x;
+    mouse.y = posicaoMouse.y + k*posicaoMouse.y;
+    printf(" x = %f\n ", mouse.x);
+    printf(" y = %f\n ", mouse.y);
+    DrawRectangleRec(mouse, PINK);
+    if(CheckCollisionRecs(botaoStartRec, mouse)){
         mouseButaoStart=1;
         //PlaySound(ratinho);
     }
-        
     else mouseButaoStart=0;
-
-    //geral:
-    int glossario=0;
-
-    BeginDrawing();
+    if(CheckCollisionRecs(mouse, botaoGlossarioRec)){
+        //PlaySound(ratinho);
+        mouseButaoGlossario=1;
+    }
+    else mouseButaoGlossario=0;
         ClearBackground(BLACK);
         
         if(mouseButaoStart){

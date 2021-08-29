@@ -118,15 +118,13 @@ int menuInicial(){
 
     
     if(mouseButaoGlossario && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
-    {
-        glossario=1;
-        while(glossario==1){
-            mostrarGlossario();
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-                glossario=0;
+    glossario=1;
+            while(glossario==1){
+                mostrarGlossario();
+                if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+                    glossario=0;
+            }
         }
-    }
-
     if(mouseButaoStart && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
         return 1;
     

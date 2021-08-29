@@ -1,11 +1,6 @@
 #include <raylib.h>
 
-void inimigos(){
-    
-    Texture2D libelulaverde = LoadTexture("Assets/assets/libelulaverde.png");
-    Texture2D libelulaamarela = LoadTexture("Assets/assets/libelulaamarela.png");
-    Texture2D libelulavermelha = LoadTexture("Assets/assets/libelulavermelha.png");
-    Texture2D esqueletoimg = LoadTexture("Assets/assets/esqueleto.png");
+void inimigos(Texture2D libelulaverde, Texture2D libelulaamarela, Texture2D libelulavermelha, Texture2D esqueletoimg){
 
     char sintaxe[]="ERRO DE SINTAXE";
     char descsintaxe[]="O bug menos danoso. Graças ao trabalho\ndos compiladores, é cada vez mais raro sua\nsobrevivência nos códigos atuais. Mas não\nse engane: graças a sua alta mobilidade, é\nfácil perdê-lo de vista. Portanto, tenha\ndestreza com a sua mira caso veja este bug.";
@@ -35,18 +30,9 @@ void inimigos(){
     DrawTexture(esqueletoimg, 630, 510, WHITE);
     DrawText(descvazamento, 805, 530, 20,LIGHTGRAY);
 
-    UnloadTexture(libelulaverde);
-    UnloadTexture(libelulaamarela);
-    UnloadTexture(libelulavermelha);
-    UnloadTexture(esqueletoimg);
-    
-    
-
 }
 
-void formas(){
-    Texture2D formaazul=LoadTexture("Assets/assets/forma_azul.png");
-    Texture2D formaamarela=LoadTexture("Assets/assets/forma_amarela.png");
+void formas(Texture2D formaazul, Texture2D formaamarela){
 
     char forma1[]="Forma Recursiva";
     char forma2[]="Forma Iterativa";
@@ -61,8 +47,6 @@ void formas(){
     DrawTexture(formaamarela, 70, 495, WHITE);
     DrawText(descforma2, 220, 530, 20, LIGHTGRAY);
 
-    UnloadTexture(formaazul);
-    UnloadTexture(formaamarela);
 }
 
 void lore(){
@@ -80,8 +64,6 @@ void mostrarGlossario(){
     const int larguraTela = 1366;
     const int alturaTela = 768;
 
-    InitWindow(larguraTela, alturaTela, "EXEMPLO DE GLOSSARIO");
-    InitAudioDevice();
     //ToggleFullscreen();
 
     const char titulo[] = "GLOSSÁRIO";
@@ -90,6 +72,12 @@ void mostrarGlossario(){
     Texture2D botaoInimigos=LoadTexture("Assets/Botoes/inimigos.png");
     Texture2D botaoFormas=LoadTexture("Assets/Botoes/formas.png");
     Texture2D botaoVoltar=LoadTexture("Assets/Botoes/voltar.png");
+    Texture2D libelulaverde = LoadTexture("Assets/assets/libelulaverde.png");
+    Texture2D libelulaamarela = LoadTexture("Assets/assets/libelulaamarela.png");
+    Texture2D libelulavermelha = LoadTexture("Assets/assets/libelulavermelha.png");
+    Texture2D esqueletoimg = LoadTexture("Assets/assets/esqueleto.png");
+    Texture2D formaazul=LoadTexture("Assets/assets/forma_azul.png");
+    Texture2D formaamarela=LoadTexture("Assets/assets/forma_amarela.png");
 
     Sound somBotao = LoadSound("Sounds/DigiBeeper.wav");
 
@@ -102,7 +90,7 @@ void mostrarGlossario(){
 
     SetTargetFPS(60);
 
-    while (sair){
+    if (sair){
         //posicao do mause
         posicaoMouse.x=GetMouseX();
         posicaoMouse.y=GetMouseY();
@@ -168,7 +156,7 @@ void mostrarGlossario(){
             contsom++;
             abrirFormas = 1;
             if(abrirFormas == 1){
-                formas();
+                formas(formaazul, formaamarela);
             }
         }
         else if(mousebotaoInimigos){
@@ -176,7 +164,7 @@ void mostrarGlossario(){
             contsom++;
             abrirInimigos = 1;
             if(abrirInimigos == 1){
-                inimigos();
+                inimigos(libelulaverde, libelulaamarela, libelulavermelha, esqueletoimg);
             }
         }
 
@@ -184,13 +172,19 @@ void mostrarGlossario(){
             contsom = 0;
 
     EndDrawing();  
+    } else {
+        UnloadSound(somBotao);
+        CloseAudioDevice();
+        
+        UnloadTexture(botaoLore);
+        UnloadTexture(botaoInimigos);
+        UnloadTexture(botaoFormas);
+        UnloadTexture(libelulaverde);
+        UnloadTexture(libelulaamarela);
+        UnloadTexture(libelulavermelha);
+        UnloadTexture(esqueletoimg);
+        UnloadTexture(formaazul);
+        UnloadTexture(formaamarela);
+    sair = 0;
     }
-
-    UnloadSound(somBotao);
-    CloseAudioDevice();
-    
-    UnloadTexture(botaoLore);
-    UnloadTexture(botaoInimigos);
-    UnloadTexture(botaoFormas);
-
 }

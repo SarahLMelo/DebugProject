@@ -142,8 +142,8 @@ int main()
 
         if (menuInicial() == 1)
         {
-            //tela de carregamento (abre uma tela rosa por 20s antes do jogo começar)
-            while (contadorTempo < 20000 && flag == 0)
+            //tela de carregamento (abre uma tela rosa por 60s antes do jogo começar)
+            while (contadorTempo < 60000 && flag == 0)
             {
                 // BeginDrawing();
                 // BeginMode2D(menu);

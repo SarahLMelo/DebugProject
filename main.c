@@ -25,8 +25,8 @@ double oldangulo;
 
 int main()
 {
-    InitWindow(1920, 1080, "Nosso jogo");
-    ToggleFullscreen();
+    InitWindow(1280, 720, "Nosso jogo");
+    //ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
     float pX = GetScreenWidth()/1920.0f;
@@ -122,11 +122,11 @@ int main()
     cameraJogador.rotation = 0.0f;
     cameraJogador.zoom = 1.0f;
     
-    // Camera2D menu;
-    // menu.zoom = 1 - 0.08*pX;
-    // menu.target = (Vector2){0.0f, 0.0f};
-    // menu.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
-    // menu.rotation = 0.0f;
+    Camera2D menu;
+    menu.zoom = GetScreenWidth()/1920.0f;
+    menu.target = (Vector2){0.0f, 0.0f};
+    menu.offset = (Vector2){0.0f, 0.0f};
+    menu.rotation = 0.0f;
     
     //Iniciando o game
     SetTargetFPS(60);
@@ -468,6 +468,7 @@ int main()
                     {
                         while (IsKeyUp(KEY_SPACE))
                         {
+                            BeginMode2D(menu);
                             free(Criaturas);
                             ClearBackground(BLACK);
                             DrawText("VOCE MORREU!", 345, 400, 150, RED);
@@ -481,6 +482,7 @@ int main()
                             criaturasVivas = 0;
                             criarWave(wave * 5, &criaturasVivas, &Criaturas, mapa.width, mapa.height, criaturaRec, criaturaRecMorte);
                             inicializaPlayer(&jogador);
+                            EndMode2D();
                             if (IsKeyDown(KEY_P))
                             {
                                 //free(Criaturas);

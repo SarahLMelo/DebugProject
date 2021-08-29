@@ -26,7 +26,7 @@ void telaCarregamento(){
     Texture2D teclado=LoadTexture("Assets/Botoes/wasd.png");
 
         char intro[]="Nas profundezas das cavernas das noites mal dormidas,\nhabita um grande mal que assombra a humanidade, um mal que\nsomente você, Nerdola, será capaz de eliminar.\n\nEssas criaturas monstruosas, capazes de destruir tudo que a humanidade\nconstruiu nos últimos anos, são conhecidas como bugs.\nElas possuem vários tipos e formas, mas não se engane, jovem,\ntodas estão dispostas a destruir a humanidade.";
-        char instrucoes[]="Aperte WASD para andar, botão esquerdo do mouse\npara atirar, 1 para mudar para a arma pesada e 2\npara a arma leve.";
+        char instrucoes[]="Aperte WASD para andar, botão esquerdo do mouse\npara atirar, 1 para mudar para a arma pesada, 2\npara a arma leve, Q para abrir a loja e E para fechar.";
         BeginDrawing();
         BeginMode2D(menu);
             ClearBackground(BLACK);
@@ -46,7 +46,7 @@ int menuInicial(){
     Rectangle botaoGlossarioRec = {1300, 730, botaoGlossario.width, botaoGlossario.height};
 
     //carregando o nerdola*
-    Texture2D nerdola = LoadTexture("Assets/personagens/medieval/Idle.png");
+    Texture2D nerdola = LoadTexture("Assets/personagens/runRobo.png");
     Rectangle frameNerdola = { 0.0, 0.0, (float)nerdola.width/8, (float)nerdola.height };
     Rectangle caracNerdola = {1.0, 900/2.0, (nerdola.width/8)*5.5f, nerdola.height*5.5f};
     Vector2 originNerdola = { (float)nerdola.width/8, (float)nerdola.height};
@@ -83,8 +83,8 @@ int menuInicial(){
     int glossario=0;
     BeginDrawing();
     BeginMode2D(menu);
-    
-    
+
+
     DrawRectangleRec(botaoStartRec, PINK);
     DrawRectangleRec(botaoGlossarioRec, PINK);
     posicaoMouse.x=GetMouseX();
@@ -98,11 +98,9 @@ int menuInicial(){
     DrawRectangleRec(mouse, PINK);
     if(CheckCollisionRecs(botaoStartRec, mouse)){
         mouseButaoStart=1;
-        //PlaySound(ratinho);
     }
     else mouseButaoStart=0;
     if(CheckCollisionRecs(mouse, botaoGlossarioRec)){
-        //PlaySound(ratinho);
         mouseButaoGlossario=1;
     }
     else mouseButaoGlossario=0;
@@ -130,25 +128,23 @@ int menuInicial(){
     EndDrawing();
 
     
-    if(mouseButaoGlossario && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)){
-        PlaySound(ratinho);
+    if(mouseButaoGlossario && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+    {
         glossario=1;
-        while(glossario==1){
+        while(glossario==1)
+        {
             abrirGlossario();
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
                 glossario=0;
-            }
         }
     }
 
-    if(mouseButaoStart && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)){
-        PlaySound(ratinho);
+    if(mouseButaoStart && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
         return 1;
-    }
+    
     
     //CloseAudioDevice();
 
-    UnloadSound(ratinho);
     UnloadTexture(botaoStart);
     UnloadTexture(botaoGlossario);
     UnloadTexture(nerdola);

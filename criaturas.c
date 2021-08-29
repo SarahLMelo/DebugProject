@@ -7,12 +7,12 @@
 #include "mapa.h"
 //pedro passou aqui
 
-void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[])
+void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[], int boss)
 {
-    int porcentagemMobs[10] = {1, 1, 1, 1, 2, 2, 2, 3, 4, 4};
+    int porcentagemMobs[10] = {1, 1, 1, 1, 1, 2, 2, 2, 3, 3};
     int tipo = rand() % 10;
 
-    switch (porcentagemMobs[tipo])
+    if(boss == 0) switch (porcentagemMobs[tipo])
     {
     case 1:
         //Setando animação da criatura
@@ -40,7 +40,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         //Status básicos da criatura
         (*criatura).armadura = 5;
         (*criatura).vida = 80;
-        (*criatura).dano = 1;
+        (*criatura).dano = 40;
         (*criatura).velocidade = 5;
         (*criatura).alguemJaChocou = 0;
         (*criatura).tipo = 1;
@@ -83,7 +83,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         //Status básicos da criatura
         (*criatura).armadura = 0;
         (*criatura).vida = 60;
-        (*criatura).dano = 1;
+        (*criatura).dano = 40;
         (*criatura).velocidade = 8;
         (*criatura).alguemJaChocou = 0;
         (*criatura).tipo = 2;
@@ -125,8 +125,8 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
 
         //Status básicos da criatura
         (*criatura).armadura = 10;
-        (*criatura).vida = 80;
-        (*criatura).dano = 5;
+        (*criatura).vida = 90;
+        (*criatura).dano = 60;
         (*criatura).velocidade = 5;
         (*criatura).alguemJaChocou = 0;
         (*criatura).tipo = 3;
@@ -143,8 +143,9 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).pequenaColisao.x = posX;
         (*criatura).pequenaColisao.y = posY;
         break;
-    case 4:
-        
+    }
+    
+    else{    
         //Setando animação da criatura
         (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[2].width, criaRec[2].height};
         (*criatura).anima.delayAnimacao = 0;
@@ -175,7 +176,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         //Status básicos da criatura
         (*criatura).armadura = 30;
         (*criatura).vida = 200;
-        (*criatura).dano = 9;
+        (*criatura).dano = 260;
         (*criatura).velocidade = 2;
         (*criatura).alguemJaChocou = 0;
         (*criatura).tipo = 4;
@@ -193,14 +194,12 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).pequenaColisao.width = 25;
         (*criatura).pequenaColisao.x = posX;
         (*criatura).pequenaColisao.y = posY;
-        break;
 
         //Criando o retangulo de ataque entre elas
         (*criatura).ataque.height = 100;
         (*criatura).ataque.width = 100;
         (*criatura).ataque.x = posX;
         (*criatura).ataque.y = posY;
-        break;
     }
 
     return;
@@ -331,6 +330,21 @@ void atingiuOPlayer2(mob *criatura, nerdola *player)
 
 void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, Rectangle criaRec[], Rectangle criaRecMorte[])
 {
+    if(wave%5==0){
+        wave /= 5;
+        (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
+        for (int i = 0; i < wave; i++)
+        {
+            int x, y, sIndex;
+            sIndex = i % 7;
+            // x = rand()%1700;
+            // y = rand()%800;
+            Vector2 localizacao = spawnPoints(sIndex, w, h);
+            criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte, 1);
+        }
+    }
+    
+
     (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
     for (int i = 0; i < wave; i++)
     {
@@ -339,7 +353,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, 
         // x = rand()%1700;
         // y = rand()%800;
         Vector2 localizacao = spawnPoints(sIndex, w, h);
-        criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte);
+        criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte, 0);
     }
 
     //(*qtdCriaturasVivas) = wave;

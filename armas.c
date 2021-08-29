@@ -5,7 +5,7 @@
 
 
 #define danoRifle 40
-#define danoPistola 20
+#define danoPistola 25
 #define miraRadius 100
 
 void InitAudioDevice(void);

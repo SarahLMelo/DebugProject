@@ -16,7 +16,7 @@ typedef struct
     
 } mob;
 
-void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[]);
+void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[], int boss);
 
 int bateuNaParede(Rectangle *grid, mob criatura, int quantidadeDeParedes);
 

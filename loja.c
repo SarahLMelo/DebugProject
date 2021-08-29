@@ -2,23 +2,23 @@
 #include "raylib.h"
 
 void aumentoDanoPistola(int *modPistola, int *moeda){
-    (*modPistola) += 5;
+    (*modPistola) += 10;
     (*moeda) -= 40;
     return;
 }
 
 void aumentoDanoRifle(int *modRifle, int *moeda){
-    (*modRifle) += 5;
+    (*modRifle) += 10;
     (*moeda) -= 25;
     return;
 }
 
 void aumentoArmadura(nerdola *jogador, int *moeda){
     (*jogador).armadura += 1;
-    (*moeda) -= 20;
+    (*moeda) -= 30;
 }
 
-void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
+void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador, bala (*armaPrincipal)[], bala (*armaSecundaria)[], int qntdMaxP, int qntdMaxS, int *balasGastasPrincipal, int *balasGastasSec){
     while(!IsKeyPressed(KEY_Q))
     {
         Camera2D menu;
@@ -60,12 +60,12 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
 
         ClearBackground(BLACK);
         DrawText("loja", 750, 50, 200, BLUE);
-        DrawText("arma azul ------ +5 dano", 95, 375, 50, WHITE);
+        DrawText("arma azul ------ +10 dano", 95, 375, 50, WHITE);
         DrawText("40 moedas", 1500, 375, 50, WHITE);
-        DrawText("arma amarela ------ +5 dano", 95, 495, 50, WHITE);
+        DrawText("arma amarela ------ +10 dano", 95, 495, 50, WHITE);
         DrawText("25 moedas", 1500, 495, 50, WHITE);
         DrawText("armadura ------ +1", 95, 615, 50, WHITE);
-        DrawText("20 moedas", 1500, 615, 50, WHITE);
+        DrawText("30 moedas", 1500, 615, 50, WHITE);
         DrawText("recarregar", 95, 735, 50, WHITE);
         DrawText("Para SAIR aperte Q", 1450, 1000, 30, WHITE);
 
@@ -108,7 +108,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
         {
             DrawRectangleLines(80, 730, 1700, 70, GRAY);
             if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
-                //recarregarArmas(bala (*armaPrincipal)[], bala (*armaSecundaria)[], int qntdMaxP, int qntdMaxS, int *balasGastasPrincipal, int *balasGastasSec)            
+                recarregarArmas(armaPrincipal, armaSecundaria, qntdMaxP, qntdMaxS, balasGastasPrincipal, balasGastasSec);
         } 
         else DrawRectangleLines(80, 730, 1700, 70, VIOLET);
 

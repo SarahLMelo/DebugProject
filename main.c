@@ -26,7 +26,7 @@ double oldangulo;
 int main()
 {
     InitWindow(1280, 720, "Nosso jogo");
-    //ToggleFullscreen();
+    ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
     InitAudioDevice();
@@ -452,7 +452,7 @@ int main()
                     EndMode2D();
                     EndDrawing();
                     //********************************************   HUD DO JOGO   ***********************************************************************
-                    if(IsKeyDown(KEY_E)) abrirLoja(&moeda, &modPistola, &modRifle, &jogador);
+                    if(IsKeyDown(KEY_E)) abrirLoja(&moeda, &modPistola, &modRifle, &jogador, &armaPrincipal, &armaSecundaria, 256, 1024, &balasGastasPrincipal, &balasGastasSecundaria);
 
                     if (jogador.vida <= 0)
                     {
@@ -503,8 +503,6 @@ int main()
                 }
                 free(Criaturas);
                 wave++;
-                if (wave % 5 == 0)
-                    recarregarArmas(&armaPrincipal, &armaSecundaria, 256, 1024, &balasGastasPrincipal, &balasGastasSecundaria);
             }
         }
     }

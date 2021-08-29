@@ -21,27 +21,46 @@ void aumentoArmadura(nerdola *jogador, int *moeda){
 void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
     while(!IsKeyPressed(KEY_Q))
     {
+        Camera2D menu;
+        menu.zoom = GetScreenWidth()/1920.0f;
+        menu.target = (Vector2){0.0f, 0.0f};
+        menu.offset = (Vector2){0.0f, 0.0f};
+        menu.rotation = 0.0f;
+        
+        BeginDrawing();
+        BeginMode2D(menu);
         ShowCursor();
+
         Vector2 posicaoMouse={0,0};
+        Vector2 mouse={0,0};
         posicaoMouse.x=GetMouseX();
         posicaoMouse.y=GetMouseY();
+
+        double p = GetScreenWidth()/(double)1920;
+        double k = 3.43431*p*p-7.2143*p+3.78134;
+        mouse.x = posicaoMouse.x + k*posicaoMouse.x;
+        mouse.y = posicaoMouse.y + k*posicaoMouse.y;
 
         int compraAzul=0;
         int compraAmarela=0;
         int compraVida=0;
         int recarregar=0;
-
-        if(posicaoMouse.x>=80 && posicaoMouse.x<=1780 && posicaoMouse.y>=370 && posicaoMouse.y<=440)
+        Rectangle compraAzulRec = {80, 370, 1700, 70};
+        Rectangle compraAmarelaRec = {80, 490, 1700, 70};
+        Rectangle compraVidaRec = {80, 610, 1700, 70};
+        Rectangle compraRecarregarRec  = {80, 730, 1700, 70};
+        Rectangle mouseRec = {mouse.x, mouse.y, 20, 20};
+        
+        if(CheckCollisionRecs(mouseRec, compraAzulRec))
             compraAzul=1;
-        if(posicaoMouse.x>=80 && posicaoMouse.x<=1780 && posicaoMouse.y>=490 && posicaoMouse.y<=560)
+        if(CheckCollisionRecs(mouseRec,compraAmarelaRec))
             compraAmarela=1;
-        if(posicaoMouse.x>=80 && posicaoMouse.x<1780 && posicaoMouse.y>=610 && posicaoMouse.y<=680)
+        if(CheckCollisionRecs(mouseRec, compraVidaRec))
             compraVida=1;
-        if(posicaoMouse.x>=80 && posicaoMouse.x<=1780 && posicaoMouse.y>=730 && posicaoMouse.y<=800)
+        if(CheckCollisionRecs(mouseRec, compraRecarregarRec))
             recarregar=1;
 
 
-        BeginDrawing();
         ClearBackground(BLACK);
         DrawText("loja", 750, 50, 200, BLUE);
         DrawText("arma azul ------ +5 dano", 95, 375, 50, WHITE);
@@ -64,7 +83,6 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
             else DrawRectangleLines(80, 370, 1700, 70, RED);        
         } 
         else DrawRectangleLines(80, 370, 1700, 70, BLUE);
-
         if(compraAmarela==1)
         {
             DrawRectangleLines(80, 490, 1700, 70, GRAY);
@@ -92,7 +110,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
         if(recarregar==1)
         {
             DrawRectangleLines(80, 730, 1700, 70, GRAY);
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
                 //recarregarArmas(bala (*armaPrincipal)[], bala (*armaSecundaria)[], int qntdMaxP, int qntdMaxS, int *balasGastasPrincipal, int *balasGastasSec)            
         } 
         else DrawRectangleLines(80, 730, 1700, 70, VIOLET);
@@ -100,7 +118,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador){
         DrawText(TextFormat("moedas: %d", (*moeda)), 1500, 60, 50, YELLOW);
 
         EndDrawing();
-
+        EndMode2D();
         if(IsKeyPressed(KEY_Q))
             HideCursor();
     }

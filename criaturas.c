@@ -9,7 +9,7 @@
 
 void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[])
 {
-    int porcentagemMobs[10] = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4};
+    int porcentagemMobs[10] = {1, 1, 1, 1, 2, 2, 2, 3, 4, 4};
     int tipo = rand() % 10;
 
     switch (porcentagemMobs[tipo])
@@ -183,8 +183,8 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).atacou = 0;
         (*criatura).frameTimer = 0;
         //Criando o retangulo de colisão
-        (*criatura).colisao.height = 60;
-        (*criatura).colisao.width = 60;
+        (*criatura).colisao.height = 100;
+        (*criatura).colisao.width = 70;
         (*criatura).colisao.x = posX;
         (*criatura).colisao.y = posY;
 
@@ -371,9 +371,13 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao, 
                     (*moeda)++;
                     (*pontuacao)+=2;
                 }
-                if((*Criaturas)[i].tipo == 2){
-                    (*moeda)++;
+                if((*Criaturas)[i].tipo == 3){
+                    (*moeda)+=2;
                     (*pontuacao)+=5;
+                }
+                if((*Criaturas)[i].tipo == 4){
+                    (*moeda)+=3;
+                    (*pontuacao)+=15;
                 }
                 
             }

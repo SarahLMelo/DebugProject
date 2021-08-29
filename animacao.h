@@ -43,4 +43,6 @@ void AnimarCriatura1(spritesheetCreature *anim, Texture2D *textura, int wi, int 
 
 void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *frame, int wi, int hi, int x, int y);
 
+void AnimarHud(spritesheet *anim, Texture2D textura, int wi, int hi, int x, int y);
+
 #endif

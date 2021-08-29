@@ -4,7 +4,6 @@
 
 void AnimarBala(spritesheet *anim){
     spritesheet aux = *anim;
-    int fiX, fiY;
     Rectangle destRec = {aux.position.x+16*sin(aux.angulo),aux.position.y-16*cos(aux.angulo), aux.textura2.width/(aux.quantFrames*5), aux.textura2.height/5};
     if (aux.frameCounter >= (60/aux.frameSpeed))
         {
@@ -115,7 +114,7 @@ void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *f
         *anim = aux;
         }
     } else { 
-        if (aux.frameCounter >= (60/4)) {
+        if (aux.frameCounter >= (60/11)) {
                 aux.frameCounter = 0;
                 aux.currentFrame++;
                 if (aux.currentFrame > 10){
@@ -132,3 +131,18 @@ void AnimarCriatura2(spritesheetCreature *anim, Texture2D *textura, Rectangle *f
     }
                 
 }   
+
+void AnimarHud(spritesheet *anim, Texture2D textura, int wi, int hi, int x, int y){
+    Rectangle destRec = {x,y, wi, hi};
+    spritesheet aux = *anim;
+    if (aux.frameCounter >= (60/aux.frameSpeed))
+        {
+            aux.frameCounter = 0;
+            aux.currentFrame++;
+            if (aux.currentFrame > aux.quantFrames) aux.currentFrame = 0;
+
+            aux.frame.x = (float)aux.currentFrame*(float)aux.textura1.width/aux.quantFrames;
+        }
+    DrawTexturePro(textura, aux.frame, destRec, (Vector2) {0.0f, 0.0f}, aux.angulo, WHITE);
+    *anim = aux;
+}

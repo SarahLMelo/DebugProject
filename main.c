@@ -14,7 +14,7 @@
 #define miraRaio 5
 
 //P virou a tecla de fechar o programa para S
-
+int hudFramecounter = 0;
 bala armaPrincipal[256];
 bala armaSecundaria[1024];
 Rectangle grid[50];
@@ -22,11 +22,14 @@ int qtdDeParedes = 45;
 int timerPosition = 0;
 double oldangulo;
 
+
 int main()
 {
-
     InitWindow(1920, 1080, "Nosso jogo");
     ToggleFullscreen();
+    int wid = GetScreenWidth();
+    int hei = GetScreenHeight();
+    float pX = GetScreenWidth()/1920.0f;
     InitAudioDevice();
     Music music = LoadMusicStream("musica/TheBuggerOST.mp3");
     Sound tiro;
@@ -79,13 +82,52 @@ int main()
         LoadTexture("etc/personagens/principal/plasmaRed.png"),
         (Rectangle){0.0f, 0.0f, plasma.textura1.width / plasma.quantFrames, plasma.textura1.height},
         (Vector2){0.0f, 0.0f}};
+        spritesheet plasmaHUD = {
+        8,
+        0,
+        18,
+        0,
+        1,
+        180.0f,
+        LoadTexture("etc/personagens/principal/plasmaBlue.png"),
+        LoadTexture("etc/personagens/principal/plasmaRed.png"),
+        (Rectangle){0.0f, 0.0f, plasma.textura1.width / plasma.quantFrames, plasma.textura1.height},
+        (Vector2){0.0f, 0.0f}};
+    spritesheet pcHUD = {
+    2,
+    0,
+    12,
+    0,
+    1,
+    0.0f,
+    LoadTexture("etc/pcpc.png"),
+    (Texture2D) {0},
+    (Rectangle){0.0f, 0.0f, pcHUD.textura1.width / pcHUD.quantFrames, pcHUD.textura1.height},
+    (Vector2){0.0f, 0.0f}};
+    spritesheet heart = {
+    5,
+    0,
+    10,
+    0,
+    1,
+    0.0f,
+    LoadTexture("etc/heart.png"),
+    (Texture2D) {0},
+    (Rectangle){0.0f, 0.0f, heart.textura1.width / heart.quantFrames, heart.textura1.height},
+    (Vector2){0.0f, 0.0f}};
     //Setando camera
     Camera2D cameraJogador;
     cameraJogador.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     cameraJogador.target = (Vector2){0.0f, 0.0f};
     cameraJogador.rotation = 0.0f;
     cameraJogador.zoom = 1.0f;
-
+    
+    // Camera2D menu;
+    // menu.zoom = 1 - 0.08*pX;
+    // menu.target = (Vector2){0.0f, 0.0f};
+    // menu.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
+    // menu.rotation = 0.0f;
+    
     //Iniciando o game
     SetTargetFPS(60);
     //Setando os grids do collision map
@@ -100,19 +142,20 @@ int main()
 
         if (menuInicial() == 1)
         {
-
             //tela de carregamento (abre uma tela rosa por 20s antes do jogo começar)
             while (contadorTempo < 20000 && flag == 0)
             {
+                // BeginDrawing();
+                // BeginMode2D(menu);
                 clock_t currentTime = clock() - prevTime;
                 contadorTempo = currentTime * 1000 / CLOCKS_PER_SEC;
-
                 telaCarregamento();
-
                 if (IsKeyPressed(KEY_T))
                 {
                     flag = 1;
                 }
+                // EndDrawing();
+                // EndMode2D();
             }
 
             mob *Criaturas;
@@ -125,7 +168,6 @@ int main()
             Color miraCor = DARKBLUE;
 
             inicializaPlayer(&jogador);
-
             while (IsKeyUp(KEY_P))
             {
                 //Atualizando a stream da música
@@ -147,35 +189,11 @@ int main()
                     //Desenhando o mapa
                     DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
                     DrawTextureEx(shadow, (Vector2){(float)cameraJogador.target.x - 16 * 2.75 * 6, (float)cameraJogador.target.y - 16 * 3 * 8}, 0.0f, 3.0f, WHITE);
-                    /*for (int i = 0; i < wave*5; i++)
-                     {
-                         if (Criaturas[i].vida > 0)
-                             DrawRectangleRec(Criaturas[i].colisao, RED);
-                     }*/
-                    //DrawRectangleRec(jogador.colisao, GREEN); //colocando a caixa de colisao transparente
 
-                    //colocando a vida no canto da tela (seguindo a camera)  MUDEI AQUI
-                    for (int i = 0; i < jogador.vida; i++)
-                    {
-                        DrawRectangle(jogador.colisao.x - 1450 + 7 * i, jogador.colisao.y - 700, 20, 20, GREEN);
-                    }
-                    DrawText(TextFormat("balas restantes na arma secundaria: %i", 1024 - balasGastasSecundaria), jogador.colisao.x - 1450, jogador.colisao.y - 580, 60, YELLOW);
-                    DrawText(TextFormat("balas restantes na arma principal: %i", 256 - balasGastasPrincipal), jogador.colisao.x - 1450, jogador.colisao.y - 650, 60, YELLOW);
-                    // for (int i = 0; i < 256; i++)
-                    //     if (armaPrincipal[i].viva == 1)
-                    //         DrawRectangleRec(armaPrincipal[i].colisao, PURPLE);
-                    // for (int i = 0; i < 1024; i++)
-                    //     if (armaSecundaria[i].viva == 1)
-                    //         DrawRectangleRec(armaSecundaria[i].colisao, PINK);
 
                     DrawCircleV(circlePosicao, 5, miraCor);
 
-                    // for(int i=0; i<qtdDeParedes; i++) DrawRectangleRec(grid[i], WHITE);
-
-                    //Movendo criatura
-                    //for (int i = 0; i < wave * 5; i++){
-                    //if(Criaturas[i].anima.frameCounter > 59) Criaturas[i].anima.oldposition.x = Criaturas[i].colisao.x;
-                    //}
+                  
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave * 5);
                     //Animando criatura
                     double AnguloAt;
@@ -183,7 +201,7 @@ int main()
                     {   
                         
                         //DrawRectangleRec(Criaturas[i].ataque, RED);
-                        //DrawRectangleRec(Criaturas[i].colisao, PINK);
+                        DrawRectangleRec(Criaturas[i].colisao, PINK);
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 1)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
@@ -202,7 +220,7 @@ int main()
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 4)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
-                            if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(12*3.5), criatura2TexMorte.height/(2*3.5), 96, 50);
+                            if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64); //(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64);
                         }
                         if (Criaturas[i].vida > 0 && Criaturas[i].tipo == 1)
                         {
@@ -280,7 +298,7 @@ int main()
                             } else {
                                 DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 Criaturas[i].frameTimer++;
-                                if(Criaturas[i].frameTimer > 120){
+                                if(Criaturas[i].frameTimer > 170){
                                     //printf("\n%d\n", Criaturas[i].frameTimer);
                                     Criaturas[i].frameTimer = 0;
                                     Criaturas[i].prontoPraAtacar = 1;
@@ -299,11 +317,12 @@ int main()
                             Criaturas[i].animaMorte.dirOuEsq = Criaturas[i].anima.dirOuEsq;
                             //DrawRectangleRec(Criaturas[i].anima.position.x);
                             if(Criaturas[i].anima.estaAtacando == 0){
-                                if(Criaturas[i].anima.atacou == 1){
-                                    Criaturas[i].anima.frame = criaturaRec[2];
-                                    Criaturas[i].anima.atacou = 0;
-                                }
-                                AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
+                                // if(Criaturas[i].anima.atacou == 1){
+                                //     Criaturas[i].anima.frame = criaturaRec[2];
+                                //     Criaturas[i].anima.atacou = 0;
+                                // }
+                                AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/35, criatura2Tex.height/7, 64+128, 32+128-32);
+                                //if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64);
                             } else {
                                 if(Criaturas[i].anima.currentFrame == 7) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 Criaturas[i].anima.delayAnimacao++;
@@ -313,11 +332,11 @@ int main()
                                 if(Criaturas[i].anima.delayAnimacao > 20){ 
                                     
                                     Criaturas[i].anima.frameSpeed = 3;
-                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2TexAttack, &criaturaRecMorte[2],criatura2TexAttack.width/(17*3.5), criatura2TexAttack.height/(2*3.5), 96, 50);
+                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2TexAttack, &criaturaRecMorte[2],2*criatura2TexAttack.width/(17*3.5), criatura2TexAttack.height/(3.5), 96+32+128, 64+128-32);
                                     if(Criaturas[i].anima.currentFrame == 7 || Criaturas[i].anima.currentFrame == 8) atingiuOPlayer2(&Criaturas[i], &jogador);
                                 } else {
                                     
-                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], criatura2Tex.width/70, criatura2Tex.height/14, 64, 32);
+                                    AnimarCriatura2(&Criaturas[i].anima, &criatura2Tex, &criaturaRec[2], 2*criatura2Tex.width/70, 2*criatura2Tex.height/14, 64+128, 32+128-32);
                                     Criaturas[i].anima.frameSpeed = 2;
                                 }
                             }
@@ -363,7 +382,7 @@ int main()
                     AnimarPlayer(&player, acao);
                     //Atualizando a camera
                     cameraJogador.target = (Vector2){jogador.colisao.x, jogador.colisao.y};
-                    cameraJogador.zoom = 0.75f;
+                    //cameraJogador.zoom = 1.1f; //0.75 paradao 
 
                     //Atualizando a mira
                     miraPosicao = GetMousePosition();
@@ -418,14 +437,35 @@ int main()
                         armaSecundaria[i].frameCounter = plasma.frameCounter;
                         criaturasVivas -= acertouACriatura(&armaSecundaria[i], &Criaturas, wave * 5, &pontuacao, &moeda);
                     }
+                    //********************************************   HUD DO JOGO   ***********************************************************************
+                    
+                    //BeginMode2D(menu);
+                    plasmaHUD.frameCounter++;
+                    pcHUD.frameCounter++;
+                    heart.frameCounter++;
+                    AnimarHud(&pcHUD, pcHUD.textura1, wid/10, wid/12, cameraJogador.target.x+wid/2.8, cameraJogador.target.y-hei/2.3-hei/16);
+                    DrawText(TextFormat("%d Breakpoints", pontuacao), cameraJogador.target.x+wid/8, cameraJogador.target.y - hei/2.3 ,30, PURPLE);
+                    
+                    DrawText(TextFormat("Vida: %d", jogador.vida), cameraJogador.target.x - wid/2.5, cameraJogador.target.y + hei/2.5 , 35, RED);
+                    AnimarHud(&heart, heart.textura1, wid/40, wid/36, cameraJogador.target.x-wid/2.2, cameraJogador.target.y+hei/2.6);
+                    switch(armaAtiva){
+                        case(1):
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura1, hei/10, hei/10, cameraJogador.target.x+wid/2.4, cameraJogador.target.y+hei/2.2);
+                            DrawText(TextFormat("%i", 256 - balasGastasPrincipal), cameraJogador.target.x + wid/2.3, cameraJogador.target.y + hei/2.2 - hei/16, 35, BLUE);
+                            break;
+                        case(2):
+                            AnimarHud(&plasmaHUD, plasmaHUD.textura2, hei/10, hei/10, cameraJogador.target.x + wid/2.4, cameraJogador.target.y+hei/2.2);
+                            DrawText(TextFormat("%i", 1024 - balasGastasSecundaria), cameraJogador.target.x + wid/2.3,cameraJogador.target.y + hei/2.2 - hei/16, 35, (Color){255, 58, 0, 255});
+                            //DrawRectangleLines(cameraJogador.target.x + wid/2, cameraJogador.target.y + hei/2 + 54 , 150, 50, (Color){255, 58, 0, 255});
+                            break;
+                    }
                     EndMode2D();
                     EndDrawing();
-
+                    //********************************************   HUD DO JOGO   ***********************************************************************
                     if(IsKeyDown(KEY_E)) abrirLoja(&moeda, &modPistola, &modRifle, &jogador);
 
                     if (jogador.vida <= 0)
                     {
-
                         while (IsKeyUp(KEY_SPACE))
                         {
                             free(Criaturas);
@@ -486,6 +526,8 @@ int main()
     UnloadTexture(shadow);
     UnloadTexture(plasma.textura1);
     UnloadTexture(plasma.textura2);
+    UnloadTexture(plasmaHUD.textura1);
+    UnloadTexture(plasmaHUD.textura2);
     UnloadTexture(player.textura1);
     UnloadTexture(player.textura2);
     UnloadTexture(criatura1TexRed);

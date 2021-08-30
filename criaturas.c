@@ -9,7 +9,7 @@
 
 void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[])
 {
-    int porcentagemMobs[10] = {1, 1, 1, 1, 2, 2, 2, 3, 4, 4};
+    int porcentagemMobs[10] = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4};
     int tipo = rand() % 10;
 
     switch (porcentagemMobs[tipo])

@@ -125,7 +125,6 @@ int main()
     menu.target = (Vector2){0.0f, 0.0f};
     menu.offset = (Vector2){0.0f, 0.0f};
     menu.rotation = 0.0f;
-    
     //Iniciando o game
     SetTargetFPS(60);
     //Setando os grids do collision map

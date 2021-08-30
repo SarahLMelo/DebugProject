@@ -12,7 +12,7 @@ void telaCarregamento(){
     menu.offset = (Vector2){0.0f, 0.0f};
     menu.rotation = 0.0f;
     
-    Texture2D teclado=LoadTexture("Assets/Botoes/wasd.png");
+    Texture2D teclado = LoadTexture("Assets/Botoes/wasd.png");
 
         char intro[]="Nas profundezas das cavernas das noites mal dormidas,\nhabita um grande mal que assombra a humanidade, um mal que\nsomente você, Nerdola, será capaz de eliminar.\n\nEssas criaturas monstruosas, capazes de destruir tudo que a humanidade\nconstruiu nos últimos anos, são conhecidas como bugs.\nElas possuem vários tipos e formas, mas não se engane, jovem,\ntodas estão dispostas a destruir a humanidade.";
         char instrucoes[]="Aperte WASD para andar, botão esquerdo do mouse\npara atirar, 1 para mudar para a arma pesada, 2\npara a arma leve, Q para abrir a loja e E para fechar.";
@@ -111,18 +111,51 @@ int menuInicial(){
 
 
         DrawText(titulo, 30, 70, 270, DARKGREEN);
-
+    
+    EndMode2D();
     EndDrawing();
 
     
     if(mouseButaoGlossario && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
     glossario=1;
+            Texture2D botaoLore=LoadTexture("Assets/Botoes/lore.png");
+            Texture2D botaoInimigos=LoadTexture("Assets/Botoes/inimigos.png");
+            Texture2D botaoFormas=LoadTexture("Assets/Botoes/formas.png");
+            Texture2D botaoVoltar=LoadTexture("Assets/Botoes/voltar.png");
+            Texture2D libelulaverde = LoadTexture("Assets/assets/libelulaverde.png");
+            Texture2D libelulaamarela = LoadTexture("Assets/assets/libelulaamarela.png");
+            Texture2D libelulavermelha = LoadTexture("Assets/assets/libelulavermelha.png");
+            Texture2D esqueletoimg = LoadTexture("Assets/assets/esqueleto.png");
+            Texture2D formaazul=LoadTexture("Assets/assets/forma_azul.png");
+            Texture2D formaamarela=LoadTexture("Assets/assets/forma_amarela.png");
             while(glossario==1){
-                mostrarGlossario();
+                mostrarGlossario
+            (
+            botaoLore,
+            botaoInimigos,
+            botaoFormas,
+            botaoVoltar,
+            libelulaverde,
+            libelulaamarela,
+            libelulavermelha,
+            esqueletoimg,
+            formaazul,
+            formaamarela
+            );
                 if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
                     glossario=0;
             }
-        }
+            }
+            UnloadTexture(botaoLore);
+            UnloadTexture(botaoInimigos);
+            UnloadTexture(botaoFormas);
+            UnloadTexture(botaoVoltar);
+            UnloadTexture(libelulaverde);
+            UnloadTexture(libelulaamarela);
+            UnloadTexture(libelulavermelha);
+            UnloadTexture(esqueletoimg);
+            UnloadTexture(formaazul);
+            UnloadTexture(formaamarela);
     if(mouseButaoStart && IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
         return 1;
     
@@ -135,3 +168,4 @@ int menuInicial(){
     UnloadTexture(monstro);
     return 0;
 }
+

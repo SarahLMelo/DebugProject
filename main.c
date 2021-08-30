@@ -168,7 +168,7 @@ int main()
             Color miraCor = DARKBLUE;
 
             inicializaPlayer(&jogador);
-            while (IsKeyUp(KEY_P))
+            while (IsKeyUp(KEY_ESCAPE))
             {
                 //Atualizando a stream da música
                 //HideCursor();
@@ -182,6 +182,9 @@ int main()
                     //DisableCursor();
                     //Atualizando a stream da música
                     UpdateMusicStream(music);
+
+                    if(IsKeyDown(KEY_P)) pause(wid, hei);
+
                     //Criando a parte de imagem
                     BeginDrawing();
                     //Iniciando a camera

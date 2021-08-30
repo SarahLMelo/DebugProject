@@ -33,11 +33,11 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador, bal
 
         Vector2 posicaoMouse={0,0};
         double p = GetScreenWidth()/(double)1920;
+        SetMouseScale((1/p), (1/p));
         posicaoMouse.x=GetMouseX();
         posicaoMouse.y=GetMouseY();
-        SetMouseScale((1/p), (1/p));
         Rectangle mouse = (Rectangle) {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
-
+        DrawRectangleRec(mouse, PINK);
         int compraAzul=0;
         int compraAmarela=0;
         int compraVida=0;
@@ -107,7 +107,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador, bal
 
         if(recarregar==1)
         {
-             DrawRectangleLines(80, 610, 1700, 70, GRAY);
+             DrawRectangleLines(80, 730, 1700, 70, GRAY);
             if ((*moeda)>=5)
             {
                 if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
@@ -115,9 +115,9 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador, bal
                     (*moeda)-=5;
                 }
             }     
-            else DrawRectangleLines(80, 610, 1700, 70, RED);
+            else DrawRectangleLines(80, 730, 1700, 70, RED);
         } 
-        else DrawRectangleLines(80, 610, 1700, 70, VIOLET);
+        else DrawRectangleLines(80, 730, 1700, 70, VIOLET);
 
         DrawText(TextFormat("moedas: %d", (*moeda)), 1500, 60, 50, YELLOW);
 

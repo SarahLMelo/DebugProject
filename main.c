@@ -25,7 +25,7 @@ double oldangulo;
 int main()
 {
     
-    InitWindow(GetMonitorWidth(1), GetMonitorHeight(1), "TheBugger");
+    InitWindow(GetScreenWidth(), GetScreenHeight(), "TheBugger");
     ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
@@ -171,7 +171,7 @@ int main()
             while (IsKeyUp(KEY_P))
             {
                 //Atualizando a stream da música
-                HideCursor();
+                //HideCursor();
 
                 UpdateMusicStream(music);
 
@@ -179,7 +179,7 @@ int main()
                 criaturasVivas = wave * 5;
                 while (criaturasVivas > 0)
                 {
-                    DisableCursor();
+                    //DisableCursor();
                     //Atualizando a stream da música
                     UpdateMusicStream(music);
                     //Criando a parte de imagem
@@ -373,6 +373,7 @@ int main()
                     //cameraJogador.zoom = 1.1f; //0.75 paradao 
 
                     //Atualizando a mira
+                    SetMouseScale(1.0f, 1.0f);
                     miraPosicao = GetMousePosition();
                     miraPosicao.x += cameraJogador.target.x - cameraJogador.offset.x;
                     miraPosicao.y += cameraJogador.target.y - cameraJogador.offset.y;

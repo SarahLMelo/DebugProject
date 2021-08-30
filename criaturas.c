@@ -16,7 +16,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
     {
     case 1:
         //Setando animação da criatura
-        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
+        (*criatura).anima.frame = (Rectangle){0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
         (*criatura).anima.morreu = 0;
         (*criatura).anima.lrTimer = 0;
         (*criatura).anima.quantFrames = 2;
@@ -28,7 +28,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
-        (*criatura).animaMorte.frame = (Rectangle) {0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
+        (*criatura).animaMorte.frame = (Rectangle){0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
         (*criatura).animaMorte.quantFrames = 8;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.frameSpeed = 12;
@@ -59,7 +59,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         break;
     case 2:
         //Setando animação da criatura
-        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
+        (*criatura).anima.frame = (Rectangle){0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
         (*criatura).anima.morreu = 0;
         (*criatura).anima.lrTimer = 0;
         (*criatura).anima.quantFrames = 2;
@@ -71,7 +71,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
-        (*criatura).animaMorte.frame = (Rectangle) {0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
+        (*criatura).animaMorte.frame = (Rectangle){0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
         (*criatura).animaMorte.quantFrames = 8;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.frameSpeed = 16;
@@ -102,7 +102,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         break;
     case 3:
         //Setando animação da criatura
-        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
+        (*criatura).anima.frame = (Rectangle){0.0f, 0.0f, criaRec[1].width, criaRec[1].height};
         (*criatura).anima.morreu = 0;
         (*criatura).anima.lrTimer = 0;
         (*criatura).anima.quantFrames = 2;
@@ -114,7 +114,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
-        (*criatura).animaMorte.frame = (Rectangle) {0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
+        (*criatura).animaMorte.frame = (Rectangle){0.0f, 0.0f, criaRecMorte[1].width, criaRecMorte[1].height};
         (*criatura).animaMorte.quantFrames = 8;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.frameSpeed = 10;
@@ -143,10 +143,10 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).pequenaColisao.x = posX;
         (*criatura).pequenaColisao.y = posY;
         break;
-    
-    case 4:    
+
+    case 4:
         //Setando animação da criatura
-        (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[2].width, criaRec[2].height};
+        (*criatura).anima.frame = (Rectangle){0.0f, 0.0f, criaRec[2].width, criaRec[2].height};
         (*criatura).anima.delayAnimacao = 0;
         (*criatura).anima.morreu = 0;
         (*criatura).anima.lrTimer = 0;
@@ -161,7 +161,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).anima.position = (Vector2){posX * 1.0f, posY * 1.0f};
 
         // //Setando animacao da morte
-        (*criatura).animaMorte.frame = (Rectangle) {0.0f, 0.0f, criaRecMorte[2].width, criaRecMorte[2].height};
+        (*criatura).animaMorte.frame = (Rectangle){0.0f, 0.0f, criaRecMorte[2].width, criaRecMorte[2].height};
         (*criatura).animaMorte.quantFrames = 11;
         (*criatura).animaMorte.frameCounter = 0;
         (*criatura).animaMorte.estaAtacando = 0;
@@ -183,10 +183,10 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).atacou = 0;
         (*criatura).frameTimer = 0;
         //Criando o retangulo de colisão
-        (*criatura).colisao.height = 100;
+        (*criatura).colisao.height = 200;
         (*criatura).colisao.width = 70;
         (*criatura).colisao.x = posX;
-        (*criatura).colisao.y = posY;
+        (*criatura).colisao.y = posY + 6000; //MEXER AQUI BOY!!!!!!!!!!!!!!!
 
         //Criando o retangulo de colisão entre elas
         (*criatura).pequenaColisao.height = 25;
@@ -210,7 +210,7 @@ int bateuNaParede(Rectangle *grid, mob criatura, int quantidadeDeParedes)
     int bateu = 0;
     for (int i = 0; i < quantidadeDeParedes && bateu == 0; i++)
     {
-        if (CheckCollisionRecs(criatura.colisao, grid[i]) && ((i!= 14 && !(i >= 30 && i<=35)) || (criatura.tipo == 4)))
+        if (CheckCollisionRecs(criatura.colisao, grid[i]) && ((i != 14 && !(i >= 30 && i <= 35)) || (criatura.tipo == 4)))
             bateu = 1;
     }
     return bateu;
@@ -236,7 +236,7 @@ void moverCriatura(mob **criatura, int posX, int posY, Rectangle *grid, int quan
 {
     //posição do player
     double playerX = (double)posX, playerY = (double)posY;
-     
+
     for (int i = 0; i < wave; i++)
     {
         if ((*criatura)[i].vida <= 0)
@@ -310,8 +310,10 @@ void atingiuOPlayer(mob *criatura, nerdola *player)
 {
     if (CheckCollisionRecs((*criatura).colisao, (*player).colisao))
     {
-        if((*player).armadura>(*criatura).dano) return;
-        else (*player).vida -= ((*criatura).dano - (*player).armadura);
+        if ((*player).armadura > (*criatura).dano)
+            return;
+        else
+            (*player).vida -= ((*criatura).dano - (*player).armadura);
     }
 
     return;
@@ -321,8 +323,10 @@ void atingiuOPlayer2(mob *criatura, nerdola *player)
 {
     if ((CheckCollisionRecs((*criatura).ataque, (*player).colisao)) && (*criatura).anima.estaAtacando == 1)
     {
-        if((*player).armadura>(*criatura).dano) return;
-        else (*player).vida -= ((*criatura).dano - (*player).armadura);
+        if ((*player).armadura > (*criatura).dano)
+            return;
+        else
+            (*player).vida -= ((*criatura).dano - (*player).armadura);
     }
 
     return;
@@ -362,23 +366,26 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao, 
             {
                 matouACriatura = 1;
                 (*Criaturas)[i].animaMorte.morreu = 1;
-                if((*Criaturas)[i].tipo == 1){
+                if ((*Criaturas)[i].tipo == 1)
+                {
                     (*moeda)++;
                     (*pontuacao)++;
                 }
-                if((*Criaturas)[i].tipo == 2){
+                if ((*Criaturas)[i].tipo == 2)
+                {
                     (*moeda)++;
-                    (*pontuacao)+=2;
+                    (*pontuacao) += 2;
                 }
-                if((*Criaturas)[i].tipo == 3){
-                    (*moeda)+=2;
-                    (*pontuacao)+=5;
+                if ((*Criaturas)[i].tipo == 3)
+                {
+                    (*moeda) += 2;
+                    (*pontuacao) += 5;
                 }
-                if((*Criaturas)[i].tipo == 4){
-                    (*moeda)+=3;
-                    (*pontuacao)+=15;
+                if ((*Criaturas)[i].tipo == 4)
+                {
+                    (*moeda) += 3;
+                    (*pontuacao) += 15;
                 }
-                
             }
         }
     }
@@ -386,13 +393,13 @@ int acertouACriatura(bala *projetil, mob **Criaturas, int wave, int *pontuacao, 
     return matouACriatura;
 }
 
-void achouOplayer(mob *criatura, nerdola *player){
+void achouOplayer(mob *criatura, nerdola *player)
+{
     if (CheckCollisionRecs((*criatura).ataque, (*player).colisao) && (*criatura).anima.estaAtacando == 0)
     {
         (*criatura).prontoPraAtacar = 0;
         (*criatura).anima.estaAtacando = 1;
         (*criatura).anima.frameCounter = 0;
-        (*criatura).velocidade = (double) 1;
+        (*criatura).velocidade = (double)1;
     }
 }
-

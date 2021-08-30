@@ -287,10 +287,10 @@ int main()
                             {
                                 (Criaturas[i]).ataque.width = 120;
                                 (Criaturas[i]).ataque.height = 120;
-                                DrawRectangleRec((Criaturas[i]).ataque, RED);
+                                //DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 achouOplayer(&Criaturas[i], &jogador);
                             } else {
-                                DrawRectangleRec((Criaturas[i]).ataque, RED);
+                                //DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 Criaturas[i].frameTimer++;
                                 if(Criaturas[i].frameTimer > 170){
                                     //printf("\n%d\n", Criaturas[i].frameTimer);

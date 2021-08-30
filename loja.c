@@ -37,7 +37,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador, bal
         posicaoMouse.x=GetMouseX();
         posicaoMouse.y=GetMouseY();
         Rectangle mouse = (Rectangle) {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
-        DrawRectangleRec(mouse, PINK);
+        //DrawRectangleRec(mouse, PINK);
         int compraAzul=0;
         int compraAmarela=0;
         int compraVida=0;

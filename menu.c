@@ -148,3 +148,25 @@ int menuInicial(Image *menuIm){
     return 0;
 }
 
+void pause(int w, int h){
+    while(IsKeyUp(KEY_Q)){
+        Camera2D pausado;
+        
+        pausado.zoom = GetScreenWidth()/1920.0f;
+        pausado.target = (Vector2){0.0f, 0.0f};
+        pausado.offset = (Vector2){0.0f, 0.0f};
+        pausado.rotation = 0.0f;
+
+        BeginMode2D(pausado);
+        BeginDrawing();
+
+        ClearBackground(BLACK);
+        DrawText("JOGO PAUSADO", w/2-195, h/2, 50, LIGHTGRAY);
+        DrawText("Pressione Q para retormar", w/2-205, h/2+60, 30, LIGHTGRAY);
+
+        EndDrawing();
+        EndMode2D();
+    }
+
+    return;
+}

@@ -9,4 +9,6 @@ void telaCarregamento();
 
 int menuInicial(Image *menuIm);
 
+void pause(int w, int h);
+
 #endif

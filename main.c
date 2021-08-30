@@ -433,8 +433,8 @@ int main()
                     heart.frameCounter++;
                     AnimarHud(&pcHUD, pcHUD.textura1, wid/10, wid/12, cameraJogador.target.x+wid/2.8, cameraJogador.target.y-hei/2.3-hei/16);
                     DrawText(TextFormat("%d Breakpoints", pontuacao), cameraJogador.target.x+wid/8, cameraJogador.target.y - hei/2.3 ,30, PURPLE);
-                    DrawText(TextFormat("Aperte 'E' para abrir a loja "), cameraJogador.target.x-wid/2 + 10, cameraJogador.target.y - hei/2 + 10 ,30, GOLD);
-                    DrawText(TextFormat("Moedas: %d", moeda), cameraJogador.target.x-wid/2 + 10, cameraJogador.target.y - hei/2.5,30, GOLD);
+                    DrawText(TextFormat("Aperte 'E' para abrir a loja "), cameraJogador.target.x-wid/2.1, cameraJogador.target.y - hei/2 + 10 ,30, GOLD);
+                    DrawText(TextFormat("Moedas: %d", moeda), cameraJogador.target.x-wid/2.1, cameraJogador.target.y - hei/2.5,30, GOLD);
 
                     DrawText(TextFormat("Vida: %d", jogador.vida), cameraJogador.target.x - wid/2.5, cameraJogador.target.y + hei/2.5 , 35, RED);
                     AnimarHud(&heart, heart.textura1, wid/40, wid/36, cameraJogador.target.x-wid/2.2, cameraJogador.target.y+hei/2.6);

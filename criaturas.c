@@ -184,10 +184,10 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).atacou = 0;
         (*criatura).frameTimer = 0;
         //Criando o retangulo de colisão
-        (*criatura).colisao.height = 200;
+        (*criatura).colisao.height = 100;
         (*criatura).colisao.width = 70;
         (*criatura).colisao.x = posX;
-        (*criatura).colisao.y = posY + 6000; //MEXER AQUI BOY!!!!!!!!!!!!!!!
+        (*criatura).colisao.y = posY; //MEXER AQUI BOY!!!!!!!!!!!!!!!
 
         //Criando o retangulo de colisão entre elas
         (*criatura).pequenaColisao.height = 25;

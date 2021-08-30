@@ -356,7 +356,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, 
             criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte, 1);
             for(int cnt=1; cnt<4; cnt++){
                 int j = i+cnt;
-                criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte, 2);
+                criarCriatura((*criaturas) + j, localizacao.x, localizacao.y, criaRec, criaRecMorte, 2);
             }
         }
         return;

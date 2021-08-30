@@ -199,7 +199,7 @@ int main()
                     {
 
                         //DrawRectangleRec(Criaturas[i].ataque, RED);
-                        DrawRectangleRec(Criaturas[i].colisao, PINK);
+                        //DrawRectangleRec(Criaturas[i].colisao, PINK);
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 1)
                         {
                             Criaturas[i].animaMorte.frameCounter++;

@@ -9,22 +9,10 @@
 
 void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[], int boss)
 {
-    int porcentagemMobs[10] = {1, 1, 1, 1, 1, 2, 2, 2, 3, 3};
+    int porcentagemMobs[10] = {1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
     int tipo = rand() % 10;
-    if(boss == 2){
-        porcentagemMobs[0] = 2;
-        porcentagemMobs[1] = 2;
-        porcentagemMobs[2] = 2;
-        porcentagemMobs[3] = 2;
-        porcentagemMobs[4] = 2;
-        porcentagemMobs[5] = 2;
-        porcentagemMobs[6] = 2;
-        porcentagemMobs[7] = 3;
-        porcentagemMobs[8] = 3;
-        porcentagemMobs[9] = 3;
-    }
 
-    if(boss != 1) switch (porcentagemMobs[tipo])
+    switch (porcentagemMobs[tipo])
     {
     case 1:
         //Setando animação da criatura
@@ -155,9 +143,8 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).pequenaColisao.x = posX;
         (*criatura).pequenaColisao.y = posY;
         break;
-    }
     
-    else{    
+    case 4:    
         //Setando animação da criatura
         (*criatura).anima.frame = (Rectangle) {0.0f, 0.0f, criaRec[2].width, criaRec[2].height};
         (*criatura).anima.delayAnimacao = 0;
@@ -212,6 +199,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
         (*criatura).ataque.width = 100;
         (*criatura).ataque.x = posX;
         (*criatura).ataque.y = posY;
+        break;
     }
 
     return;
@@ -342,27 +330,6 @@ void atingiuOPlayer2(mob *criatura, nerdola *player)
 
 void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, Rectangle criaRec[], Rectangle criaRecMorte[])
 {
-    if(wave%25==0){
-        wave /= 25;
-        wave *= 4;
-        (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
-        for (int i = 0; i < wave/4; i+=4)
-        {
-            int sIndex;
-            sIndex = i % 7;
-            // x = rand()%1700;
-            // y = rand()%800;
-            Vector2 localizacao = spawnPoints(sIndex, w, h);
-            criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte, 1);
-            for(int cnt=1; cnt<4; cnt++){
-                int j = i+cnt;
-                criarCriatura((*criaturas) + j, localizacao.x, localizacao.y, criaRec, criaRecMorte, 2);
-            }
-        }
-        return;
-    }
-    
-
     (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
     for (int i = 0; i < wave; i++)
     {

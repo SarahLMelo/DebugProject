@@ -25,7 +25,7 @@ double oldangulo;
 int main()
 {
     InitWindow(1280, 720, "Nosso jogo");
-    ToggleFullscreen();
+    //ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
     InitAudioDevice();
@@ -37,6 +37,8 @@ int main()
     int acaoAntiga = 1;
     Rectangle criaturaRec[2];
     Rectangle criaturaRecMorte[2];
+    //Loading texture menu
+    Image menuPng = LoadImage("etc/MENU.png");
     //Loading texturas
     Texture2D mapa = abrirMapa();
     Texture2D shadow = LoadTexture("etc/personagens/principal/shadow.png");
@@ -137,7 +139,7 @@ int main()
         clock_t prevTime = clock();
         int flag = 0;
 
-        if (menuInicial() == 1)
+        if (menuInicial(&menuPng) == 1)
         {
             //tela de carregamento (abre uma tela rosa por 60s antes do jogo começar)
             while (contadorTempo < 60000 && flag == 0)

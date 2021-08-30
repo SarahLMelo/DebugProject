@@ -335,7 +335,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, 
         (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
         for (int i = 0; i < wave; i++)
         {
-            int x, y, sIndex;
+            int sIndex;
             sIndex = i % 7;
             // x = rand()%1700;
             // y = rand()%800;
@@ -349,7 +349,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, 
     (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
     for (int i = 0; i < wave; i++)
     {
-        int x, y, sIndex;
+        int sIndex;
         sIndex = i % 7;
         // x = rand()%1700;
         // y = rand()%800;

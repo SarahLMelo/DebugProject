@@ -170,7 +170,7 @@ int mostrarGlossario
             }
         }
 
-        if(!mousebotaoLore || !mousebotaoFormas || !mousebotaoInimigos) 
+        if(!mousebotaoLore && !mousebotaoFormas && !mousebotaoInimigos) 
             contsom = 0;
 
     EndDrawing();  

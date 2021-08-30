@@ -195,7 +195,7 @@ int main()
                     {   
                         
                         //DrawRectangleRec(Criaturas[i].ataque, RED);
-                        DrawRectangleRec(Criaturas[i].colisao, PINK);
+                        //DrawRectangleRec(Criaturas[i].colisao, PINK);
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 1)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
@@ -214,7 +214,7 @@ int main()
                         if (Criaturas[i].animaMorte.morreu == 1 && Criaturas[i].tipo == 4)
                         {
                             Criaturas[i].animaMorte.frameCounter++;
-                            if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64); //(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64);
+                            if(Criaturas[i].animaMorte.flagAnimMorte == 0) AnimarCriatura2(&Criaturas[i].animaMorte, &criatura2TexMorte, &criaturaRecMorte[2],criatura2TexMorte.width/(6*3.5), criatura2TexMorte.height/(3.5), 96+32+128, 64+128-32); //(6*3.5), criatura2TexMorte.height/(3.5), 96+32, 64);
                         }
                         if (Criaturas[i].vida > 0 && Criaturas[i].tipo == 1)
                         {

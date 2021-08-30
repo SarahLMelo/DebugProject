@@ -11,8 +11,20 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
 {
     int porcentagemMobs[10] = {1, 1, 1, 1, 1, 2, 2, 2, 3, 3};
     int tipo = rand() % 10;
+    if(boss == 2){
+        porcentagemMobs[0] = 2;
+        porcentagemMobs[1] = 2;
+        porcentagemMobs[2] = 2;
+        porcentagemMobs[3] = 2;
+        porcentagemMobs[4] = 2;
+        porcentagemMobs[5] = 2;
+        porcentagemMobs[6] = 2;
+        porcentagemMobs[7] = 3;
+        porcentagemMobs[8] = 3;
+        porcentagemMobs[9] = 3;
+    }
 
-    if(boss == 0) switch (porcentagemMobs[tipo])
+    if(boss != 1) switch (porcentagemMobs[tipo])
     {
     case 1:
         //Setando animação da criatura
@@ -175,7 +187,7 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
 
         //Status básicos da criatura
         (*criatura).armadura = 30;
-        (*criatura).vida = 200;
+        (*criatura).vida = 500;
         (*criatura).dano = 260;
         (*criatura).velocidade = 2;
         (*criatura).alguemJaChocou = 0;
@@ -332,8 +344,9 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, 
 {
     if(wave%25==0){
         wave /= 25;
+        wave *= 4;
         (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
-        for (int i = 0; i < wave; i++)
+        for (int i = 0; i < wave/4; i+=4)
         {
             int x, y, sIndex;
             sIndex = i % 7;
@@ -341,6 +354,10 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, 
             // y = rand()%800;
             Vector2 localizacao = spawnPoints(sIndex, w, h);
             criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte, 1);
+            for(int cnt=1; cnt<4; cnt++){
+                int j = i+cnt;
+                criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte, 2);
+            }
         }
         return;
     }

@@ -16,7 +16,7 @@ void inicializaPlayer(nerdola *jogador)
     //Inicializa o player assim que abrir o jogo
     (*jogador).colisao.x = 4000;
     (*jogador).colisao.y = 1000;
-    (*jogador).vida = 250;
+    (*jogador).vida = 1000;
     (*jogador).armadura = 0;
     (*jogador).posicaoNerdola.x=810;
     (*jogador).posicaoNerdola.y=360;

@@ -25,8 +25,8 @@ double oldangulo;
 int main()
 {
     
-    InitWindow(1920, 1080, "TheBugger");
-    //ToggleFullscreen();
+    InitWindow(GetScreenWidth(), GetScreenHeight(), "TheBugger");
+    ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
     InitAudioDevice();

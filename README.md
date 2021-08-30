@@ -4,7 +4,7 @@ Projeto da disciplina de Introdução a Programação no qual consiste em criar 
 Link da biblioteca utilizada: https://www.raylib.com
 THE BUGGER
 
-Participantes do projeto: José Marcondes, Pedro Fernandes, Pedro Rodrigues, Sarah Melo, Eduarda Veras e Lucas Daniel
+Participantes do projeto: José Marcondes, Maria Eduarda Veras, Lucas Daniel, Pedro Fernandes, Pedro César Rodrigues e Sarah Melo.
 
 ![image](https://user-images.githubusercontent.com/86937803/131276705-91fd56aa-7145-48ee-8a5e-891838b7e472.png)
 

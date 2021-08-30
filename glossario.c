@@ -6,11 +6,11 @@ void inimigos(Texture2D libelulaverde, Texture2D libelulaamarela, Texture2D libe
     char descsintaxe[]="O bug menos danoso. Graças ao trabalho\ndos compiladores, é cada vez mais raro sua\nsobrevivência nos códigos atuais. Mas não\nse engane: graças a sua alta mobilidade, é\nfácil perdê-lo de vista. Portanto, tenha\ndestreza com a sua mira caso veja este bug.";
 
     char execucao[]="ERRO DE EXECUÇÃO";
-    char descexecucao[]="Será que todas as variáveis foram manipu-\nladas corretamente? Nerdola deve ter cuidado\nao ver esse bug, pois ele é mais difícil de derter\nque o erro de sintaxe por que vida é maior,\nalém de causar muito mais dano ao código.\nNunca perca esse bug de vista!";
+    char descexecucao[]="Será que todas as variáveis foram manipu-\nladas corretamente? Nerdola deve ter cuidado\nao ver esse bug, pois ele é mais difícil de deter\nque o erro de sintaxe, já que vida é maior,\nalém de causar muito mais dano ao código.\nNunca perca esse bug de vista!";
 
     char logica[]="ERRO DE LÓGICA";
     char desclogica[]="Um dos bugs mais perigosos, causando es-\ntrago nos mais diferentes códigos. Sacrifica\nmobilidade para ter um dano e resistência\nmuito maior que os outros bugs normais,\n por isso tenha cautela ao ver este bug.\nFaça os tiros valerem a pena.";
-//
+
     char vazamento[]="VAZAMENTO DE MEMÓRIA";
     char descvazamento[]="O bug mais temido de todo programador.\nO vazamento de memória é o maior inimigo de\nNerdola na sua prova de Introdução a Programação.\nPor ser tão letal como nenhum outro bug, Nerdola\ndeve manipular o free e alocar memória corretamente.\nSendo o bug mais difícil de lidar por seu alto poder\ndestrutivo, é considerado o Chefão de todos os bugs.";
 
@@ -37,7 +37,7 @@ void formas(Texture2D formaazul, Texture2D formaamarela){
     char forma1[]="Forma Recursiva";
     char forma2[]="Forma Iterativa";
     char descforma1[]="Nessa forma, Nerdola abdica de um pouco de velocidade para melhorar seu dano. Assim como a recursividade,\na forma azul é um artificio poderoso, porém deve ser usado com cautela devido ao possível malefício que\n podem trazer, afinal de contas não é tão bom perder velocidade e ficar suscetível a um dos possíveis bugs.";
-    char descforma2[]="Assim como a iteração possibilita velocidade e otimização a um codigo, a forma iterativa oferece mais possibi-\nlidade ao Nerdola, facilitando o personagem a desviar e correr dos inimigos com mais tranquilidade,\nenquanto atira. Ideal para jogadores que não querem correr risco, pois apesar de ser bastante segura,\né efetivamente menos danoso que a forma recursiva.";
+    char descforma2[]="Assim como a iteração possibilita velocidade e otimização a um codigo, a forma iterativa oferece mais possibi-\nlidade ao Nerdola, facilitando o personagem a desviar e correr dos inimigos com mais tranquilidade,\nenquanto atira. Ideal para jogadores que não querem correr risco, pois apesar de ser bastante segura,\né efetivamente menos danosa que a forma recursiva.";
 
     DrawText(forma1, 65, 250, 25, BLUE);
     DrawTexture(formaazul, 70, 285, WHITE);

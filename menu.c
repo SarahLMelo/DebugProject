@@ -1,5 +1,5 @@
-#include "menu.h"
 #include "raylib.h"
+#include "menu.h"
 #include <stdio.h>
 #include <math.h>
 #include "glossario.h"
@@ -28,30 +28,15 @@ void telaCarregamento(){
     UnloadTexture(teclado);
 }
 
-int menuInicial(){
+int menuInicial(Image *menuIm){
+    Texture2D menuPng = LoadTextureFromImage((*menuIm));
     Texture2D botaoStart=LoadTexture("Assets/Botoes/start.png");
     Rectangle botaoStartRec = {1300, 550, botaoStart.width, botaoStart.height};
     Texture2D botaoGlossario=LoadTexture("Assets/Botoes/menu.png");
     Rectangle botaoGlossarioRec = {1300, 730, botaoGlossario.width, botaoGlossario.height};
 
-    //carregando o nerdola*
-    Texture2D nerdola = LoadTexture("Assets/personagens/runRobo.png");
-    Rectangle frameNerdola = { 0.0, 0.0, (float)nerdola.width/8, (float)nerdola.height };
-    Rectangle caracNerdola = {1.0, 900/2.0, (nerdola.width/8)*5.5f, nerdola.height*5.5f};
-    Vector2 originNerdola = { (float)nerdola.width/8, (float)nerdola.height};
-
-    //carregando monstro da capa
-    Texture2D monstro = LoadTexture("Assets/personagens/monstroMenu/Attack3.png");
-    Rectangle frameMonstro = { 0.0, 0.0, (float)monstro.width/6, (float)monstro.height };
-    Rectangle caracMonstro = {1800/3.0, 900/2.0, (monstro.width/6)*5.5f, monstro.height*5.5f};
-    Vector2 originMonstro = { (float)monstro.width/6, (float)monstro.height};
-
     //carregando a musica do ratinho
     //InitAudioDevice();
-    Sound ratinho = LoadSound("Assets/audios/ratinho.wav");
-
-    //mensagem do titulo
-    const char titulo[]="TheBugger";
 
     //variaveis para o mouse e butoes
     Vector2 posicaoMouse={0,0};
@@ -72,8 +57,7 @@ int menuInicial(){
     int glossario=0;
     BeginDrawing();
     BeginMode2D(menu);
-
-
+    
     //DrawRectangleRec(botaoStartRec, PINK);
     //DrawRectangleRec(botaoGlossarioRec, PINK);
     posicaoMouse.x=GetMouseX();
@@ -81,7 +65,8 @@ int menuInicial(){
     double p = GetScreenWidth()/(double)1920;
     SetMouseScale((1/p), (1/p));
     mouse = (Rectangle) {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
-
+    float k = menuPng.width/(float)GetScreenWidth();
+    DrawTexturePro(menuPng, (Rectangle){0.0f, 0.0f,menuPng.width, menuPng.height}, (Rectangle){0.0f,0.0f,(int)((k)*GetScreenWidth())/2,(int)((k)*GetScreenHeight())/2}, (Vector2){0.0f, 0.0f}, 0.0f, WHITE);
     //DrawRectangleRec(mouse, PINK);
     if(CheckCollisionRecs(botaoStartRec, mouse)){
         mouseButaoStart=1;
@@ -106,11 +91,6 @@ int menuInicial(){
             DrawTexture(botaoStart, 1300, 550, DARKGREEN);
         } 
 
-        DrawTexturePro(nerdola, frameNerdola, caracNerdola, originNerdola, 0.0, WHITE); //sem animacao
-        DrawTexturePro(monstro, frameMonstro, caracMonstro, originMonstro, 0.0, WHITE); //sem animacao
-
-
-        DrawText(titulo, 30, 70, 270, DARKGREEN);
     
     EndMode2D();
     EndDrawing();
@@ -146,6 +126,7 @@ int menuInicial(){
                     glossario=0;
             }
             }
+            UnloadTexture(menuPng);
             UnloadTexture(botaoLore);
             UnloadTexture(botaoInimigos);
             UnloadTexture(botaoFormas);
@@ -164,8 +145,6 @@ int menuInicial(){
 
     UnloadTexture(botaoStart);
     UnloadTexture(botaoGlossario);
-    UnloadTexture(nerdola);
-    UnloadTexture(monstro);
     return 0;
 }
 

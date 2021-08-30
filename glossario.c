@@ -82,7 +82,6 @@ int mostrarGlossario
     Sound somBotao = LoadSound("Sounds/DigiBeeper.wav");
 
     Vector2 posicaoMouse = {0.0f ,0.0f};
-    int sair = 1;
     int mousebotaoLore = 0;
     int mousebotaoFormas = 0;
     int mousebotaoInimigos = 0;
@@ -90,8 +89,7 @@ int mostrarGlossario
     posicaoMouse.x=GetMouseX();
     posicaoMouse.y=GetMouseY();
     double p = GetScreenWidth()/(double)1366;
-    SetMouseScale(1/p, 1/p);
-    Rectangle mouse = {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
+    SetMouseScale(1/p, 1/p);;
     SetTargetFPS(60);
         //posicao do mause
 
@@ -176,4 +174,5 @@ int mostrarGlossario
     EndDrawing();  
     EndMode2D();
     UnloadSound(somBotao);
+    return 0;
 }

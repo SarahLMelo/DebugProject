@@ -7,6 +7,6 @@ void abrirGlossario();
 
 void telaCarregamento();
 
-int menuInicial();
+int menuInicial(Image *menuIm);
 
 #endif

@@ -24,7 +24,8 @@ double oldangulo;
 
 int main()
 {
-    InitWindow(1280, 720, "Nosso jogo");
+    
+    InitWindow(GetMonitorWidth(1), GetMonitorHeight(1), "TheBugger");
     ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
@@ -37,6 +38,8 @@ int main()
     int acaoAntiga = 1;
     Rectangle criaturaRec[2];
     Rectangle criaturaRecMorte[2];
+    //Loading texture menu
+    Image menuPng = LoadImage("etc/MENU.png");
     //Loading texturas
     Texture2D mapa = abrirMapa();
     Texture2D shadow = LoadTexture("etc/personagens/principal/shadow.png");
@@ -137,7 +140,7 @@ int main()
         clock_t prevTime = clock();
         int flag = 0;
 
-        if (menuInicial() == 1)
+        if (menuInicial(&menuPng) == 1)
         {
             //tela de carregamento (abre uma tela rosa por 60s antes do jogo começar)
             while (contadorTempo < 60000 && flag == 0)
@@ -287,10 +290,10 @@ int main()
                             {
                                 (Criaturas[i]).ataque.width = 120;
                                 (Criaturas[i]).ataque.height = 120;
-                                DrawRectangleRec((Criaturas[i]).ataque, RED);
+                                //DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 achouOplayer(&Criaturas[i], &jogador);
                             } else {
-                                DrawRectangleRec((Criaturas[i]).ataque, RED);
+                                //DrawRectangleRec((Criaturas[i]).ataque, RED);
                                 Criaturas[i].frameTimer++;
                                 if(Criaturas[i].frameTimer > 170){
                                     //printf("\n%d\n", Criaturas[i].frameTimer);
@@ -473,6 +476,7 @@ int main()
                             EndMode2D();
                             if (IsKeyDown(KEY_P))
                             {
+                                UnloadImage(menuPng);
                                 UnloadTexture(criatura1TexYellow);
                                 UnloadTexture(criatura1TexYellowMorte);
                                 UnloadTexture(criatura1TexGreen);
@@ -503,6 +507,7 @@ int main()
             }
         }
     }
+    UnloadImage(menuPng);
     UnloadTexture(criatura1TexYellow);
     UnloadTexture(criatura1TexYellowMorte);
     UnloadTexture(criatura1TexGreen);

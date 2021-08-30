@@ -24,7 +24,8 @@ double oldangulo;
 
 int main()
 {
-    InitWindow(1280, 720, "Nosso jogo");
+    
+    InitWindow(GetMonitorWidth(1), GetMonitorHeight(1), "TheBugger");
     //ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
@@ -472,6 +473,7 @@ int main()
                             EndMode2D();
                             if (IsKeyDown(KEY_P))
                             {
+                                UnloadImage(menuPng);
                                 UnloadTexture(criatura1TexYellow);
                                 UnloadTexture(criatura1TexYellowMorte);
                                 UnloadTexture(criatura1TexGreen);
@@ -502,6 +504,7 @@ int main()
             }
         }
     }
+    UnloadImage(menuPng);
     UnloadTexture(criatura1TexYellow);
     UnloadTexture(criatura1TexYellowMorte);
     UnloadTexture(criatura1TexGreen);

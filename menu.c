@@ -37,10 +37,6 @@ int menuInicial(Image *menuIm){
 
     //carregando a musica do ratinho
     //InitAudioDevice();
-    Sound ratinho = LoadSound("Assets/audios/ratinho.wav");
-
-    //mensagem do titulo
-    const char titulo[]="TheBugger";
 
     //variaveis para o mouse e butoes
     Vector2 posicaoMouse={0,0};

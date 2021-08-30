@@ -26,7 +26,7 @@ int main()
 {
     
     InitWindow(GetMonitorWidth(1), GetMonitorHeight(1), "TheBugger");
-    //ToggleFullscreen();
+    ToggleFullscreen();
     int wid = GetScreenWidth();
     int hei = GetScreenHeight();
     InitAudioDevice();

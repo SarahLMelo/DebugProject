@@ -18,7 +18,7 @@ Vector2 spawnPoints(int i, int width, int height){
     spawnPointMob[3] = (Vector2) { 48*25, 320 };  //Spawnpoint porta entre caixões
     spawnPointMob[4] = (Vector2) { width*3-48*15, 320 };  //Spawnpoint ponte
     spawnPointMob[5] = (Vector2) { width*3-160, 48*52 }; //Spawnpoint burac obaixo direito
-    spawnPointMob[6] = (Vector2) { 48*108, height*3-48*3 }; //Spawnpoint canto inferior
+    spawnPointMob[6] = (Vector2) { 48*108, height*3-48*5 }; //Spawnpoint canto inferior
     return spawnPointMob[i];
  }
 

@@ -9,8 +9,9 @@
 
 void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[], Rectangle criaRecMorte[], int boss)
 {
-    int porcentagemMobs[10] = {1, 1, 1, 1, 2, 2, 2, 3, 3, 4};
-    int tipo = rand() % 10;
+    int porcentagemMobs[20] = {1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
+                               2, 3, 3, 3, 3, 3, 3, 4, 4, 4};
+    int tipo = rand() % 20;
 
     switch (porcentagemMobs[tipo])
     {
@@ -174,9 +175,9 @@ void criarCriatura(mob *criatura, double posX, double posY, Rectangle criaRec[],
 
         //Status básicos da criatura
         (*criatura).armadura = 30;
-        (*criatura).vida = 500;
+        (*criatura).vida = 800;
         (*criatura).dano = 260;
-        (*criatura).velocidade = 2;
+        (*criatura).velocidade = 4;
         (*criatura).alguemJaChocou = 0;
         (*criatura).tipo = 4;
         (*criatura).prontoPraAtacar = 1;

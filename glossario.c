@@ -56,7 +56,19 @@ void lore(){
     DrawText(historia, 65, 250, 20, LIGHTGRAY);
 }
 
-void mostrarGlossario(){
+int mostrarGlossario
+            (
+            Texture2D botaoLore,
+            Texture2D botaoInimigos,
+            Texture2D botaoFormas,
+            Texture2D botaoVoltar,
+            Texture2D libelulaverde,
+            Texture2D libelulaamarela,
+            Texture2D libelulavermelha,
+            Texture2D esqueletoimg,
+            Texture2D formaazul,
+            Texture2D formaamarela
+            ){
 
     //ToggleFullscreen();
     Camera2D menu;
@@ -67,17 +79,6 @@ void mostrarGlossario(){
 
     const char titulo[] = "GLOSSÁRIO";
     
-    Texture2D botaoLore=LoadTexture("Assets/Botoes/lore.png");
-    Texture2D botaoInimigos=LoadTexture("Assets/Botoes/inimigos.png");
-    Texture2D botaoFormas=LoadTexture("Assets/Botoes/formas.png");
-    Texture2D botaoVoltar=LoadTexture("Assets/Botoes/voltar.png");
-    Texture2D libelulaverde = LoadTexture("Assets/assets/libelulaverde.png");
-    Texture2D libelulaamarela = LoadTexture("Assets/assets/libelulaamarela.png");
-    Texture2D libelulavermelha = LoadTexture("Assets/assets/libelulavermelha.png");
-    Texture2D esqueletoimg = LoadTexture("Assets/assets/esqueleto.png");
-    Texture2D formaazul=LoadTexture("Assets/assets/forma_azul.png");
-    Texture2D formaamarela=LoadTexture("Assets/assets/forma_amarela.png");
-
     Sound somBotao = LoadSound("Sounds/DigiBeeper.wav");
 
     Vector2 posicaoMouse = {0.0f ,0.0f};
@@ -92,8 +93,6 @@ void mostrarGlossario(){
     SetMouseScale(1/p, 1/p);
     Rectangle mouse = {(float) posicaoMouse.x, (float) posicaoMouse.y, 20, 20};
     SetTargetFPS(60);
-
-    if (sair){
         //posicao do mause
 
         //CHECANDO O MOUSE
@@ -119,7 +118,7 @@ void mostrarGlossario(){
 
         BeginDrawing();
         BeginMode2D(menu);
-            DrawRectangleRec(mouse, PINK);
+            //DrawRectangleRec(mouse, PINK);
             ClearBackground(BLACK);
             DrawText(titulo, 460, 20, 75, DARKGREEN); // 0 (x), 0 (y) = cant.sup.esq.
             if(mousebotaoLore){
@@ -171,24 +170,10 @@ void mostrarGlossario(){
             }
         }
 
-        if(!mousebotaoLore && !mousebotaoFormas && !mousebotaoInimigos) 
+        if(!mousebotaoLore || !mousebotaoFormas || !mousebotaoInimigos) 
             contsom = 0;
 
     EndDrawing();  
     EndMode2D();
-    } else {
-        UnloadSound(somBotao);
-        CloseAudioDevice();
-        UnloadTexture(botaoLore);
-        UnloadTexture(botaoInimigos);
-        UnloadTexture(botaoFormas);
-        UnloadTExture(botaoVoltar);
-        UnloadTexture(libelulaverde);
-        UnloadTexture(libelulaamarela);
-        UnloadTexture(libelulavermelha);
-        UnloadTexture(esqueletoimg);
-        UnloadTexture(formaazul);
-        UnloadTexture(formaamarela);
-    }
-    sair = 0;
+    UnloadSound(somBotao);
 }

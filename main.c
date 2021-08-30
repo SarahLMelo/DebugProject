@@ -22,7 +22,6 @@ int qtdDeParedes = 45;
 int timerPosition = 0;
 double oldangulo;
 
-
 int main()
 {
     InitWindow(1280, 720, "Nosso jogo");
@@ -126,7 +125,6 @@ int main()
     menu.target = (Vector2){0.0f, 0.0f};
     menu.offset = (Vector2){0.0f, 0.0f};
     menu.rotation = 0.0f;
-    
     //Iniciando o game
     SetTargetFPS(60);
     //Setando os grids do collision map
@@ -178,6 +176,7 @@ int main()
                 criaturasVivas = wave * 5;
                 while (criaturasVivas > 0)
                 {
+                    DisableCursor();
                     //Atualizando a stream da música
                     UpdateMusicStream(music);
                     //Criando a parte de imagem
@@ -188,11 +187,7 @@ int main()
                     //Desenhando o mapa
                     DrawTextureEx(mapa, (Vector2){0.0f, 0.0f}, 0.0f, 3.0f, WHITE);
                     DrawTextureEx(shadow, (Vector2){(float)cameraJogador.target.x - 16 * 2.75 * 6, (float)cameraJogador.target.y - 16 * 3 * 8}, 0.0f, 3.0f, WHITE);
-
-
                     DrawCircleV(circlePosicao, 5, miraCor);
-
-                  
                     moverCriatura(&Criaturas, jogador.colisao.x, jogador.colisao.y, grid, qtdDeParedes, wave * 5);
                     //Animando criatura
                     double AnguloAt;
@@ -475,7 +470,6 @@ int main()
                             EndMode2D();
                             if (IsKeyDown(KEY_P))
                             {
-                                //free(Criaturas);
                                 UnloadTexture(criatura1TexYellow);
                                 UnloadTexture(criatura1TexYellowMorte);
                                 UnloadTexture(criatura1TexGreen);

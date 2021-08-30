@@ -467,6 +467,7 @@ int main()
                             modRifle = 0;
                             modPistola = 0;
                             criaturasVivas = 0;
+                            moeda = 0;
                             criarWave(wave * 5, &criaturasVivas, &Criaturas, mapa.width, mapa.height, criaturaRec, criaturaRecMorte);
                             inicializaPlayer(&jogador);
                             EndMode2D();

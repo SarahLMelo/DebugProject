@@ -67,6 +67,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador, bal
         DrawText("armadura ------ +1", 95, 615, 50, WHITE);
         DrawText("30 moedas", 1500, 615, 50, WHITE);
         DrawText("recarregar", 95, 735, 50, WHITE);
+        DrawText("5 moedas", 1500, 735, 50, WHITE);
         DrawText("Para SAIR aperte Q", 1450, 1000, 30, WHITE);
 
         if(compraAzul==1)
@@ -106,11 +107,17 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador, bal
 
         if(recarregar==1)
         {
-            DrawRectangleLines(80, 730, 1700, 70, GRAY);
-            if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
-                recarregarArmas(armaPrincipal, armaSecundaria, qntdMaxP, qntdMaxS, balasGastasPrincipal, balasGastasSec);
+             DrawRectangleLines(80, 610, 1700, 70, GRAY);
+            if ((*moeda)>=5)
+            {
+                if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+                    recarregarArmas(armaPrincipal, armaSecundaria, qntdMaxP, qntdMaxS, balasGastasPrincipal, balasGastasSec);
+                    (*moeda)-=5;
+                }
+            }     
+            else DrawRectangleLines(80, 610, 1700, 70, RED);
         } 
-        else DrawRectangleLines(80, 730, 1700, 70, VIOLET);
+        else DrawRectangleLines(80, 610, 1700, 70, VIOLET);
 
         DrawText(TextFormat("moedas: %d", (*moeda)), 1500, 60, 50, YELLOW);
 

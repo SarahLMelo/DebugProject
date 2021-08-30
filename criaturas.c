@@ -330,8 +330,8 @@ void atingiuOPlayer2(mob *criatura, nerdola *player)
 
 void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, Rectangle criaRec[], Rectangle criaRecMorte[])
 {
-    if(wave%5==0){
-        wave /= 5;
+    if(wave%25==0){
+        wave /= 25;
         (*criaturas) = (mob *)malloc(sizeof(mob) * wave);
         for (int i = 0; i < wave; i++)
         {
@@ -342,6 +342,7 @@ void criarWave(int wave, int *qtdCriaturasVivas, mob **criaturas, int w, int h, 
             Vector2 localizacao = spawnPoints(sIndex, w, h);
             criarCriatura((*criaturas) + i, localizacao.x, localizacao.y, criaRec, criaRecMorte, 1);
         }
+        return;
     }
     
 

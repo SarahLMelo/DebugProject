@@ -96,7 +96,7 @@ void abrirLoja(int *moeda, int *modPistola, int *modRifle, nerdola *jogador, bal
         if(compraVida==1)
         {
             DrawRectangleLines(80, 610, 1700, 70, GRAY);
-            if ((*moeda)>=20)
+            if ((*moeda)>=30)
             {
                 if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
                     aumentoArmadura(jogador, moeda);

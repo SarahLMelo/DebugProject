@@ -20,7 +20,8 @@ O jogo consiste em um robô que precisa matar os bugs(debuggar)
 
 Música autoral feita por Pedro Fernandes.
 
-Arte e mapa feitos pelo grupo
+Esqueleto Fonte - Sven Thole 
+98% da arte feita pelo grupo
 
 Sistema de loja e upgrades
 
